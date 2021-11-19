@@ -24,7 +24,7 @@ class TrickType extends AbstractType
                 //'constraints'=> [ new Image(['maxSize'=>'1M'])],
                 'imagine_pattern' => 'squared_thumbnail_small',
                 ])
-            ->add('name', TextType::class)
+            ->add('nom', TextType::class)
             ->add('description', TextareaType::class)
             ->add('groupe', TextareaType::class)
         ;
