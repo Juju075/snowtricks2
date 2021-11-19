@@ -1,6 +1,0 @@
-{# valable uniquement pour success error et info#} {% for type, messages in
-app.flashes(['success', 'error', 'info']) %} {% for message in messages %}
-<div class="alert alert-{{ type }}" role="alert">
-  {{ message }}
-</div>
-{% endfor %} {% endfor %}
