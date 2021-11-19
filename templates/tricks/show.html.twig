@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html.twig' %}{% block title %}Show!{% endblock %} {%
+block body%} {# Page de detail.#}
+<div class="container">
+  <div class="slider">
+    <div>Buttons</div>
+    <div>{{ trick.name }}</div>
+
+    <a href="{{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
+
+    {# Hack (send DELETE method & csrcf)button deletion new proccess? #}
+    <a
+      href="#"
+      onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-trick-delete-form').submit();"
+      class=""
+      >Delete</a
+    >
+    <form
+      id="js-trick-delete-form"
+      action="{{ path('app_tricks_delete', { id: trick.id }) }}"
+      method="post"
+      style="display: none"
+    >
+      <input
+        type="hidden"
+        name="csrf_token"
+        value="{{ csrf_token('trick_deletion_' ~ trick.id)}}"
+      />
+      <input type="hidden" name="_method" value="DELETE" />
+    </form>
+  </div>
+  <div class="row">
+    <div>video1</div>
+    <div>video2</div>
+    <div>video3</div>
+    <div>video4</div>
+    <div>video5</div>
+    <div>video6</div>
+  </div>
+
+  <div class="row">
+    <p>
+      Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam repellat
+      ipsum nostrum voluptas corrupti vitae quod. Tempora culpa deserunt fugit
+      cumque quidem mollitia reiciendis enim, placeat veniam, tempore, assumenda
+      rerum. Lorem ipsum, dolor sit amet consectetur adipisicing elit. Aliquam
+      repellat ipsum nostrum voluptas corrupti vitae quod. Tempora culpa
+      deserunt fugit cumque quidem mollitia reiciendis enim, placeat veniam,
+      tempore, assumenda rerum.
+    </p>
+  </div>
+  <div class="row">
+    <p>info1</p>
+    <p>info2</p>
+    <p>info3</p>
+    <p>info4</p>
+  </div>
+  <hr />
+  <div class="row">
+    <form action="">
+      <input type="text" />
+      <input type="submit" value="Leave a comment" />
+    </form>
+  </div>
+  <hr />
+  <section class="comment">
+    Foreach comment
+    <div class="container">
+      <div>
+        <img src="" alt="" srcset="" />
+      </div>
+      <div>
+        <p>lorem</p>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock body %}

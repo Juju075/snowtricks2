@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html.twig' %} {% block title 'New Trick' %} {% block
+body %}
+<div class="row">
+  <div class="col-md-6 mx-auto">
+    <h1>Create Trick</h1>
+    {{
+      include("tricks/_form.html.twig", { submitButtonText: "Create Trick" })
+    }}
+  </div>
+</div>
+{% endblock %}

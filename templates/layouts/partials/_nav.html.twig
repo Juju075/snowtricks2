@@ -1,0 +1,63 @@
+<section class="navigation">
+  <div class="row">
+    <div class="logo"></div>
+    {# Navigation #}
+    <div class="navigation">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_home') }}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_tricks_create') }}">Create</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_tricks_demo') }}">Show test</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+      </li>
+
+      <!-- <lu>
+        <li>Home</li>
+        la liste des figures
+        <li>Tricks</li>
+        <li>Sign in</li>
+        <li>Sign up</li>
+      </lu> -->
+
+      <nav
+        class="
+          container_project container_project--pall
+          flex flex-jc-sb flex-ai-c
+        "
+      >
+        <!-- logo ici -->
+        <a href="#" class="header__logo"
+          ><img
+            src="/images/logos/logo_header.png"
+            alt="logo"
+            width="283"
+            height="70"
+        /></a>
+        <!-- hamburger -->
+        <!-- au clic lance le js -->
+        <a id="btnHamburger" href="#" class="header__toogle hide-for-desktop">
+          <span></span>
+          <span></span>
+          <span></span>
+        </a>
+        <div class="header__links hide-for-mobile">
+          <a href="">Accueil</a>
+          <a href="">ici</a>
+          <a href="">ici</a>
+          <a href="">ici</a>
+        </div>
+      </nav>
+    </div>
+  </div>
+</section>
