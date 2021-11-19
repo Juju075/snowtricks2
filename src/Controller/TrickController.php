@@ -23,4 +23,84 @@ class TrickController extends AbstractController
         $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         return $this->render('tricks/index.html.twig', compact('tricks'));
     }
+
+    
+    /**
+     * @Route("/tricks/create",name="app_tricks_create", methods={"GET","POST"})
+     */
+    public function create(Request $request, EntityManagerInterface $em): Response 
+    {
+        $trick = new Trick;
+        $form = $this->createform(TrickType::class, $trick);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+            $em->persist($trick);
+            $em->flush();
+
+            $this->addFlash('success', 'Trick successfully edited');
+            return $this->redirectToRoute('app_home');
+        }
+        return $this->renderForm('tricks/create.html.twig', ['form'=> $form,]);
+    }
+
+    // //public function show(Trick $trick): Response
+    // /**
+    // * @Route("/tricks/show", name="app_tricks_demo", methods={"GET"})
+    // */
+    // public function show(): Response
+    // {
+    //     $trick = array('id'=>1,'name'=>'name', 'description'=>'description');
+    //     return $this->render('tricks/show.html.twig', compact('trick'));
+    // }
+
+    // /**
+    //  * contenir le nom de la figure sous forme de slug
+    // * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET"})
+
+
+    // */
+    // public function showBackup(Trick $trick): Response
+    // {
+    //     return $this->render('tricks/show.html.twig', compact('trick'));
+    // }
+
+
+    //Zakaria
+    /**
+    * @Route("/tricks/{id}", name="app_tricks_show", methods={"GET"})
+     */
+    public function show(int $id): Response
+    {
+        $trick = $this->getDoctrine()->getRepository(Trick::class)->find($id);
+        return $this->render('tricks/show.html.twig', ['trick'=>$trick]);
+    }
+
+    /**
+     * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET","PUT"})
+     */
+    public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
+    {
+        //prepopuler les champs
+        $form = $this->createForm(TrickType::class, $trick, ['method'=> 'PUT']);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+                $em->persist($trick);
+                $em->flush();
+        }
+        return $this->renderForm('tricks/edit.html.twig',['form'=>$form]);
+    }
+    /**
+     * @Route("/tricks/{id<[0-9]+>}/delete", name = "app_tricks_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
+    {
+        //Contraite etre l'auteur(token) du $trick.
+        if ($this->isCsrfTokenValid('trick_deletion_' . $trick->getId(), $request->request->get('csrf_token'))) {
+            $em->remove($trick);
+            $em->flush();
+            $this->addFlash('info', 'Trick successfully deleted!');
+        }
+        return $this->redirectToRoute('app_home');
+    }
 }
