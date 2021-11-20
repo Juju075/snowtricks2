@@ -44,33 +44,20 @@ class TrickController extends AbstractController
         return $this->renderForm('tricks/create.html.twig', ['form'=> $form,]);
     }
 
-    // //public function show(Trick $trick): Response
-    // /**
-    // * @Route("/tricks/show", name="app_tricks_demo", methods={"GET"})
-    // */
-    // public function show(): Response
-    // {
-    //     $trick = array('id'=>1,'name'=>'name', 'description'=>'description');
-    //     return $this->render('tricks/show.html.twig', compact('trick'));
-    // }
-
-    // /**
-    //  * contenir le nom de la figure sous forme de slug
-    // * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET"})
-
-
-    // */
-    // public function showBackup(Trick $trick): Response
-    // {
-    //     return $this->render('tricks/show.html.twig', compact('trick'));
-    // }
-
-
-    //Zakaria
     /**
-    * @Route("/tricks/{id}", name="app_tricks_show", methods={"GET"})
+    * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET"})
+    */
+    public function show(Trick $trick):Response
+    {
+        return $this->render('tricks/show.html.twig', compact('trick'));
+    }
+
+
+    //Zakaria 
+    /**
+    * 
      */
-    public function show(int $id): Response
+    public function showZakaria(int $id): Response
     {
         $trick = $this->getDoctrine()->getRepository(Trick::class)->find($id);
         return $this->render('tricks/show.html.twig', ['trick'=>$trick]);

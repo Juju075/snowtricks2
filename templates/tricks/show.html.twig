@@ -3,7 +3,7 @@ block body%} {# Page de detail.#}
 <div class="container">
   <div class="slider">
     <div>Buttons</div>
-    <div>{{ trick.name }}</div>
+    <div>{{ trick.nom }}</div>
 
     <a href="{{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
 
@@ -55,12 +55,14 @@ block body%} {# Page de detail.#}
     <p>info4</p>
   </div>
   <hr />
+
   <div class="row">
     <form action="">
       <input type="text" />
       <input type="submit" value="Leave a comment" />
     </form>
   </div>
+  
   <hr />
   <section class="comment">
     Foreach comment
