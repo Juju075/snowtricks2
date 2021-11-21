@@ -79,7 +79,7 @@ class TrickController extends AbstractController
         return $this->renderForm('tricks/edit.html.twig',['form'=>$form]);
     }
     /**
-     * @Route("/tricks/{id<[0-9]+>}/delete", name = "app_tricks_delete", methods={"DELETE"})
+     * @Route("/tricks/{id<[0-9]+>}/delete", name = "app_tricks_delete")
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {

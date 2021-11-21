@@ -1,0 +1,113 @@
+.hero {
+  @include breakpoint-down(medium) {
+  }
+  p {
+    color: black;
+  }
+  .carousel {
+  }
+  .carousel-indicators {
+    position: absolute;
+    top: 29rem;
+  }
+
+  .carousel-caption {
+    z-index: 10;
+    bottom: 10%;
+  }
+  .carousel-inner {
+    border: 2px solid blue;
+  }
+  /* Declare heights because of positioning of img element */
+  .carousel-item {
+    height: 32rem;
+    background: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    position: relative;
+    background-position: center;
+    background-size: cover;
+    //border: 2px solid green;
+  }
+  //Sizing img
+  .carousel-item > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 100%;
+    height: auto;
+    //border: 2px solid green;
+  }
+  //Pour controler l'image en overlay
+  .overlay-image {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background-position: center;
+    background-size: cover;
+    opacity: 1;
+    //border: 5px dotted yellow;
+  }
+  // Container texte
+  .container {
+    position: absolute;
+    bottom: 200px;
+    left: 0;
+    right: 0;
+    padding-bottom: 0px;
+    //border: 1px solid red;
+  }
+
+  .carousel-control-prev-interne {
+    position: absolute;
+    top: 14.375rem;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    opacity: 0.75;
+    transition: opacity 0.15s ease;
+    //border: 1px solid red;
+  }
+  .carousel-control-next-interne {
+    position: absolute;
+    top: 14.375rem;
+    left: 90rem;
+    bottom: 0;
+    z-index: 1;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 15%;
+    color: rgb(0, 0, 0);
+    text-align: center;
+    opacity: 0.75;
+    transition: opacity 0.15s ease;
+    //border: 1px solid red;
+  }
+  &__contenu {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    //border: 1px solid red;
+    img {
+      height: 18.75rem;
+    }
+    h3 {
+      margin-top: 6.25rem;
+      font: size 1.875rem;
+      font-weight: bold;
+    }
+  }
+}

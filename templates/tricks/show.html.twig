@@ -3,6 +3,13 @@ block body%} {# Page de detail.#}
 <div class="container">
   <div class="slider">
     <div>Buttons</div>
+
+    <img
+      src="{{ (trick.imageName ? vich_uploader_asset(trick) : asset('images/placeholder.jpg'))|imagine_filter('squared_thumbnail_medium') }}"
+      alt="{{ trick.nom }}"
+      class=""
+    />
+
     <div>{{ trick.nom }}</div>
 
     <a href="{{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
@@ -11,7 +18,7 @@ block body%} {# Page de detail.#}
     <a
       href="#"
       onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-trick-delete-form').submit();"
-      class=""
+      class="btn btn-light"
       >Delete</a
     >
     <form
@@ -27,6 +34,7 @@ block body%} {# Page de detail.#}
       />
       <input type="hidden" name="_method" value="DELETE" />
     </form>
+    {{ dump() }}
   </div>
   <div class="row">
     <div>video1</div>
@@ -62,7 +70,7 @@ block body%} {# Page de detail.#}
       <input type="submit" value="Leave a comment" />
     </form>
   </div>
-  
+
   <hr />
   <section class="comment">
     Foreach comment

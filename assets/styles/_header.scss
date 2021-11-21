@@ -1,0 +1,108 @@
+.header {
+  /**Action CSS:
+ * par convention c .open{joue l'action animation et transform css}
+ *Ouverture de l'overlay au clic sur l'hamburger
+ *contient overlay + hamburger
+ *
+ */
+  &.open {
+    .overlay {
+      display: block;
+      animation: fade-in 300ms ease-in-out forwards;
+    }
+
+    //Hamburger (transformation des spans)
+    .header__toogle {
+      > span:first-child {
+        transform: rotate(45deg);
+      }
+      > span:nth-child(2) {
+        opacity: 0;
+      }
+      > span:last-child {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+
+  // cible les elements
+  //apparait tout le temps
+  .overlay {
+    position: fixed;
+    top: 3.75rem;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    background-image: linear-gradient($darkBlue, transparent);
+    opacity: 0.3;
+  }
+  nav {
+    padding-top: 1.0625rem;
+    padding-bottom: 1.0625rem;
+  }
+  //Quest ce quon veut faire?
+
+  //definir la taille du logo. on cible img
+  &__logo {
+    img {
+      width: 10rem;
+      height: 4rem;
+    }
+  }
+  //fair apparaitre 1 trait pour chaque span.
+  &__toogle {
+    > span {
+      display: block;
+      width: 26px;
+      height: 2px;
+      background-color: $darkBlue;
+      transition: color 200ms ease-in-out;
+      transform-origin: 3px 1px;
+
+      &:not(:last-child) {
+        //espacement sauf dernier
+        margin-bottom: 5px;
+      }
+    }
+  }
+  //menu desktop - Syling et espacement . on cible a
+  &__links {
+    a {
+      position: relative;
+      font-size: $font-sm;
+      color: $grayishBlue;
+      transition: color 200ms ease-in-out;
+
+      &:not(:last-child) {
+        //margin de tant que c pas le dernier
+        margin-right: 32px;
+      }
+      //Speudo element border passage de souris
+      &:hover {
+        color: $darkBlue;
+      }
+    }
+  }
+
+  //menu mobile -
+  &__menu {
+    // Background pour le menu
+    position: absolute;
+    width: calc(100% - 3rem);
+    left: 50%;
+    margin-top: 1.5rem;
+    padding: 1.625rem;
+    background: white;
+    transform: translateX(-50%);
+    border-radius: 5px;
+
+    //transform:translateX(
+
+    a {
+      display: block; // Alignement vertical
+      color: $darkBlue;
+      padding: 0.625rem;
+      text-align: center;
+    }
+  }
+}

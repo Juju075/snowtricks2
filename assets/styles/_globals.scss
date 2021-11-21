@@ -1,0 +1,280 @@
+@import "_mixins.scss";
+
+// Markups
+html {
+  font-size: 100%;
+  box-sizing: border-box;
+}
+/* a voir html ou (*) */
+/* box-sizing définit la façon dont la hauteur et la largeur totale d'un élément est calculé  */
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+/* utilisée avec ::before et ::after afin de générer le contenu d'un élément. */
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Public Sans", sans-serif;
+  font-size: $font-med;
+  color: $grayishBlue;
+  line-height: 1.3;
+  overflow-x: hidden; // Correction ascenseur horizontal
+
+  &.noscroll {
+    overflow: hidden;
+  }
+}
+h1,
+h2,
+h3 {
+  margin-top: 0px;
+  font-weight: 300;
+  line-height: 1.15; // used to set the distance between lines of text.
+  color: $darkBlue;
+  font-size: 2.31rem;
+}
+h4 {
+  margin-top: 0px;
+  font-weight: 300;
+  line-height: 1.15; // used to set the distance between lines of text.
+  color: $darkBlue;
+  font-size: 27px;
+}
+h1 {
+  margin-bottom: 1.5rem;
+
+  @include breakpoint-up(large) {
+    // Modification de h1 si nouveau breakpoint
+    font-size: $font-xlg;
+  }
+}
+h2 {
+  font-size: 1.875rem;
+  margin-bottom: 2.25rem;
+
+  @include breakpoint-up(large) {
+    font-size: 2.25rem;
+    margin-bottom: 2.25rem;
+  }
+}
+
+a,
+a:visited,
+a:hover {
+  text-decoration: none;
+  color: rgb(0, 0, 0);
+}
+
+//Displays
+.flex {
+  display: flex;
+
+  //Hyperclass
+  &-jc-sb {
+    justify-content: space-between;
+  }
+  &-jc-c {
+    justify-content: space-between;
+  }
+  &-ai-c {
+    align-content: center;
+  }
+}
+
+//Buttons
+button,
+.button {
+  display: inline-block; // ^pou
+  padding: 0.875rem 2.1875rem;
+  background: rgb(55, 55, 156);
+  border-radius: 1.25rem;
+  border-radius: 50px;
+  border: 0;
+  cursor: pointer;
+  color: white;
+  font-weight: 700;
+  font-size: $font-sm;
+  transition: opacity 300ms ease-in-out;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.button_animated {
+  color: #494949;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 20px;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  border: 3px solid #494949;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+
+  &:hover {
+    color: #ffffff;
+    background: #3c82c4;
+    border-color: #2d30db;
+    transition: all 0.4s ease 0s;
+  }
+}
+
+.button_collaborateur {
+  color: #494949;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #ffffff;
+  padding: 20px;
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  border: 3px solid #494949;
+  border-radius: 1.25rem;
+
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+
+  &:hover {
+    color: #ffffff;
+    background: #3c82c4;
+    border-color: #2d30db;
+    transition: all 0.4s ease 0s;
+    border-radius: 0rem;
+    -webkit-box-shadow: 2px 6px 15px 4px rgba(0, 0, 0, 0.7);
+    box-shadow: 2px 6px 15px 4px rgba(0, 0, 0, 0.7);
+  }
+}
+.button_standard {
+  margin-top: 1.25rem;
+  margin-bottom: 100px;
+  display: inline-block; // ^pou
+  padding: 0.875rem 2.1875rem;
+  background: rgb(128, 128, 138);
+  border: 0;
+  cursor: pointer;
+  color: rgb(0, 0, 0);
+  font-weight: 700;
+  font-size: $font-sm;
+  transition: opacity 300ms ease-in-out;
+
+  &:hover {
+    opacity: 0.75;
+    color: blue;
+  }
+  &:hover {
+  }
+}
+
+/* button, .button double selecteur
+* font-weight permet de définir la graisse utilisée pour le texte
+*/
+
+//Responsive
+//Elements Visibility Mobile first
+.hide-for-mobile {
+  //hide for mobile and tablet button menu
+  @include breakpoint-down(medium) {
+    display: none;
+  }
+}
+.hide-for-small-mobile {
+  //hide for mobile and tablet button menu
+  @include breakpoint-down(small) {
+    display: none;
+  }
+}
+.display-for-small-mobile {
+  //hide for mobile and tablet button menu
+  @include breakpoint-down(small) {
+    display: block;
+  }
+}
+.hide-for-desktop {
+  //hide for desktop  hamburger
+  @include breakpoint-up(large) {
+    display: none;
+  }
+}
+/** @include Basecode */
+
+hr {
+  border: none;
+  border-top: 3px double #333;
+  color: #333;
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}
+//Spacing
+/** 
+1- --pall(padding all)
+2- --py(padding vertical)
+3- --px(padding horizontal)
+4- --pt(padding top)
+5- --pl(padding left)
+6- --pr(padding right)
+7- --pb(padding bottom)
+**/
+
+.container_project {
+  //pour centrer la largeur max
+  max-width: 69.56rem;
+  margin: auto;
+  //border: 8px solid rgb(71, 2, 71);
+
+  &__mt {
+    margin-top: 0.9375rem;
+  }
+  //Hyperclass
+  &--pall {
+    padding-top: 4.375rem; // 70px
+    padding-bottom: 4.375rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    @include breakpoint-up(large) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  &--py {
+    // Vertical
+    padding-top: 4.375rem;
+    padding-bottom: 4.375remm;
+
+    @include breakpoint-up(large) {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+  &--px {
+    //Horizontal
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  &--pt {
+    padding-top: 4.375rem;
+
+    @include breakpoint-up(large) {
+      padding-top: 6rem;
+    }
+  }
+  &--pl {
+    padding-left: 1.5rem;
+  }
+  &--pr {
+    padding-right: 1.5rem;
+  }
+  &--pb {
+    padding-bottom: 4.375rem;
+
+    @include breakpoint-up(large) {
+      padding-bottom: 6rem;
+    }
+  }
+}

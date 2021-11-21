@@ -15,8 +15,6 @@ class CommentType extends AbstractType
     {
         $builder
             ->add('content')
-            ->add('author') // recuperation automatique id user
-            ->add('figure') // nom 
         ;
     }
 
