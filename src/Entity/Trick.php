@@ -70,6 +70,7 @@ class Trick
     private $imageName;  
 
 
+    //a l'instantation d'un trick on cree automatiquement une collection de comments vide [].
     public function __construct()
     {
         $this->comments = new ArrayCollection();

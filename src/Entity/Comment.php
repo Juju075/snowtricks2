@@ -68,6 +68,8 @@ class Comment
         return $this->figure;
     }
 
+    //le nommage figure est pas terrible fait plutot reference au trick setComment aurait etait mieux a changer.
+    //ca vas ajouter un nouveau commentaire a la collection []
     public function setFigure(?Trick $figure): self
     {
         $this->figure = $figure;

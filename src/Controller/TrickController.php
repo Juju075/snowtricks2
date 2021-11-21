@@ -3,15 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Trick;
+use App\Entity\Comment;
 use App\Form\TrickType;
+
 use App\Repository\TrickRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
@@ -55,7 +56,7 @@ class TrickController extends AbstractController
 
     //Zakaria 
     /**
-    * 
+    * @Route("/trickkkk/{id}",name="app_tricks_show", methods={"GET"})
      */
     public function showZakaria(int $id): Response
     {
@@ -90,4 +91,15 @@ class TrickController extends AbstractController
         }
         return $this->redirectToRoute('app_home');
     }
+
+    /**
+     * @Route("/comments/create", name="app_comment_create", methods={"GET","POST"})
+     */
+    public function commentCreate(Trick $trick): Response
+    {
+        $comment = new Comment();
+        $trick->addComment($comment);
+        return $this->redirectToRoute('app_home');
+    }
+ 
 }
