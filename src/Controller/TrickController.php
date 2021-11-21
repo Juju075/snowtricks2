@@ -53,17 +53,6 @@ class TrickController extends AbstractController
         return $this->render('tricks/show.html.twig', compact('trick'));
     }
 
-
-    //Zakaria 
-    /**
-    * @Route("/trickkkk/{id}",name="app_tricks_show", methods={"GET"})
-     */
-    public function showZakaria(int $id): Response
-    {
-        $trick = $this->getDoctrine()->getRepository(Trick::class)->find($id);
-        return $this->render('tricks/show.html.twig', ['trick'=>$trick]);
-    }
-
     /**
      * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET","PUT"})
      */

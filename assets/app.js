@@ -9,4 +9,9 @@
 import "./styles/app.scss";
 
 // start the Stimulus application
-import "./bootstrap";
+
+//Pour afficher le nom du fichier selectioner dans le label
+$(".custom-file-input").on("change", function (e) {
+  var inputFile = e.currentTarget;
+  $(inputFile).parent().find(".custom-file-label").html(inputFile.file[0].name);
+});
