@@ -4,6 +4,16 @@ block body%} {# Page de detail.#}
   <div class="slider">
     <div>Buttons</div>
 
+    test onclick
+
+    <form
+      action="{{ path('app_tricks_delete', { id: trick.id }) }}"
+      method="post"
+    >
+      <input type="hidden" name="method" value="DELETE" />
+      <input type="submit" value="DeleteTest" />
+    </form>
+
     <img
       src="{{ (trick.imageName ? vich_uploader_asset(trick) : asset('images/placeholder.jpg'))|imagine_filter('squared_thumbnail_medium') }}"
       alt="{{ trick.nom }}"
@@ -12,7 +22,7 @@ block body%} {# Page de detail.#}
 
     <div>{{ trick.nom }}</div>
 
-    <a href="{{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
+    <a href="{{ path('app_tricks_edit', { id: 10 }) }}">Edit</a>
 
     {# Hack (send DELETE method & csrcf)button deletion new proccess? #}
     <a

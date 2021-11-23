@@ -67,13 +67,25 @@ class Trick
      /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $imageName;  
+    private $imageName;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="photo")
+     */
+    private $photos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="video")
+     */
+    private $videos;  
 
 
     //a l'instantation d'un trick on cree automatiquement une collection de comments vide [].
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -187,6 +199,66 @@ class Trick
     public function setImageName(?string $imageName): self
     {
         $this->imageName = $imageName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Photo[]
+     */
+    public function getPhotos(): Collection
+    {
+        return $this->photos;
+    }
+
+    public function addPhoto(Photo $photo): self
+    {
+        if (!$this->photos->contains($photo)) {
+            $this->photos[] = $photo;
+            $photo->setPhoto($this);
+        }
+
+        return $this;
+    }
+
+    public function removePhoto(Photo $photo): self
+    {
+        if ($this->photos->removeElement($photo)) {
+            // set the owning side to null (unless already changed)
+            if ($photo->getPhoto() === $this) {
+                $photo->setPhoto(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Video[]
+     */
+    public function getVideos(): Collection
+    {
+        return $this->videos;
+    }
+
+    public function addVideo(Video $video): self
+    {
+        if (!$this->videos->contains($video)) {
+            $this->videos[] = $video;
+            $video->setVideo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVideo(Video $video): self
+    {
+        if ($this->videos->removeElement($video)) {
+            // set the owning side to null (unless already changed)
+            if ($video->getVideo() === $this) {
+                $video->setVideo(null);
+            }
+        }
 
         return $this;
     }    

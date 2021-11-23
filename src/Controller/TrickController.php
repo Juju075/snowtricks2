@@ -32,6 +32,7 @@ class TrickController extends AbstractController
     public function create(Request $request, EntityManagerInterface $em): Response 
     {
         $trick = new Trick;
+        // nullable multi images et/ou videos.
         $form = $this->createform(TrickType::class, $trick);
         $form->handleRequest($request);
 
