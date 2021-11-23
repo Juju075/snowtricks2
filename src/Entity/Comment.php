@@ -25,14 +25,14 @@ class Comment
     private $content;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comment")
      */
-    private $author;
+    private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comments")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="comment")
      */
-    private $figure;
+    private $trick;
 
     public function getId(): ?int
     {
@@ -51,28 +51,28 @@ class Comment
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getUser(): ?User
     {
-        return $this->author;
+        return $this->user;
     }
 
-    public function setAuthor(?User $author): self
+    public function setUser(?User $user): self
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getFigure(): ?Trick
+    public function getTrick(): ?Trick
     {
-        return $this->figure;
+        return $this->trick;
     }
 
-    //le nommage figure est pas terrible fait plutot reference au trick setComment aurait etait mieux a changer.
+    //le nommage trick est pas terrible fait plutot reference au trick setComment aurait etait mieux a changer.
     //ca vas ajouter un nouveau commentaire a la collection []
-    public function setFigure(?Trick $figure): self
+    public function setTrick(?Trick $trick): self
     {
-        $this->figure = $figure;
+        $this->trick = $trick;
 
         return $this;
     }

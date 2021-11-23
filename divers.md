@@ -34,7 +34,7 @@ permettant de valider la création du compte et d’activer le compte
 https://symfony.com/doc/current/mailer.html
 
 [email de validation]
-Milto
+Mailtrap
 
 [LOGIN] @/login okform + ok rememberme
 La connexion se fait sur une page dédiée via le nom d’utilisateur et le mot de passe.

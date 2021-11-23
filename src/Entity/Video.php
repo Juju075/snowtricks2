@@ -31,9 +31,9 @@ class Video
     private $embedded;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="video")
      */
-    private $video;
+    private $trick;
 
     public function getId(): ?int
     {

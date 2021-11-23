@@ -26,9 +26,9 @@ class Photo
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photos")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photo")
      */
-    private $photo;
+    private $trick;
 
     public function getId(): ?int
     {

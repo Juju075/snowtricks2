@@ -44,14 +44,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $password;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="author")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
      */
-    private $comments;
+    private $comment;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="author")
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user", orphanRemoval=true)
      */
-    private $tricks;
+    private $trick;
 
     /**
      * @ORM\Column(type="boolean")
@@ -168,14 +168,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        return $this->comment;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setAuthor($this);
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setUser($this);
         }
 
         return $this;
@@ -183,10 +183,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getAuthor() === $this) {
-                $comment->setAuthor(null);
+            if ($comment->getUser() === $this) {
+                $comment->setUser(null);
             }
         }
 
@@ -198,14 +198,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getTricks(): Collection
     {
-        return $this->tricks;
+        return $this->trick;
     }
 
     public function addTrick(Trick $trick): self
     {
-        if (!$this->tricks->contains($trick)) {
-            $this->tricks[] = $trick;
-            $trick->setAuthor($this);
+        if (!$this->trick->contains($trick)) {
+            $this->trick[] = $trick;
+            $trick->setUser($this);
         }
 
         return $this;
@@ -213,10 +213,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function removeTrick(Trick $trick): self
     {
-        if ($this->tricks->removeElement($trick)) {
+        if ($this->trick->removeElement($trick)) {
             // set the owning side to null (unless already changed)
-            if ($trick->getAuthor() === $this) {
-                $trick->setAuthor(null);
+            if ($trick->getUser() === $this) {
+                $trick->setUser(null);
             }
         }
 
@@ -259,3 +259,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+
+

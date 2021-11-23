@@ -69,10 +69,10 @@ class TrickController extends AbstractController
         return $this->renderForm('tricks/edit.html.twig',['form'=>$form]);
     }
     /**
-     * @Route("/tricks/{id<[0-9]+>}/delete", name = "app_tricks_delete")
+     * @Route("/tricks/{id<[0-9]+>}/delete", name ="app_tricks_delete", methods={"DELETE"})
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
-    {
+    { 
         //Contraite etre l'auteur(token) du $trick.
         if ($this->isCsrfTokenValid('trick_deletion_' . $trick->getId(), $request->request->get('csrf_token'))) {
             $em->remove($trick);

@@ -42,14 +42,14 @@ class Trick
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="tricks")
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="trick")
      */
-    private $author;
+    private $user;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="figure")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick", orphanRemoval=true)
      */
-    private $comments;
+    private $comment;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -70,22 +70,22 @@ class Trick
     private $imageName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="photo")
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true)
      */
-    private $photos;
+    private $photo;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="video")
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
      */
-    private $videos;  
+    private $video;  
 
 
-    //a l'instantation d'un trick on cree automatiquement une collection de comments vide [].
+    //a l'instantation d'un trick on cree automatiquement une collection de comment vide [].
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
-        $this->photos = new ArrayCollection();
-        $this->videos = new ArrayCollection();
+        $this->comment = new ArrayCollection();
+        $this->photo = new ArrayCollection();
+        $this->video = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -117,14 +117,14 @@ class Trick
         return $this;
     }
 
-    public function getAuthor(): ?User
+    public function getUser(): ?User
     {
-        return $this->author;
+        return $this->user;
     }
 
-    public function setAuthor(?User $author): self
+    public function setuser(?User $user): self
     {
-        $this->author = $author;
+        $this->user = $user;
 
         return $this;
     }
@@ -134,14 +134,14 @@ class Trick
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        return $this->comment;
     }
 
     public function addComment(Comment $comment): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setFigure($this);
+        if (!$this->comment->contains($comment)) {
+            $this->comment[] = $comment;
+            $comment->setTrick($this);
         }
 
         return $this;
@@ -149,10 +149,10 @@ class Trick
 
     public function removeComment(Comment $comment): self
     {
-        if ($this->comments->removeElement($comment)) {
+        if ($this->comment->removeElement($comment)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getFigure() === $this) {
-                $comment->setFigure(null);
+            if ($comment->getTrick() === $this) {
+                $comment->setTrick(null);
             }
         }
 

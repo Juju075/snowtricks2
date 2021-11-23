@@ -5,15 +5,17 @@ block body%} {# Page de detail.#}
     <div>Buttons</div>
 
     test onclick
-
+    <!-- -->
+    <!-- Hack pour lien delete -->
     <form
       action="{{ path('app_tricks_delete', { id: trick.id }) }}"
       method="post"
     >
-      <input type="hidden" name="method" value="DELETE" />
+      <!-- Hack ici pour method delete -->
+      <input type="hidden" name="_method" value="DELETE" />
       <input type="submit" value="DeleteTest" />
     </form>
-
+    <!-- -->
     <img
       src="{{ (trick.imageName ? vich_uploader_asset(trick) : asset('images/placeholder.jpg'))|imagine_filter('squared_thumbnail_medium') }}"
       alt="{{ trick.nom }}"
@@ -22,13 +24,10 @@ block body%} {# Page de detail.#}
 
     <div>{{ trick.nom }}</div>
 
-    <a href="{{ path('app_tricks_edit', { id: 10 }) }}">Edit</a>
-
-    {# Hack (send DELETE method & csrcf)button deletion new proccess? #}
+    <a href="{{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
     <a
       href="#"
-      onclick="event.preventDefault(); confirm('Are you sure ?') && document.getElementById('js-trick-delete-form').submit();"
-      class="btn btn-light"
+      onclick="event.preventDefault(); document.getElementById('js-trick-delete-form').submit();"
       >Delete</a
     >
     <form
@@ -44,7 +43,6 @@ block body%} {# Page de detail.#}
       />
       <input type="hidden" name="_method" value="DELETE" />
     </form>
-    {{ dump() }}
   </div>
   <div class="row">
     <div>video1</div>
