@@ -73,10 +73,10 @@ block body%} {# Page de detail.#}
   <hr />
 
   <div class="row">
-    <form action="">
-      <input type="text" />
-      <input type="submit" value="Leave a comment" />
-    </form>
+    {# quel formulaire appeler? commenttype#}
+    {{
+      include("tricks/_form.html.twig", { submitButtonText: "Leave a comment" })
+    }}
   </div>
 
   <hr />
