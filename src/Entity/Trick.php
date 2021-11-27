@@ -49,7 +49,7 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="trick", orphanRemoval=true)
      */
-    private $comment;
+    private $comments;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -70,22 +70,22 @@ class Trick
     private $imageName;
 
     /**
-     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
-    private $photo;
+    private $photos;
 
     /**
-     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
-    private $video;  
+    private $videos;  
 
 
     //a l'instantation d'un trick on cree automatiquement une collection de comment vide [].
     public function __construct()
     {
-        $this->comment = new ArrayCollection();
-        $this->photo = new ArrayCollection();
-        $this->video = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+        $this->videos = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -134,25 +134,25 @@ class Trick
      */
     public function getComments(): Collection
     {
-        return $this->comment;
+        return $this->comments;
     }
 
-    public function addComment(Comment $comment): self
+    public function addComment(Comment $comments): self
     {
-        if (!$this->comment->contains($comment)) {
-            $this->comment[] = $comment;
-            $comment->setTrick($this);
+        if (!$this->comments->contains($comments)) {
+            $this->comments[] = $comments;
+            $comments->setTrick($this);
         }
 
         return $this;
     }
 
-    public function removeComment(Comment $comment): self
+    public function removeComment(Comment $comments): self
     {
-        if ($this->comment->removeElement($comment)) {
+        if ($this->comments->removeElement($comments)) {
             // set the owning side to null (unless already changed)
-            if ($comment->getTrick() === $this) {
-                $comment->setTrick(null);
+            if ($comments->getTrick() === $this) {
+                $comments->setTrick(null);
             }
         }
 
@@ -206,27 +206,27 @@ class Trick
     /**
      * @return Collection|Photo[]
      */
-    public function getPhotos(): Collection
+    public function getPhoto(): Collection
     {
         return $this->photos;
     }
 
-    public function addPhoto(Photo $photo): self
+    public function addPhoto(Photo $photos): self
     {
-        if (!$this->photos->contains($photo)) {
-            $this->photos[] = $photo;
-            $photo->setPhoto($this);
+        if (!$this->photos->contains($photos)) {
+            $this->photos[] = $photos;
+            $photos->setPhoto($this);
         }
 
         return $this;
     }
 
-    public function removePhoto(Photo $photo): self
+    public function removePhoto(Photo $photos): self
     {
-        if ($this->photos->removeElement($photo)) {
+        if ($this->photos->removeElement($photos)) {
             // set the owning side to null (unless already changed)
-            if ($photo->getPhoto() === $this) {
-                $photo->setPhoto(null);
+            if ($photos->getPhoto() === $this) {
+                $photos->setPhoto(null);
             }
         }
 
@@ -236,27 +236,27 @@ class Trick
     /**
      * @return Collection|Video[]
      */
-    public function getVideos(): Collection
+    public function getVideo(): Collection
     {
         return $this->videos;
     }
 
-    public function addVideo(Video $video): self
+    public function addVideo(Video $videos): self
     {
-        if (!$this->videos->contains($video)) {
-            $this->videos[] = $video;
-            $video->setVideo($this);
+        if (!$this->videos->contains($videos)) {
+            $this->videos[] = $videos;
+            $videos->setVideo($this);
         }
 
         return $this;
     }
 
-    public function removeVideo(Video $video): self
+    public function removeVideo(Video $videos): self
     {
-        if ($this->videos->removeElement($video)) {
+        if ($this->videos->removeElement($videos)) {
             // set the owning side to null (unless already changed)
-            if ($video->getVideo() === $this) {
-                $video->setVideo(null);
+            if ($videos->getVideo() === $this) {
+                $videos->setVideo(null);
             }
         }
 

@@ -7,6 +7,9 @@ parameters:
   app.mail_from_address: "noreply@backcountry.com"
   app.mail_from_name: "Team Backcountry"
 
+  #dossier symfony public/uploads
+  images_directory: "%kernel.project_dir%/public/uploads"
+
 services:
   # default configuration for services in *this* file
   _defaults:

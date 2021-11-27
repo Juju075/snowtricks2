@@ -26,9 +26,26 @@ class Photo
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photo")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="photos")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+
+    // public function setTrick(?Trick $photo) 
+    // {
+    //     $this->photo = $photo;
+
+    //     return $this;
+    // }
+
+    // public function getTrick(): ?int
+    // {
+    //     return $this->trick;
+    // }
+
+
+
 
     public function getId(): ?int
     {

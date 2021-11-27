@@ -4,11 +4,12 @@ namespace App\Form;
 
 use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class TrickType extends AbstractType
 {
@@ -16,17 +17,24 @@ class TrickType extends AbstractType
     {
         //Ajouter photo et videos.
         $builder
-            ->add('imageFile', VichImageType::class, [
-                'label'=>'Image (JPG or PNG file)',
-                'required' => false,
-                'allow_delete' => true,
-                'download_uri' => true,
-                //'constraints'=> [ new Image(['maxSize'=>'1M'])],
-                'imagine_pattern' => 'squared_thumbnail_small',
-                ])
             ->add('nom', TextType::class)
             ->add('description', TextareaType::class)
             ->add('groupe', TextareaType::class)
+
+            //champs image
+            //non mappe par la bdd (mapped a false)
+             ->add('images', FileType::class,[
+            'label'=>false, 
+            'multiple'=>true,
+            'mapped'=>false,
+            'required'=>false
+            ])   
+             ->add('videos', FileType::class,[
+            'label'=>false, 
+            'multiple'=>true,
+            'mapped'=>false,
+            'required'=>false
+            ])           
         ;
     }
 

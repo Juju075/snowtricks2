@@ -31,7 +31,7 @@ class Video
     private $embedded;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="video")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="videos")
      */
     private $trick;
 

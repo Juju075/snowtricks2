@@ -1,8 +1,10 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
-<input
+{# Verifier si la route est "trick edit" #} 
+<inpu
   type="submit"
   value="{{ submitButtonText|default('Create Trick') }}"
   formnovalidate
 />
+<input type="submit" value="Soumettre">
 {{ form_end(form) }}
