@@ -218,7 +218,6 @@ class Trick
             $this->photos[] = $photos;
             $photos->setPhoto($this);
         }
-
         return $this;
     }
 
@@ -230,7 +229,6 @@ class Trick
                 $photos->setPhoto(null);
             }
         }
-
         return $this;
     }
 

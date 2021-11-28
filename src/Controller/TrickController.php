@@ -60,6 +60,7 @@ class TrickController extends AbstractController
                 //on stock l'image ds la bdd. 
                 $img = new Photo();
                 $img->setName($fichier);
+                $img->setTrick($trick->getId());
                 $trick->addPhoto($img); //[]de photos $this->photos[] = $photos;
                 //Foreign key set: setTrick valeur id (mappedBy="trick")du trick
                 //depuis l'entite du controlleur Trick fonction disponible.
@@ -73,10 +74,8 @@ class TrickController extends AbstractController
                 
 
                 // dump trick_id pas encore persiste
-                dump($trick->getId());
-                die();
 
-                $img->setTrick($trick->getId());
+                //$img->setTrick($trick->getId());
             }
 
             $em->persist($trick);
@@ -132,6 +131,7 @@ class TrickController extends AbstractController
                 );
                 $img = new Photo();
                 $img->setName($fichier);
+                $img->setTrick($trick->getId());
                 $trick->addPhoto($img);
             }
                 $em->persist($trick);

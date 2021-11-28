@@ -1,24 +1,6 @@
 <section class="navigation">
   <div class="row">
     <div class="logo"></div>
-    {# Navigation #}
-    <div class="navigation">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_home') }}">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_tricks_create') }}">Create</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_register') }}">Register</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_login') }}">Login</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
-      </li>
-
       <!-- <lu>
         <li>Home</li>
         la liste des figures
@@ -49,10 +31,11 @@
           <span></span>
         </a>
         <div class="header__links hide-for-mobile">
-          <a href="">Accueil</a>
-          <a href="">ici</a>
-          <a href="">ici</a>
-          <a href="">ici</a>
+          <a class="nav-link" href="{{ path('app_home') }}">Home</a>
+          <a class="nav-link" href="{{ path('app_tricks_create') }}">Create</a>
+          <a class="nav-link" href="{{ path('app_register') }}">Register</a>
+          <a class="nav-link" href="{{ path('app_login') }}">Login</a>
+          <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
         </div>
       </nav>
     </div>
