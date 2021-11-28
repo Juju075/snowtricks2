@@ -60,7 +60,7 @@ class TrickController extends AbstractController
                 //on stock l'image ds la bdd. 
                 $img = new Photo();
                 $img->setName($fichier);
-                $img->setTrick($trick->getId());
+                $img->setTrick($trick);
                 $trick->addPhoto($img); //[]de photos $this->photos[] = $photos;
                 //Foreign key set: setTrick valeur id (mappedBy="trick")du trick
                 //depuis l'entite du controlleur Trick fonction disponible.
