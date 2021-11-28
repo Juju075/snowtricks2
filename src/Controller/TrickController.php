@@ -111,8 +111,10 @@ class TrickController extends AbstractController
         return $this->render('tricks/show.html.twig', ['trick'=>$trick]);
     }
 
+    // @Security("is_granted('TRICK_DELETE', trick)")
     // methods={"GET","PUT"}
     /**
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
@@ -137,7 +139,10 @@ class TrickController extends AbstractController
         }
         return $this->renderForm('tricks/edit.html.twig',['form'=>$form, 'trick'=>$trick]);
     }
+
+    // @Security("is_granted('TRICK_DELETE', trick)")
     /**
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/{id<[0-9]+>}/delete", name ="app_tricks_delete", methods={"DELETE"})
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
