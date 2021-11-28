@@ -1,10 +1,23 @@
 {{ form_start(form) }}
 {{ form_widget(form) }}
-{# Verifier si la route est "trick edit" #} 
-<inpu
+{# Verifier si la route est "trick edit" #} {% if
+app.request.attributes.get('_route') == 'app_tricks_edit' %}
+<h2>Images</h2>
+{{ trick.photos }}
+{% for photo in trick.photos %}
+<div>
+  <img src="{{ asset('/uploads/' ~ photo.name)}}" alt="Image" />
+  <a
+    href="{{
+      path('app_delete_photo', { id: photo.id })
+    }} data-delete data-token={{ csrf_token('delete'~ photo.id )}} "
+    >Delete</a
+  >
+</div>
+{% endfor %} {% endif %}
+<input
   type="submit"
   value="{{ submitButtonText|default('Create Trick') }}"
   formnovalidate
 />
-<input type="submit" value="Soumettre">
 {{ form_end(form) }}

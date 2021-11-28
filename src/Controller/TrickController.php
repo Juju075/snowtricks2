@@ -10,11 +10,14 @@ use App\Form\TrickType;
 
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class TrickController extends AbstractController
 {
@@ -27,8 +30,8 @@ class TrickController extends AbstractController
         return $this->render('tricks/index.html.twig', compact('tricks'));
     }
 
-    
     /**
+     * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/create",name="app_tricks_create", methods={"GET","POST"})
      */
     public function create(Request $request, EntityManagerInterface $em): Response 
@@ -42,6 +45,11 @@ class TrickController extends AbstractController
             //recup les images depuis le formulaire
             $images = $form->get('images')->getData();
 
+            //Foreign key set: Recupere l'utilisateur via le token storage.
+            $trick->setUser($this->getUser());
+
+            // $img->setTrickId($fk); 
+
             //pour instancier Photo::class pour chaque image uploader.
             foreach ($images as $image) {
                 $fichier = md5(uniqid().'.'.$image->guessExtension());
@@ -52,10 +60,23 @@ class TrickController extends AbstractController
                 //on stock l'image ds la bdd. 
                 $img = new Photo();
                 $img->setName($fichier);
-                $trick->addPhoto($img);
+                $trick->addPhoto($img); //[]de photos $this->photos[] = $photos;
+                //Foreign key set: setTrick valeur id (mappedBy="trick")du trick
+                //depuis l'entite du controlleur Trick fonction disponible.
 
-                // $fk = $trick->getId();
-                // $img->setTrickId($fk); 
+                //$img et $trick (les entites en relation)
+                //ou se trouve la fonction qu'on veut appeler pour setter
+                //quel est la variable cible.
+                //quel valeur on vas lui donner
+                //quel est le getter qui vas le recuperer.
+                //$this pour indiquer que celui encours.
+                
+
+                // dump trick_id pas encore persiste
+                dump($trick->getId());
+                die();
+
+                $img->setTrick($trick->getId());
             }
 
             $em->persist($trick);
@@ -86,15 +107,16 @@ class TrickController extends AbstractController
     */
     public function show(Trick $trick):Response
     {
-        return $this->render('tricks/show.html.twig', compact('trick'));
+        //return $this->render('tricks/show.html.twig', compact('trick'));
+        return $this->render('tricks/show.html.twig', ['trick'=>$trick]);
     }
 
+    // methods={"GET","PUT"}
     /**
-     * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET","PUT"})
+     * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
-        //prepopuler les champs
         $form = $this->createForm(TrickType::class, $trick, ['method'=> 'PUT']);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
@@ -106,22 +128,14 @@ class TrickController extends AbstractController
                     $this->getParameter('images_directory'),
                     $fichier
                 );
-                //on stock l'image ds la bdd. 
                 $img = new Photo();
                 $img->setName($fichier);
                 $trick->addPhoto($img);
-
-                // $fk = $trick->getId();
-                // $img->setTrickId($fk); 
             }
-
-
-
-
                 $em->persist($trick);
                 $em->flush();
         }
-        return $this->renderForm('tricks/edit.html.twig',['form'=>$form]);
+        return $this->renderForm('tricks/edit.html.twig',['form'=>$form, 'trick'=>$trick]);
     }
     /**
      * @Route("/tricks/{id<[0-9]+>}/delete", name ="app_tricks_delete", methods={"DELETE"})

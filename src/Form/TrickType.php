@@ -21,6 +21,7 @@ class TrickType extends AbstractType
             ->add('description', TextareaType::class)
             ->add('groupe', TextareaType::class)
 
+            //ajouter user_id cham
             //champs image
             //non mappe par la bdd (mapped a false)
              ->add('images', FileType::class,[
