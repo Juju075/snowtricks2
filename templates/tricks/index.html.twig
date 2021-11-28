@@ -45,11 +45,11 @@ endblock %} {% block body %}
           <div>
             <div>{{ trick.nom }}</div>
               <a href=" {{ path('app_tricks_show',  { id: trick.id})  }}">
-                  <img src="{{ (trick.imageName ? vich_uploader_asset(trick) : asset('images/placeholder.jpg'))|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom}}" class="w-100"/>
+                <!--Afficher image random de la galerie si vide afficher place holder-->
+                  <img src="{{ asset('images/placeholder.jpg')|imagine_filter('squared_thumbnail_medium') }}" alt="{{ trick.nom}}" class="w-100"/>
                   {# build/images/placeholder.jpg #}
               </a>
           </div> 
-
           <div>
             <a href=" {{ path('app_tricks_edit',  { id: trick.id})  }}">Edit</a>
             <a href=" {{ path('app_tricks_delete',  { id: trick.id})  }}">Delete</a>
