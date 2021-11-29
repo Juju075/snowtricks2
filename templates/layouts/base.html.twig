@@ -2,7 +2,9 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
+    <title>
+    {% block title %}Welcome!{% endblock %}
+    </title>
     {% block stylesheets %}
     {{
       encore_entry_link_tags("app")
@@ -18,7 +20,9 @@
     {{ include("layouts/partials/_flash_messages.html.twig") }}
     {# NAVIGATION #}
     {{ include("layouts/partials/_nav.html.twig") }}
-    <main role="main" class="container">{% block body %}{% endblock %}</main>
+    <main role="main" class="container">
+      {% block body %}{% endblock %}
+    </main>
     {# FOOTER #}
     {{ include("layouts/partials/_footer.html.twig") }}
   </body>

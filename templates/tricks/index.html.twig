@@ -1,69 +1,97 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
 endblock %} {% block body %}
-    <section>
-      <div class="intro">
-        <h1>Backcountry.com</h1><br>
-        <h3>The Best Tricks Ever 2022</h3>
+<!-- ======================================================================= -->
+<!-- Section - Introduction -->
+<!-- ======================================================================= -->
+<section class="intro">
+  <article
+    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
+  >
+    <!-- ======================================================================= -->
+    <!-- Parallax -->
+    <!-- ======================================================================= -->
+    <div class="parallax">
+      <div class="parallax__layer parallax__layer__0">
+        <img src="assets/images/parallax/layer_0.png" alt="" />
+      </div>
+      <div class="parallax__layer parallax__layer__1">
+        <img src="assets/images/parallax/layer_1.png" alt="" />
+      </div>
+      <div class="parallax__layer parallax__layer__2">
+        <img src="assets/images/parallax/layer_2.png" alt="" />
+      </div>
+      <div class="parallax__layer parallax__layer__3">
+        <img src="assets/images/parallax/layer_3.png" alt="" />
+      </div>
+      <div class="parallax__layer parallax__layer__4">
+        <img src="assets/images/parallax/layer_4.png" alt="" />
+      </div>
+      <div class="parallax__layer parallax__layer__5">
+        <img src="assets/images/parallax/layer_5.png" alt="" />
+      </div>
+      <div class="parallax__layer parallax__layer__6">
+        <img src="assets/images/parallax/layer_6.png" alt="" />
+      </div>
+      <div class="parallax__cover"></div>
+    </div>
+    <!-- =================================================================== -->
+    <!-- text_overlay -->
+    <!-- =================================================================== -->
+    <div class="">
+      <div><h2>Backcountry.com</h2></div>
+      <div>
+        <h3>"The Best Tricks Ever 2022"</h3>
         <h5>Brought to you by</h5>
-      </div>
-      parralax cidessous
-      <div class="parallax">
-          <div class="parallax__layer parallax__layer__0">
-              <img src="parallax/layer_0.png?raw=true" />
-          </div>
-          <div class="parallax__layer parallax__layer__1">
-              <img src="/parallax/layer_1.png?raw=true" />
-          </div>
-          <div class="parallax__layer parallax__layer__2">
-              <img src="parallax/layer_2.png?raw=true" />
-          </div>
-          <div class="parallax__layer parallax__layer__3">
-              <img src="parallax/layer_3.png?raw=true" />
-          </div>
-          <div class="parallax__layer parallax__layer__4">
-              <img src="parallax/layer_4.png?raw=true" />
-          </div>
-          <div class="parallax__layer parallax__layer__5">
-              <img src="parallax/layer_5.png?raw=true" />
-          </div>
-          <div class="parallax__layer parallax__layer__6">
-              <img src="parallax/layer_6.png?raw=true" />
-          </div>
-          <div class="parallax__cover"></div>
-      </div>
-      <div class="slider">
-        {# {{ include("layouts/partials/_nav.html.twig") }} #}
-        {# https://codepen.io/ig_design/pen/VwedgWj #}
-      </div>
-      <div class="cards">
-        {% if tricks|length > 0 %}
-        {# card here #}
-        {% for trick in tricks %}
         <div>
-          <div><b>image name</b></div>
-
-          <div>
-            <div>{{ trick.nom }}</div>
-              <a href=" {{ path('app_tricks_show',  { id: trick.id})  }}">
-                <!--Afficher image random de la galerie si vide afficher place holder-->
-                  <img src="{{ asset('images/placeholder.jpg')|imagine_filter('squared_thumbnail_medium') }}" alt="{{ trick.nom}}" class="w-100"/>
-                  {# build/images/placeholder.jpg #}
-              </a>
-          </div> 
-          <div>
-            <a href=" {{ path('app_tricks_edit',  { id: trick.id})  }}">Edit</a>
-            <a href=" {{ path('app_tricks_delete',  { id: trick.id})  }}">Delete</a>
-          </div>
+          <img src="" alt="logo" />
         </div>
-        {% endfor %}
-          {% else %}
-            <p class="">No Trick yet <a href=" {{path('app_tricks_create')}}">Be the first! </a> </p>
-        {% endif %}
       </div>
     </div>
-    </section>
-{% endblock %}
-{# App_home #}
-{# template base | body scss | foreach tricks | items paralax container for slider #}
-{#Best paralax - Montain- https://codepen.io/samdbeckham/pen/OPXPNp #}
-{#Best cards - Sport - #}
+  </article>
+</section>
+<!-- ======================================================================= -->
+<!-- Content -->
+<!-- ======================================================================= -->
+<section class="slider">
+  <article
+    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
+  >
+    <div class="content">
+      {# {{ include("layouts/partials/_nav.html.twig") }} #} {#
+      https://codepen.io/ig_design/pen/VwedgWj #}
+    </div>
+    <div class="cards">
+      {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
+      <div>
+        <div><b>image name</b></div>
+        <div>
+          <div>{{ trick.nom }}</div>
+          <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
+            <!--Afficher image random de la galerie si vide afficher place holder-->
+            <img
+              src="{{ asset('images/placeholder.jpg')|imagine_filter('squared_thumbnail_medium') }}"
+              alt="{{ trick.nom }}"
+              class=""
+            />
+            {# build/images/placeholder.jpg #}
+          </a>
+        </div>
+        <div>
+          <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
+          <a href=" {{ path('app_tricks_delete', { id: trick.id }) }}"
+            >Delete</a
+          >
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <p class="">
+        No Trick yet
+        <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
+      </p>
+      {% endif %}
+    </div>
+  </article>
+</section>
+{% endblock %} {# App_home #} {# template base | body scss | foreach tricks |
+items paralax container for slider #} {#Best paralax - Montain-
+https://codepen.io/samdbeckham/pen/OPXPNp #} {#Best cards - Sport - #}
