@@ -8,7 +8,7 @@ endblock %} {% block body %}
     class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
   >
     <!-- ======================================================================= -->
-    <!-- Parallax -->
+    <!-- Parallax []-->
     <!-- ======================================================================= -->
     <div class="parallax">
       <div class="parallax__layer parallax__layer__0">
@@ -50,45 +50,52 @@ endblock %} {% block body %}
   </article>
 </section>
 <!-- ======================================================================= -->
-<!-- Content -->
+<!-- Slider -->
+<!-- ======================================================================= -->
+
+<!-- ======================================================================= -->
+<!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
 <section class="slider">
   <article
     class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
   >
+    <div class="row">
+      <div class="cards">
+        {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
+        <div>
+          <div><b>image name</b></div>
+          <div>
+            <div>{{ trick.nom }}</div>
+            <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
+              <!--Afficher image random de la galerie si vide afficher place holder-->
+              <img
+                src="{{ asset('images/placeholder.jpg')|imagine_filter('squared_thumbnail_medium') }}"
+                alt="{{ trick.nom }}"
+                class=""
+              />
+              {# build/images/placeholder.jpg #}
+            </a>
+          </div>
+          <div>
+            <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
+            <a href=" {{ path('app_tricks_delete', { id: trick.id }) }}"
+              >Delete</a
+            >
+          </div>
+        </div>
+        {% endfor %} {% else %}
+        <p class="">
+          No Trick yet
+          <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
+        </p>
+        {% endif %}
+      </div>
+    </div>
+
     <div class="content">
       {# {{ include("layouts/partials/_nav.html.twig") }} #} {#
       https://codepen.io/ig_design/pen/VwedgWj #}
-    </div>
-    <div class="cards">
-      {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
-      <div>
-        <div><b>image name</b></div>
-        <div>
-          <div>{{ trick.nom }}</div>
-          <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
-            <!--Afficher image random de la galerie si vide afficher place holder-->
-            <img
-              src="{{ asset('images/placeholder.jpg')|imagine_filter('squared_thumbnail_medium') }}"
-              alt="{{ trick.nom }}"
-              class=""
-            />
-            {# build/images/placeholder.jpg #}
-          </a>
-        </div>
-        <div>
-          <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
-          <a href=" {{ path('app_tricks_delete', { id: trick.id }) }}"
-            >Delete</a
-          >
-        </div>
-      </div>
-      {% endfor %} {% else %}
-      <p class="">
-        No Trick yet
-        <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
-      </p>
-      {% endif %}
     </div>
   </article>
 </section>
