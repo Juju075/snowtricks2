@@ -4,36 +4,40 @@ endblock %} {% block body %}
 <!-- Section - Introduction -->
 <!-- ======================================================================= -->
 <section class="intro">
+  <!-- ======================================================================= -->
+  <!-- Parallax []-->
+  <!-- ======================================================================= -->
   <article
     class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
   >
-    <!-- ======================================================================= -->
-    <!-- Parallax []-->
-    <!-- ======================================================================= -->
     <div class="parallax">
       <div class="parallax__layer parallax__layer__0">
-        <img src="assets/images/parallax/layer_0.png" alt="" />
+        <img src="/assets/images/parallax/layer_0.png" alt="image_parallax" />
       </div>
       <div class="parallax__layer parallax__layer__1">
-        <img src="assets/images/parallax/layer_1.png" alt="" />
+        <img src="/assets/images/parallax/layer_1.png" alt="image_parallax" />
       </div>
       <div class="parallax__layer parallax__layer__2">
-        <img src="assets/images/parallax/layer_2.png" alt="" />
+        <img src="/assets/images/parallax/layer_2.png" alt="image_parallax" />
       </div>
       <div class="parallax__layer parallax__layer__3">
-        <img src="assets/images/parallax/layer_3.png" alt="" />
+        <img src="/assets/images/parallax/layer_3.png" alt="image_parallax" />
       </div>
       <div class="parallax__layer parallax__layer__4">
-        <img src="assets/images/parallax/layer_4.png" alt="" />
+        <img src="/assets/images/parallax/layer_4.png" alt="image_parallax" />
       </div>
       <div class="parallax__layer parallax__layer__5">
-        <img src="assets/images/parallax/layer_5.png" alt="" />
+        <img src="/assets/images/parallax/layer_5.png" alt="image_parallax" />
       </div>
       <div class="parallax__layer parallax__layer__6">
-        <img src="assets/images/parallax/layer_6.png" alt="" />
+        <img src="/assets/images/parallax/layer_6.png" alt="image_parallax" />
       </div>
       <div class="parallax__cover"></div>
     </div>
+  </article>
+  <article
+    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
+  >
     <!-- =================================================================== -->
     <!-- text_overlay -->
     <!-- =================================================================== -->
@@ -54,9 +58,59 @@ endblock %} {% block body %}
 <!-- ======================================================================= -->
 
 <!-- ======================================================================= -->
+<!-- Slider a personnaliser -->
+<!-- ======================================================================= -->
+<div class="slider">
+  <input
+    type="radio"
+    name="slider"
+    title="slide1"
+    checked="checked"
+    class="slider__nav"
+  />
+  <input type="radio" name="slider" title="slide2" class="slider__nav" />
+  <input type="radio" name="slider" title="slide3" class="slider__nav" />
+  <input type="radio" name="slider" title="slide4" class="slider__nav" />
+  <div class="slider__inner">
+    <div class="slider__contents">
+      <i class="slider__image fa fa-codepen"></i>
+      <h2 class="slider__caption">slider</h2>
+      <p class="slider__txt">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate
+        omnis possimus illo quos, corporis minima!
+      </p>
+    </div>
+    <div class="slider__contents">
+      <i class="slider__image fa fa-newspaper-o"></i>
+      <h2 class="slider__caption">newspaper-o</h2>
+      <p class="slider__txt">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate
+        omnis possimus illo quos, corporis minima!
+      </p>
+    </div>
+    <div class="slider__contents">
+      <i class="slider__image fa fa-television"></i>
+      <h2 class="slider__caption">television</h2>
+      <p class="slider__txt">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate
+        omnis possimus illo quos, corporis minima!
+      </p>
+    </div>
+    <div class="slider__contents">
+      <i class="slider__image fa fa-diamond"></i>
+      <h2 class="slider__caption">diamond</h2>
+      <p class="slider__txt">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit. At cupiditate
+        omnis possimus illo quos, corporis minima!
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- ======================================================================= -->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
-<section class="slider">
+<section class="">
   <article
     class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
   >
@@ -64,7 +118,6 @@ endblock %} {% block body %}
       <div class="cards">
         {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
         <div>
-          <div><b>image name</b></div>
           <div>
             <div>{{ trick.nom }}</div>
             <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
