@@ -4,37 +4,9 @@ endblock %} {% block body %}
 <!-- Section - Introduction -->
 <!-- ======================================================================= -->
 <section class="intro">
-  <!-- ======================================================================= -->
-  <!-- Parallax []-->
-  <!-- ======================================================================= -->
-  <article
-    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
-  >
-    <div class="parallax">
-      <div class="parallax__layer parallax__layer__0">
-        <img src="{{ asset('/build/images/parallax/layer_0.8a5bd521.png')}}" alt="">
-      </div>
-      <div class="parallax__layer parallax__layer__1">
-        <img src="{{ asset('/build/images/parallax/layer_1.8726fe38.png')}}" alt="">
-      </div>
-      <div class="parallax__layer parallax__layer__2">
-        <img src="{{ asset('/build/images/parallax/layer_2.96706e77.png')}}" alt="">
-      </div>
-      <div class="parallax__layer parallax__layer__3">
-        <img src="{{ asset('/build/images/parallax/layer_3.90d00521.png')}}" alt="">
-      </div>
-      <div class="parallax__layer parallax__layer__4">
-        <img src="{{ asset('/build/images/parallax/layer_4.c6056167.png')}}" alt="">
-      </div>
-      <div class="parallax__layer parallax__layer__5">
-        <img src="{{ asset('/build/images/parallax/layer_5.cacbe1ee.png')}}" alt="">
-      </div>
-      <div class="parallax__layer parallax__layer__6">
-        <img src="{{ asset('/build/images/parallax/layer_6.7b9c9d4b.png')}}" alt="">
-      </div>
-      <div class="parallax__cover"></div>
-    </div>
-  </article>
+  {#} {{ include("tricks/_parallax.html.twig") }}
+  {{ include("tricks/_slider.html.twig") }} {#}
+
   <article
     class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
   >
@@ -47,7 +19,7 @@ endblock %} {% block body %}
         <h3>"The Best Tricks Ever 2022"</h3>
         <h5>Brought to you by</h5>
         <div>
-          <img src="" alt="logo" />
+          <img src="{{ asset('/build/images/logo.png') }}" alt="" />
         </div>
       </div>
     </div>
@@ -57,119 +29,42 @@ endblock %} {% block body %}
 <!-- Navigation ici -->
 <!-- ======================================================================= -->
 {{ include("layouts/partials/_nav.html.twig") }}
+
 <!-- ======================================================================= -->
-<!-- Slider grande image de figures -->
-<!--https://codepen.io/trungk18/pen/EydyoL -->
+<!-- new card-->
 <!-- ======================================================================= -->
-Slider ici faire l'installation.
-<!-- <section class="slider">
-  <article
-    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
-  >
-    <div class="wrapper">
-      <input checked type="radio" name="slider" id="slide1" />
-      <input type="radio" name="slider" id="slide2" />
-      <input type="radio" name="slider" id="slide3" />
-      <input type="radio" name="slider" id="slide4" />
-      <input type="radio" name="slider" id="slide5" />
+<div>
+  <ul class="cards">
+    <li>
+      <a href="" class="card">
+        <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" />
+        {# Background image #}
 
-      <div class="slider-wrapper">
-        <div class="inner">
-          <article>
-            <div class="info top-left">
-              <h3>Malacca</h3>
-            </div>
+        <div class="card__overlay">
+          <div class="card__header">
+            <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
+              <path />
+            </svg>
             <img
-              src="https://farm9.staticflickr.com/8059/28286750501_dcc27b1332_h_d.jpg"
+              class="card__thumb"
+              src="https://i.imgur.com/7D7I6dI.png"
+              alt=""
             />
-          </article>
-
-          <article>
-            <div class="info bottom-right">
-              <h3>Cameron Highland</h3>
+            {# Avatar #}
+            <div class="card__header-text">
+              <h3 class="card__title">Jessica Parker</h3>
+              <span class="card__status">1 hour ago</span>
             </div>
-            <img
-              src="https://farm6.staticflickr.com/5812/23394215774_b76cd33a87_h_d.jpg"
-            />
-          </article>
-
-          <article>
-            <div class="info bottom-left">
-              <h3>New Delhi</h3>
-            </div>
-            <img
-              src="https://farm8.staticflickr.com/7455/27879053992_ef3f41c4a0_h_d.jpg"
-            />
-          </article>
-
-          <article>
-            <div class="info top-right">
-              <h3>Ladakh</h3>
-            </div>
-            <img
-              src="https://farm8.staticflickr.com/7367/27980898905_72d106e501_h_d.jpg"
-            />
-          </article>
-
-          <article>
-            <div class="info bottom-left">
-              <h3>Nubra Valley</h3>
-            </div>
-            <img
-              src="https://farm8.staticflickr.com/7356/27980899895_9b6c394fec_h_d.jpg"
-            />
-          </article>
+          </div>
+          <p class="card__description">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
+            blanditiis?
+          </p>
         </div>
-        <!-- .inner -->
-      </div>
-      <!-- .slider-wrapper -->
-
-      <div class="slider-prev-next-control">
-        <label for="slide1"></label>
-        <label for="slide2"></label>
-        <label for="slide3"></label>
-        <label for="slide4"></label>
-        <label for="slide5"></label>
-      </div>
-      <!-- .slider-prev-next-control -->
-
-      <div class="slider-dot-control">
-        <label for="slide1"></label>
-        <label for="slide2"></label>
-        <label for="slide3"></label>
-        <label for="slide4"></label>
-        <label for="slide5"></label>
-      </div>
-      <!-- .slider-dot-control -->
-    </div>
-  </article>
-</section> -->
-
-        <!-- ======================================================================= -->
-        <!-- new card-->
-        <!-- ======================================================================= -->
-        <div>
-          <ul class="cards">
-            <li>
-              <a href="" class="card">
-                <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" /> {# Background image #}
-
-                <div class="card__overlay">
-                  <div class="card__header">
-                    <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
-                    <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" /> {# Avatar #}
-                    <div class="card__header-text">
-                      <h3 class="card__title">Jessica Parker</h3>            
-                      <span class="card__status">1 hour ago</span>
-                    </div>
-                  </div>
-                  <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
-                </div>
-
-              </a>      
-            </li>
-          </ul>
-        </div>
+      </a>
+    </li>
+  </ul>
+</div>
 
 <!-- ======================================================================= -->
 <!-- Content [Listing des articles] -->
@@ -182,13 +77,14 @@ Slider ici faire l'installation.
       <div class="cards">
         {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
 
-        
         <div>
           <div>
             <div>{{ trick.nom }}</div>
             <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
-              
-              <img src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}">
+              <img
+                src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+                alt="{{ trick.nom }}"
+              />
               {# trick.photo numero 1 get photo #}
             </a>
           </div>
@@ -199,11 +95,6 @@ Slider ici faire l'installation.
             >
           </div>
         </div>
-
-
-
-
-
 
         {% endfor %} {% else %}
         <p class="">

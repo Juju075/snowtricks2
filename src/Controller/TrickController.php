@@ -122,17 +122,18 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $images = $form->get('images')->getData();
-            //pour instancier Photo::class pour chaque image uploader.
             foreach ($images as $image) {
                 $fichier = md5(uniqid().'.'.$image->guessExtension());
                 $image->move(
                     $this->getParameter('images_directory'),
                     $fichier
                 );
+                //on stock l'image ds la bdd. 
                 $img = new Photo();
                 $img->setName($fichier);
-                $img->setTrick($trick->getId());
+                $img->setTrick($trick);
                 $trick->addPhoto($img);
+
             }
                 $em->persist($trick);
                 $em->flush();
