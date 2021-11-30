@@ -156,18 +156,13 @@ Slider ici faire l'installation.
       <div class="cards">
         {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
 
-
+        
         <div>
           <div>
             <div>{{ trick.nom }}</div>
             <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
-              <!--Afficher image random de la galerie si vide afficher place holder-->
-              <img src="/assets/images/placeholder.jpg" alt="">
-              <img
-                src="{{ asset('images/placeholder.jpg"')|imagine_filter('squared_thumbnail_medium') }}"
-                alt="{{ trick.nom }}"
-                class=""
-              />
+              
+              <img src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}">
               {# build/images/placeholder.jpg #}
             </a>
           </div>

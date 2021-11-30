@@ -17,7 +17,7 @@ block body%} {# Page de detail.#}
     </form>
     <!-- -->
     <img
-      src="{{ (trick.imageName ? vich_uploader_asset(trick) : asset('images/placeholder.jpg'))|imagine_filter('squared_thumbnail_medium') }}"
+      src="{{ (asset('images/placeholder.jpg'))|imagine_filter('squared_thumbnail_medium') }}"
       alt="{{ trick.nom }}"
       class=""
     />
