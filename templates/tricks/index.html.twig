@@ -12,25 +12,25 @@ endblock %} {% block body %}
   >
     <div class="parallax">
       <div class="parallax__layer parallax__layer__0">
-        <img src="/assets/images/parallax/layer_0.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_0.8a5bd521.png')}}" alt="">
       </div>
       <div class="parallax__layer parallax__layer__1">
-        <img src="/assets/images/parallax/layer_1.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_1.8726fe38.png')}}" alt="">
       </div>
       <div class="parallax__layer parallax__layer__2">
-        <img src="/assets/images/parallax/layer_2.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_2.96706e77.png')}}" alt="">
       </div>
       <div class="parallax__layer parallax__layer__3">
-        <img src="/assets/images/parallax/layer_3.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_3.90d00521.png')}}" alt="">
       </div>
       <div class="parallax__layer parallax__layer__4">
-        <img src="/assets/images/parallax/layer_4.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_4.c6056167.png')}}" alt="">
       </div>
       <div class="parallax__layer parallax__layer__5">
-        <img src="/assets/images/parallax/layer_5.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_5.cacbe1ee.png')}}" alt="">
       </div>
       <div class="parallax__layer parallax__layer__6">
-        <img src="/assets/images/parallax/layer_6.png" alt="image_parallax" />
+        <img src="{{ asset('/build/images/parallax/layer_6.7b9c9d4b.png')}}" alt="">
       </div>
       <div class="parallax__cover"></div>
     </div>
@@ -145,6 +145,32 @@ Slider ici faire l'installation.
   </article>
 </section> -->
 
+        <!-- ======================================================================= -->
+        <!-- new card-->
+        <!-- ======================================================================= -->
+        <div>
+          <ul class="cards">
+            <li>
+              <a href="" class="card">
+                <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" /> {# Background image #}
+
+                <div class="card__overlay">
+                  <div class="card__header">
+                    <svg class="card__arc" xmlns="http://www.w3.org/2000/svg"><path /></svg>                     
+                    <img class="card__thumb" src="https://i.imgur.com/7D7I6dI.png" alt="" /> {# Avatar #}
+                    <div class="card__header-text">
+                      <h3 class="card__title">Jessica Parker</h3>            
+                      <span class="card__status">1 hour ago</span>
+                    </div>
+                  </div>
+                  <p class="card__description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores, blanditiis?</p>
+                </div>
+
+              </a>      
+            </li>
+          </ul>
+        </div>
+
 <!-- ======================================================================= -->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
@@ -163,7 +189,7 @@ Slider ici faire l'installation.
             <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
               
               <img src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}">
-              {# build/images/placeholder.jpg #}
+              {# trick.photo numero 1 get photo #}
             </a>
           </div>
           <div>
@@ -173,6 +199,10 @@ Slider ici faire l'installation.
             >
           </div>
         </div>
+
+
+
+
 
 
         {% endfor %} {% else %}
