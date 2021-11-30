@@ -110,6 +110,9 @@ class TrickController extends AbstractController
         return $this->render('tricks/show.html.twig', ['trick'=>$trick]);
     }
 
+
+
+
     // @Security("is_granted('TRICK_DELETE', trick)")
     // methods={"GET","PUT"}
     /**

@@ -4,7 +4,7 @@ Domain
 
 [TRICK] ok
 Form
-la ou les photos rattachées à la figure  
+la ou les photos rattachées à la figure OK
 la ou les vidéos rattachées à la figure
 
 [SHOW TRICK] pb id faire des slug
@@ -21,6 +21,14 @@ Pour chaque message, il sera affiché les informations suivantes :
 ● la photo de l’auteur du message ;
 ● la date de création du message ;
 ● le contenu du message.
+
+Listing des commentaires:
+Twig
+comment.id
+user.fullname
+user.avatar
+comment.createdat
+comment.content
 
 ---
 
