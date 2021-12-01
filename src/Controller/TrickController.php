@@ -104,7 +104,7 @@ class TrickController extends AbstractController
     }
 
     /**
-    * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET"})
+    * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET","POST"})
     */
     public function show(Request $request, EntityManagerInterface $em, Trick $trick):Response
     {
@@ -121,7 +121,8 @@ class TrickController extends AbstractController
             $em->flush();
         }
 
-        $photos = null;
+        $photos = $trick->getPhoto();
+        dump($photos);
         $videos = null;
         return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'form'=>$form]);
     }

@@ -5,7 +5,9 @@ block body%} {# Page de detail.#}
 <!-- ======================================================================= -->
 section slider
 <section class="slider">
-  <article class="container_project"></article>
+  <article class="container_project">
+    <h3>Slider ici</h3>
+  </article>
 </section>
 <!-- ======================================================================= -->
 <!-- Section sous slider (illustration des figures.)-->
@@ -15,7 +17,10 @@ section illustration
   <article class="container_project">
     <!-- foreach avec une limite de 3 max -->
     <!-- Variable "photos" does not exist.   |batch(3) -->
-    {% for photo in photos %} {% endfor %}
+    trick.getPhoto
+    {{ dump(trick) }}
+    {% for photo in photos %} {% endfor %} {% for photo in photos %} {% endfor
+    %}
 
     <!-- foreach 3 first video |batch(3) -->
     {% for video in videos %} {% endfor %}
@@ -41,7 +46,13 @@ section description
 section leaveComment
 <section class="leaveComment">
   <article class="container_project">
-    affiche le formulaire commentype ici
+    <h6>Veuilez saisir votre commentaire!</h6>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+
+    button submit
+    {{ form_end(form) }}
   </article>
 </section>
 <!-- ======================================================================= -->
