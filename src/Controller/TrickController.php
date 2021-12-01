@@ -122,9 +122,11 @@ class TrickController extends AbstractController
         }
 
         $photos = $trick->getPhoto();
+        $videos = $trick->getVideo();
+        $comments = $trick->getComments();
         dump($photos);
         $videos = null;
-        return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'form'=>$form]);
+        return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'comments'=>$comments, 'form'=>$form]);
     }
 
 
