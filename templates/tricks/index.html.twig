@@ -16,8 +16,8 @@ endblock %} {% block body %}
     <div class="">
       <div><h2>Backcountry.com</h2></div>
       <div>
-        <h3>"The Best Tricks Ever 2022"</h3>
-        <h5>Brought to you by</h5>
+        <h4>"The Best Tricks Ever 2022"</h4>
+        <h4>Brought to you by</h54
         <div>
           <img src="{{ asset('/build/images/logo.png') }}" alt="" />
           <img
@@ -35,42 +35,6 @@ endblock %} {% block body %}
 {{ include("layouts/partials/_nav.html.twig") }}
 
 <!-- ======================================================================= -->
-<!-- new card-->
-<!-- ======================================================================= -->
-<div>
-  <ul class="cards">
-    <li>
-      <a href="" class="card">
-        <img src="https://i.imgur.com/oYiTqum.jpg" class="card__image" alt="" />
-        {# Background image #}
-
-        <div class="card__overlay">
-          <div class="card__header">
-            <svg class="card__arc" xmlns="http://www.w3.org/2000/svg">
-              <path />
-            </svg>
-            <img
-              class="card__thumb"
-              src="https://i.imgur.com/7D7I6dI.png"
-              alt=""
-            />
-            {# Avatar #}
-            <div class="card__header-text">
-              <h3 class="card__title">Jessica Parker</h3>
-              <span class="card__status">1 hour ago</span>
-            </div>
-          </div>
-          <p class="card__description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores,
-            blanditiis?
-          </p>
-        </div>
-      </a>
-    </li>
-  </ul>
-</div>
-
-<!-- ======================================================================= -->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
 <section class="content">
@@ -83,14 +47,15 @@ endblock %} {% block body %}
 
         <div>
           <div>
-            <div>{{ trick.nom }}</div>
             <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
               <img
-                src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-                alt="{{ trick.nom }}"
+              src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+              alt="{{ trick.nom }}"
               />
               {# trick.photo numero 1 get photo #}
             </a>
+            <div>{{ trick.nom }}</div>
+
           </div>
           <div>
             <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>

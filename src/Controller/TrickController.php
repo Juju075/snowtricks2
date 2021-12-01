@@ -7,6 +7,8 @@ use App\Entity\Trick;
 use App\Entity\Comment;
 
 use App\Form\TrickType;
+use App\Form\CommentType;
+
 
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -104,10 +106,24 @@ class TrickController extends AbstractController
     /**
     * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET"})
     */
-    public function show(Trick $trick):Response
+    public function show(Request $request, EntityManagerInterface $em, Trick $trick):Response
     {
-        //return $this->render('tricks/show.html.twig', compact('trick'));
-        return $this->render('tricks/show.html.twig', ['trick'=>$trick]);
+        $comment = new Comment;
+        $form = $this->createform(CommentType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted()&& $form->isValid()) {
+            //setter le contenu du nouveau comment
+            $content = $form->get('content')->getData();
+            $comment->setContent($content);
+
+            $em->persist($comment);
+            $em->flush();
+        }
+
+        $photos = null;
+        $videos = null;
+        return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'form'=>$form]);
     }
 
 
