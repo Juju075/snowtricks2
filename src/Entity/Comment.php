@@ -59,6 +59,21 @@ class Comment
         return $this->user;
     }
 
+    // eseast for twig for
+    public function getUserFullName(): ?User
+    {
+        return $this->user->getFullName;
+    }
+
+    public function getUserAvatar(): ?User
+    {
+        return $this->user->getUserAvatar;
+    }
+
+
+    //
+
+
     public function setUser(?User $user): self
     {
         $this->user = $user;

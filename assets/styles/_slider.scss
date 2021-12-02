@@ -1,7 +1,7 @@
-/* https://www.bourbon.io/ */
+@import "bourbon/core/bourbon";
+
 /*---- NUMBER OF SLIDE CONFIGURATION ----*/
 $num-of-slide: 5;
-
 .wrapper {
   max-width: 60em;
   margin: 1em auto;
@@ -33,7 +33,7 @@ article {
   position: absolute;
   top: 50%;
   width: 100%;
-  @include transform(translateY(-50%));
+  //@include transform(translateY(-50%)); //non trouve
 
   label {
     display: none;
@@ -62,7 +62,7 @@ article {
     width: 10px;
     height: 10px;
     background: #bbb;
-    @include transition(all 0.3s);
+    //@include transition(all 0.3s);
 
     &:hover {
       background: #ccc;
@@ -79,7 +79,7 @@ article {
   opacity: 0;
   color: #000;
   text-align: left;
-  @include transition(all 1000ms ease-out 600ms);
+  //@include transition(all 1000ms ease-out 600ms);
 
   h3 {
     color: #fcfff4;
@@ -118,8 +118,8 @@ article {
   box-shadow: 1px 1px 4px #666;
   background: #fff;
   background: #fcfff4;
-  @include transform(translateZ(0));
-  @include transition(all 500ms ease-out);
+  //@include transform(translateZ(0));
+  //@include transition(all 500ms ease-out);
 
   .inner {
     @include transform(translateZ(0));

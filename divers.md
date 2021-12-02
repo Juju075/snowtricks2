@@ -57,7 +57,7 @@ La connexion se fait sur une page dédiée via le nom d’utilisateur et le mot 
 il peut cliquer sur « mot de passe oublié » et
 sera redirigé vers la page d’oubli du mot de passe.
 
-[RESETPASSWORD] En attente pb login make:reset-password
+[RESETPASSWORD] En attente pb login make:reset-password OK
 https://symfony.com/doc/current/security/passwords.html#reset-password
 Une fois arrivé sur cette page, l’utilisateur peut entrer un nouveau mot de passe via un
 formulaire.

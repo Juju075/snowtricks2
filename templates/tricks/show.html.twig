@@ -86,6 +86,12 @@ section getComments
   <article class="container_project">
     foreache comment in comments
     {{ dump(comments) }}
+    {% for comment in comments %}
+    {# <p>{{ comment.userfullname }}</p> 
+    <p>{{ comment.avatar }}</p> 
+    <p>{{ comment.content }}</p>
+    <p>{{ comment.createdat }}</p>    #}
+    {% endfor %}
   </article>
 </section>
 {% endblock body %}
