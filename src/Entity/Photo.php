@@ -31,13 +31,6 @@ class Photo
      */
     private $trick;
 
-    // Ajouter
-    // public function setTrick(?Trick $trick) 
-    // {
-    //     $this->trick = $trick;
-    //     return $this;
-    // }
-
     public function setTrick(?Trick $trick) 
     {
         $this->trick = $trick;

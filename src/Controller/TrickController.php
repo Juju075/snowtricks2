@@ -12,14 +12,14 @@ use App\Form\CommentType;
 
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
-
+use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
@@ -109,11 +109,10 @@ class TrickController extends AbstractController
     public function show(Request $request, EntityManagerInterface $em, Trick $trick):Response
     {
         $comment = new Comment;
-        $form = $this->createform(CommentType::class);
+        $form = $this->createform(CommentType::class, $comment);
 
         $form->handleRequest($request);
         if ($form->isSubmitted()&& $form->isValid()) {
-            //setter le contenu du nouveau comment
             $content = $form->get('content')->getData();
             $comment->setContent($content);
 
@@ -121,11 +120,16 @@ class TrickController extends AbstractController
             $em->flush();
         }
 
+        //Data pour la vue ou trick.photo 
+        //Affichages de 3 photos et 3 videos
+        //Affichages du listing des commentaires
+        //getters de trick {{ trick.photo }}
         $photos = $trick->getPhoto();
+        dump($photos);
         $videos = $trick->getVideo();
         $comments = $trick->getComments();
-        dump($photos);
         $videos = null;
+
         return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'comments'=>$comments, 'form'=>$form]);
     }
 

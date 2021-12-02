@@ -2,19 +2,32 @@
 {% block body %} {% for flashError in app.flashes('verify_email_error') %}
 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
 {% endfor %}
-<h1>Register</h1>
 
 {{ form_start(registrationForm) }}
-{{ form_row(registrationForm.prenom) }}
-{{ form_row(registrationForm.nom) }}
-{{ form_row(registrationForm.email) }}
-{{
-  form_row(registrationForm.plainPassword, {
-    label: "Password"
-  })
-}}
-{{ form_row(registrationForm.agreeTerms) }}
+<div class="container_project">
+  <div>
+    <h1>Register</h1>
+  </div>
+  <div>
+    <div>{{ form_row(registrationForm.prenom) }}</div>
+    <div>{{ form_row(registrationForm.nom) }}</div>
+  </div>
+  <div class="">
+    <div>{{ form_row(registrationForm.email) }}</div>
+    <div>
+      {{ form_row(registrationForm.plainPassword, { label: "Password" }) }}
+    </div>
+    <div>
+      {{ form_row(registrationForm.agreeTerms) }}
+    </div>
+  </div>
+  <div>
+    <a href="{{ path('app_home') }}">Retour page d'Acceuil</a>
+  </div>
+  <div class="">
+    <button type="submit" class="btn">Register</button>
+  </div>
+</div>
 
-<button type="submit" class="btn">Register</button>
 {{ form_end(registrationForm) }}
 {% endblock %}

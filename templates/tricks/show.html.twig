@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html.twig' %}{% block title %}Show!{% endblock %} {%
 block body%} {# Page de detail.#}
+{{ include("layouts/partials/_nav.html.twig") }}
 <!-- ======================================================================= -->
 <!-- Section slider -->
 <!-- ======================================================================= -->
@@ -17,9 +18,11 @@ section illustration
   <article class="container_project">
     <!-- foreach avec une limite de 3 max -->
     <!-- Variable "photos" does not exist.   |batch(3) -->
-    trick.getPhoto
+
     {{ dump(trick) }}
+    collection photos
     {{ dump(photos) }}
+    collection videos
     {{ dump(videos) }}
     {% for photo in photos %} {% endfor %} {% for photo in photos %} {% endfor
     %}
@@ -37,9 +40,22 @@ section description
     <div>
       <p>{{ trick.description }}</p>
     </div>
-    {# {{ trick.createdat }}
-    {{ trick.groupe }}
-    {{ trick.updatedat }} #}
+    <div class="">
+      <div>    
+        <p>Date de création:</p>
+        {{ trick.createdAt|date("m/d/Y") }}
+        <time datetime="{{ trick.createdAt|date("m/d/Y") }}"</time> 
+      </div>
+      <div>
+        <p>Groupe:</p>
+        {{ trick.groupe }}
+      </div>
+      <div>
+        <p>Modifié le:</p>
+        {{ trick.updatedAt|date("m/d/Y") }}
+        <time datetime ="{{ trick.updatedAt|date("m/d/Y") }}"</time>         
+      </div>
+    </div>
   </article>
 </section>
 <!-- ======================================================================= -->
@@ -49,12 +65,16 @@ section leaveComment
 <section class="leaveComment">
   <article class="container_project">
     <h6>Veuilez saisir votre commentaire!</h6>
-
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-
-    button submit
-    {{ form_end(form) }}
+    <div>
+      {{ form_start(form) }}
+      {{ form_widget(form) }}
+      <input
+        type="submit"
+        value="{{ submitButtonText|default('Soumettre') }}"
+        formnovalidate
+      />
+      {{ form_end(form) }}
+    </div>
   </article>
 </section>
 <!-- ======================================================================= -->
