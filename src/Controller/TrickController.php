@@ -115,7 +115,9 @@ class TrickController extends AbstractController
         if ($form->isSubmitted()&& $form->isValid()) {
             $content = $form->get('content')->getData();
             $comment->setContent($content);
-
+            //Le champ 'user_id' ne peut être vide
+            $comment->setUser($trick->getUser());
+            $comment->setTrick($trick);
             $em->persist($comment);
             $em->flush();
         }
