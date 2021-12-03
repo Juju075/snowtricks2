@@ -11,6 +11,9 @@ use App\Form\CommentType;
 
 
 use App\Repository\TrickRepository;
+use App\Repository\CommentRepository;
+use App\Repository\PhotoRepository;
+use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +32,7 @@ class TrickController extends AbstractController
     public function index(TrickRepository $trickRepository): Response
     {
         $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
+        dump($tricks);
         return $this->render('tricks/index.html.twig', compact('tricks'));
     }
 
@@ -106,7 +110,7 @@ class TrickController extends AbstractController
     /**
     * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET","POST"})
     */
-    public function show(Request $request, EntityManagerInterface $em, Trick $trick):Response
+    public function show(Request $request, EntityManagerInterface $em, Trick $trick, CommentRepository $comments, VideoRepository $videos, PhotoRepository $photos):Response
     {
         $comment = new Comment;
         $form = $this->createform(CommentType::class, $comment);
@@ -126,23 +130,28 @@ class TrickController extends AbstractController
         //Affichages de 3 photos et 3 videos
         //Affichages du listing des commentaires
         //getters de trick {{ trick.photo }}
-        $photos = $trick->getPhoto();
+        //.recuperer le listing via le get de la collection
+        //ou depuis un repository de la bdd
+
+        //ATTENTION BRICOLAGE  
+        //$photos = $trick->getPhoto();
+        $photos->findBy([], ['createdAt'=>'DESC']);
         dump($photos);
-        $videos = $trick->getVideo();
-        $comments = $trick->getComments();
-        $videos = null;
+        
+        //$videos = $trick->getVideo();
+        $videos->findBy([], ['createdAt'=>'DESC']);
+
+        //$comments = $trick->getComments();
+        $comments->findBy([], ['createdAt'=>'DESC']);
 
         return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'comments'=>$comments, 'form'=>$form]);
     }
-
-
-
 
     // @Security("is_granted('TRICK_DELETE', trick)")
     // methods={"GET","PUT"}
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET","POST"})
+     * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET", "PUT"})
      */
     public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
