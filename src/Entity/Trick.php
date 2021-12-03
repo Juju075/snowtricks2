@@ -7,8 +7,10 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\TrickRepository;
 use App\Entity\Traits\Timestampable;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 use Symfony\Component\Validator\Constraints as Assert;
+
 
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -66,6 +68,13 @@ class Trick
      */
     private $videos;  
 
+    //vas generer un slug base sur le titre $nom
+    /**
+     * @Gedmo\Slug(fields={"nom"})
+     * @ORM/column(type="string", length=255)
+     */
+    protected $slug;
+
 
     //a l'instantation d'un trick on cree automatiquement une collection de comment vide [].
     public function __construct()
@@ -84,18 +93,30 @@ class Trick
     {
         return $this->nom;
     }
-
+    
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
-
+        
         return $this;
     }
+    
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+    
     public function getDescription(): ?string
     {
         return $this->description;
     }
+    
+    
 
     public function setDescription(string $description): self
     {
@@ -104,10 +125,6 @@ class Trick
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
 
     public function setuser(?User $user): self
     {

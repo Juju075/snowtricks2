@@ -228,4 +228,6 @@ class TrickController extends AbstractController
             return new JsonResponse(['error'=>'Token Invalide'], 400);
         }
     }
+
+
 }
