@@ -16,6 +16,10 @@
     bottom: 0;
     margin-left: -1500px;
     background-color: #fedcc8;
+
+    //Ajax scoll event  scroll_position
+    //reduce heigh
+    //height: 0vh;
   }
 
   .parallax__layer {
@@ -45,9 +49,29 @@
 
   &__textOverlay {
     position: absolute;
-    top: 300px;
+    width: 100%;
+    top: 330px;
     margin: auto;
-    border: 2px solid blue;
+    //border: 2px solid blue;
+
+    .container {
+      margin: auto;
+    }
+    h2 {
+      font-weight: 300;
+      line-height: 1.15; // used to set the distance between lines of text.
+      color: white;
+      font-size: 27px;
+    }
+    h4 {
+      font-weight: 300;
+      line-height: 1.15; // used to set the distance between lines of text.
+      color: white;
+      font-size: 20px;
+    }
+    img {
+      width: 200px;
+    }
   }
 
   $parallax__layers: 6;

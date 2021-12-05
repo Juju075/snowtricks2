@@ -17,3 +17,9 @@ app.request.attributes.get('_route') == 'app_tricks_edit' %}
   >
 </div>
 {% endfor %} {% endif %}
+<input
+  type="submit"
+  value="{{ submitButtonText|default('Create Trick') }}"
+  formnovalidate
+/>
+{{ form_end(form) }}

@@ -10,48 +10,126 @@ endblock %} {% block body %}
 <!-- Navigation ici -->
 <!-- ======================================================================= -->
 {{ include("layouts/partials/_nav.html.twig") }}
+
 <!-- ======================================================================= -->
 <!-- Slider -->
-<!--https://codepen.io/trungk18/pen/EydyoL -->
+<!-- https://codepen.io/trungk18/pen/EydyoL -->
 <!-- ======================================================================= -->
-{{ include("tricks/partials/_slider.html.twig") }}
+<section class="slider">
+  <article class="container_project flex">
+    <div class="wrapper">
+      <input checked type="radio" name="slider" id="slide1" />
+      <input type="radio" name="slider" id="slide2" />
+      <input type="radio" name="slider" id="slide3" />
+      <input type="radio" name="slider" id="slide4" />
+      <input type="radio" name="slider" id="slide5" />
+
+      <div class="slider-wrapper">
+        <div class="inner">
+          <article>
+            <div class="info top-left">
+              <h3>Malacca</h3>
+            </div>
+            <img
+              src="{{ asset('/build/images/slider/slide_01.2b299962.jpg') }}"
+            />
+          </article>
+
+          <article>
+            <div class="info bottom-right">
+              <h3>Cameron Highland</h3>
+            </div>
+            <img
+              src="{{ asset('build/images/slider/slide_02.fda8fc9d.jpg') }}"
+            />
+          </article>
+
+          <article>
+            <div class="info bottom-left">
+              <h3>New Delhi</h3>
+            </div>
+            <img
+              src="{{ asset('build/images/slider/slide_03.f2b46063.jpg') }}"
+            />
+          </article>
+
+          <article>
+            <div class="info top-right">
+              <h3>Ladakh</h3>
+            </div>
+            <img
+              src="{{ asset('build/images/slider/slide_04.43cb7816.jpg') }}"
+            />
+          </article>
+
+          <article>
+            <div class="info bottom-left">
+              <h3>Nubra Valley</h3>
+            </div>
+            <img
+              src="{{ asset('build/images/slider/slide_05.a98328d6.jpg') }}"
+            />
+          </article>
+        </div>
+        <!-- .inner -->
+      </div>
+      <!-- .slider-wrapper -->
+
+      <div class="slider-prev-next-control">
+        <label for="slide1"></label>
+        <label for="slide2"></label>
+        <label for="slide3"></label>
+        <label for="slide4"></label>
+        <label for="slide5"></label>
+      </div>
+      <!-- .slider-prev-next-control -->
+
+      <div class="slider-dot-control">
+        <label for="slide1"></label>
+        <label for="slide2"></label>
+        <label for="slide3"></label>
+        <label for="slide4"></label>
+        <label for="slide5"></label>
+      </div>
+      <!-- .slider-dot-control -->
+    </div>
+  </article>
+</section>
+
 <!-- ======================================================================= -->
+<!-- Card Model-->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
 <section class="content">
-  <article
-    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
-  >
-    <div class="content__cards">
-      <div class="content__cards">
-        {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
-
+  <article class="container_project container_project--pall">
+    <div class="flex">
+      {% if tricks|length > 0 %} {# cards here by row#} {% for row in
+      tricks|batch(4)%} {% for trick in row %}
+      <div class="content__card">
         <div>
-          <div>
-            <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
-              <img
-                src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-                alt="{{ trick.nom }}"
-              />
-              {# trick.photo numero 1 get photo #}
-            </a>
-            <div>{{ trick.nom }}</div>
-          </div>
-          <div>
-            <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
-            <a href=" {{ path('app_tricks_delete', { id: trick.id }) }}"
-              >Delete</a
-            >
-          </div>
+          <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
+            <img
+              src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+              alt="{{ trick.nom }}"
+            />
+            {# trick.photo numero 1 get photo #}
+          </a>
+          <div>{{ trick.nom }}</div>
         </div>
-
-        {% endfor %} {% else %}
-        <p class="">
-          No Trick yet
-          <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
-        </p>
-        {% endif %}
+        <div>
+          <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
+          <a href=" {{ path('app_tricks_delete', { id: trick.id }) }}"
+            >Delete</a
+          >
+        </div>
       </div>
+
+      {% endfor %} {% endfor %} {% else %}
+      <p class="">
+        No Trick yet
+        <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
+      </p>
+      {% endif %}
     </div>
 
     <div class="content">
@@ -62,4 +140,4 @@ endblock %} {% block body %}
 </section>
 {% endblock %} {# App_home #} {# template base | body scss | foreach tricks |
 items paralax container for slider #} {#Best paralax - Montain-
-https://codepen.io/samdbeckham/pen/OPXPNp #} {#Best cards - Sport - #}
+https://codepen.io/samdbeckham/pen/OPXPNp #} {#Best cards - Sport - #} {#Card #}
