@@ -5,17 +5,12 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\TrickRepository;
 use App\Entity\Traits\Timestampable;
-use Gedmo\Mapping\Annotation as Gedmo;
-
-use Symfony\Component\Validator\Constraints as Assert;
-
 
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-
-
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
@@ -68,12 +63,12 @@ class Trick
      */
     private $videos;  
 
-    //vas generer un slug base sur le titre $nom
-    /**
-     * @Gedmo\Slug(fields={"nom"})
-     * @ORM/column(type="string", length=255)
-     */
-    protected $slug;
+    // //vas generer un slug base sur le titre $nom
+    // /**
+    //  * @Gedmo\Slug(fields={"nom"})
+    //  * @ORM/column(type="string", length=255)
+    //  */
+    // protected $slug;
 
 
     //a l'instantation d'un trick on cree automatiquement une collection de comment vide [].

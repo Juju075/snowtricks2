@@ -1,38 +1,20 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
 endblock %} {% block body %}
 <!-- ======================================================================= -->
-<!-- Section - Introduction -->
+<!-- Parallax -->
+<!-- https://codepen.io/samdbeckham/pen/OPXPNp -->
 <!-- ======================================================================= -->
-<section class="intro">
-  {#} {{ include("tricks/_parallax.html.twig") }}
-  {{ include("tricks/_slider.html.twig") }} {#}
+{{ include("tricks/partials/_parallax.html.twig") }}
 
-  <article
-    class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
-  >
-    <!-- =================================================================== -->
-    <!-- text_overlay -->
-    <!-- =================================================================== -->
-    <div class="">
-      <div><h2>Backcountry.com</h2></div>
-      <div>
-        <h4>"The Best Tricks Ever 2022"</h4>
-        <h4>Brought to you by</h54
-        <div>
-          <img src="{{ asset('/build/images/logo.png') }}" alt="" />
-          <img
-            src="{{ asset('/build/images/logo_nitro1.f726295d.png') }}"
-            alt=""
-          />
-        </div>
-      </div>
-    </div>
-  </article>
-</section>
 <!-- ======================================================================= -->
 <!-- Navigation ici -->
 <!-- ======================================================================= -->
 {{ include("layouts/partials/_nav.html.twig") }}
+<!-- ======================================================================= -->
+<!-- Slider -->
+<!--https://codepen.io/trungk18/pen/EydyoL -->
+<!-- ======================================================================= -->
+{{ include("tricks/partials/_slider.html.twig") }}
 <!-- ======================================================================= -->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
@@ -40,21 +22,20 @@ endblock %} {% block body %}
   <article
     class="container_project container_project--pall flex flex-jc-sb flex-ai-c"
   >
-    <div class="row">
-      <div class="cards">
+    <div class="content__cards">
+      <div class="content__cards">
         {% if tricks|length > 0 %} {# card here #} {% for trick in tricks %}
 
         <div>
           <div>
             <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
               <img
-              src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-              alt="{{ trick.nom }}"
+                src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+                alt="{{ trick.nom }}"
               />
               {# trick.photo numero 1 get photo #}
             </a>
             <div>{{ trick.nom }}</div>
-
           </div>
           <div>
             <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
