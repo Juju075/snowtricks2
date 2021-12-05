@@ -25,13 +25,13 @@
   }
 
   article {
-    //width: percentage(1 / $num-of-slide);
+    width: percentage(1 / $num-of-slide);
     float: left;
     position: relative;
 
-    // img {
-    //   width: 100%; //max taille conteneur
-    // }
+    img {
+      width: 100%; //max taille conteneur
+    }
   }
 
   /*---- SET UP CONTROL ----*/
