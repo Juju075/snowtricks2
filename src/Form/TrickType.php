@@ -5,7 +5,7 @@ namespace App\Form;
 use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,7 +19,7 @@ class TrickType extends AbstractType
         $builder
             ->add('nom', TextType::class)
             ->add('description', TextareaType::class)
-            ->add('groupe', TextareaType::class)
+            ->add('category', EntityType::class, ['class'=>Category::class, 'choice_label'=>'nom'])
 
             //ajouter user_id cham
             //champs image

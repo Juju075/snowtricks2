@@ -36,7 +36,7 @@ class TrickController extends AbstractController
     {
         $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         dump($tricks);
-        return $this->render('tricks/index.html.twig', compact('tricks'));
+        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
     }
 
     /**
@@ -116,7 +116,8 @@ class TrickController extends AbstractController
     /**
     * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET","POST"})
     */
-    public function show(Request $request, EntityManagerInterface $em, Trick $trick, CommentRepository $comments, VideoRepository $videos, PhotoRepository $photos):Response
+    //public function show(Request $request, EntityManagerInterface $em, Trick $trick, CommentRepository $comments, VideoRepository $videos, PhotoRepository $photos):Response
+    public function show(Trick $trick):Response
     {
 
         //Recherche le trick {id} correspondant au $slug

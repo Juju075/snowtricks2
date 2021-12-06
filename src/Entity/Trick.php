@@ -61,7 +61,13 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity=Video::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
-    private $videos;  
+    private $videos;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;  
 
     // //vas generer un slug base sur le titre $nom
     // /**
@@ -241,6 +247,18 @@ class Trick
                 $videos->setVideo(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }    
