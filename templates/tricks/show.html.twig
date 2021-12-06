@@ -38,7 +38,7 @@ section description
 <section class="description">
   <article class="container_project">
     <div>
-      <p>{{ trick.description }}</p>
+      <p>{{ trick.description|raw }}</p>
     </div>
     <div class="">
       <div>    
@@ -91,7 +91,7 @@ section getComments
     {% for comment in comments %}
     {# <p>{{ comment.userfullname }}</p> 
     <p>{{ comment.avatar }}</p> 
-    <p>{{ comment.content }}</p>
+    <p>{{ comment.content |raw}}</p>
     <p>{{ comment.createdat }}</p>    #}
     {% endfor %}
   </article>

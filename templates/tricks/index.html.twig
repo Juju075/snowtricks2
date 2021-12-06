@@ -102,12 +102,20 @@ endblock %} {% block body %}
 <section class="content">
   <article class="container_project container_project--pall">
     <div class="flex">
-      {% if tricks|length > 0 %} {# cards here by row#} {% for row in
-      tricks|batch(4)%} {% for trick in row %}
+      {% if tricks|length > 0 %} {# cards here by row#}
+      <div>
+        <h2 class="">{{ pluralize(tricks | length, "Trick") }}</h2>
+      </div>
+      {% for row in tricks|batch(4)%} {% for trick in row %}
       <div class="content__card">
         <div>
           <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
             <img
+              {#}{{ asset('uploads/images/tricks'~ trick.name[0])}}
+              {#}
+              {#}
+              src="{{ :asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+              {#}
               src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
               alt="{{ trick.nom }}"
             />

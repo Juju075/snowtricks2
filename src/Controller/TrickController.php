@@ -26,6 +26,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
+
+    
+
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
@@ -107,11 +110,24 @@ class TrickController extends AbstractController
        return $fields;
     }
 
+
+    //La Route est appele via un slug *Route("/{slug}", name="app_tricks_show", methods={"GET","POST"})
+    //Injecter egalement le parametre $slug 
     /**
     * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET","POST"})
     */
     public function show(Request $request, EntityManagerInterface $em, Trick $trick, CommentRepository $comments, VideoRepository $videos, PhotoRepository $photos):Response
     {
+
+        //Recherche le trick {id} correspondant au $slug
+        //$trick = $this->$em->getRepository(Trick::class)->findOneBy(['slug'=>$slug]]);
+        //Condition si non trouve throw 404
+        //attention peut etre erreur pagination il faut modifier KnpPagination voir 6:58
+
+        if (!$trick) {
+            throw $this->createNotFoundException('Le trick n\'existe pas');
+        }
+
         $comment = new Comment;
         $form = $this->createform(CommentType::class, $comment);
 
