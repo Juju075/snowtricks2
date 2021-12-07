@@ -49,11 +49,6 @@ class Trick
     private $comments;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $groupe;
-
-    /**
      * @ORM\OneToMany(targetEntity=Photo::class, mappedBy="trick", orphanRemoval=true, cascade={"persist"})
      */
     private $photos;
@@ -70,11 +65,11 @@ class Trick
     private $category;  
 
     // //vas generer un slug base sur le titre $nom
-    // /**
-    //  * @Gedmo\Slug(fields={"nom"})
-    //  * @ORM/column(type="string", length=255)
-    //  */
-    // protected $slug;
+    /**
+     * @Gedmo\Slug(fields={"nom"})
+     * @ORM\Column(type="string", length=255)
+     */
+    protected $slug;
 
 
     //a l'instantation d'un trick on cree automatiquement une collection de comment vide [].
@@ -160,18 +155,6 @@ class Trick
                 $comments->setTrick(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getGroupe(): ?string
-    {
-        return $this->groupe;
-    }
-
-    public function setGroupe(string $groupe): self
-    {
-        $this->groupe = $groupe;
 
         return $this;
     }

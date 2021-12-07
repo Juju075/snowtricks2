@@ -111,20 +111,11 @@ class TrickController extends AbstractController
     }
 
 
-    //La Route est appele via un slug *Route("/{slug}", name="app_tricks_show", methods={"GET","POST"})
-    //Injecter egalement le parametre $slug 
     /**
-    * @Route("/tricks/{id<[0-9]+>}", name="app_tricks_show", methods={"GET","POST"})
+    * @Route("/tricks/{slug}", name="app_tricks_show", methods={"GET","POST"})
     */
-    //public function show(Request $request, EntityManagerInterface $em, Trick $trick, CommentRepository $comments, VideoRepository $videos, PhotoRepository $photos):Response
-    public function show(Trick $trick):Response
+    public function show(Request $request, Trick $trick, EntityManagerInterface $em):Response
     {
-
-        //Recherche le trick {id} correspondant au $slug
-        //$trick = $this->$em->getRepository(Trick::class)->findOneBy(['slug'=>$slug]]);
-        //Condition si non trouve throw 404
-        //attention peut etre erreur pagination il faut modifier KnpPagination voir 6:58
-
         if (!$trick) {
             throw $this->createNotFoundException('Le trick n\'existe pas');
         }
@@ -134,41 +125,20 @@ class TrickController extends AbstractController
 
         $form->handleRequest($request);
         if ($form->isSubmitted()&& $form->isValid()) {
-            $content = $form->get('content')->getData();
-            $comment->setContent($content);
-            //Le champ 'user_id' ne peut être vide
+
             $comment->setUser($trick->getUser());
-            $comment->setTrick($trick);
+            $trick->addComment($comment);
             $em->persist($comment);
             $em->flush();
         }
 
-        //Data pour la vue ou trick.photo 
-        //Affichages de 3 photos et 3 videos
-        //Affichages du listing des commentaires
-        //getters de trick {{ trick.photo }}
-        //.recuperer le listing via le get de la collection
-        //ou depuis un repository de la bdd
-
-        //ATTENTION BRICOLAGE  
-        //$photos = $trick->getPhoto();
-        $photos->findBy([], ['createdAt'=>'DESC']);
-        dump($photos);
-        
-        //$videos = $trick->getVideo();
-        $videos->findBy([], ['createdAt'=>'DESC']);
-
-        //$comments = $trick->getComments();
-        $comments->findBy([], ['createdAt'=>'DESC']);
-
-        return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick, 'photos'=>$photos, 'videos'=>$videos, 'comments'=>$comments, 'form'=>$form]);
+        return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick,'form'=>$form]);
     }
 
     // @Security("is_granted('TRICK_DELETE', trick)")
-    // methods={"GET","PUT"}
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/tricks/{id<[0-9]+>}/edit", name="app_tricks_edit", methods={"GET", "PUT"})
+     * @Route("/tricks/{slug}/edit", name="app_tricks_edit", methods={"GET", "PUT"})
      */
     public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
@@ -192,13 +162,14 @@ class TrickController extends AbstractController
                 $em->persist($trick);
                 $em->flush();
         }
+
         return $this->renderForm('tricks/edit.html.twig',['form'=>$form, 'trick'=>$trick]);
     }
 
     // @Security("is_granted('TRICK_DELETE', trick)")
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/tricks/{id<[0-9]+>}/delete", name ="app_tricks_delete", methods={"DELETE"})
+     * @Route("/tricks/{slug}/delete", name ="app_tricks_delete", methods={"DELETE"})
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     { 
@@ -223,7 +194,7 @@ class TrickController extends AbstractController
 
     /**
      * id de la photo
-     * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
+     * @Route("/delete/photo/{slug}", name="app_delete_photo", methods={"DELETE"})
      */
     public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
     {

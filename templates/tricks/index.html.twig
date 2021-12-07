@@ -109,23 +109,27 @@ endblock %} {% block body %}
       {% for row in tricks|batch(4)%} {% for trick in row %}
       <div class="content__card">
         <div>
-          <a href=" {{ path('app_tricks_show', { id: trick.id }) }}">
-            <img
-              {#}{{ asset('uploads/images/tricks'~ trick.name[0])}}
-              {#}
-              {#}
-              src="{{ :asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-              {#}
-              src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-              alt="{{ trick.nom }}"
-            />
-            {# trick.photo numero 1 get photo #}
+          <a href=" {{ path('app_tricks_show', { slug: trick.slug }) }}">
+            <img {#}{{ asset('uploads/images/tricks'~ trick.name[0])}} {#} {#}
+            src="{{ :asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')
+
+
+
+
+            }}" {#} src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')
+
+
+
+
+            }}" alt="{{ trick.nom }}" /> {# trick.photo numero 1 get photo #}
           </a>
           <div>{{ trick.nom }}</div>
         </div>
         <div>
-          <a href=" {{ path('app_tricks_edit', { id: trick.id }) }}">Edit</a>
-          <a href=" {{ path('app_tricks_delete', { id: trick.id }) }}"
+          <a href=" {{ path('app_tricks_edit', { slug: trick.slug }) }}"
+            >Edit</a
+          >
+          <a href=" {{ path('app_tricks_delete', { slug: trick.slug }) }}"
             >Delete</a
           >
         </div>
