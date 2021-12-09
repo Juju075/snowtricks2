@@ -84,78 +84,44 @@ endblock %} {% block body %}
     <span class="sr-only">Next</span>
   </a>
 </div>
+
 <!-- ======================================================================= -->
 <!-- Card Model-->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
+{# Cards count #} {% if tricks|length > 0 %}
+<div>
+  <h2 class="">{{ pluralize(tricks | length, "Trick") }}</h2>
+</div>
+
+debut {% for row in tricks|batch(4)%} {% for trick in row %} {#Row de 4#}
 <div class="card" style="width: 18rem">
-  <img class="card-img-top" src="..." alt="Card image cap" />
+  <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
+    <img
+      class="card-img-top"
+      src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+      alt="Image link show ici"
+    />
+  </a>
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
+    <h5 class="card-title">{{ trick.nom }}</h5>
+    <p class="card-text">Description tronque ?</p>
+    <a
+      href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
+      class="btn btn-primary"
+      >Edit</a
+    >
+    <a
+      href="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
+      class="btn btn-primary"
+      >Supprimer</a
+    >
   </div>
 </div>
 
-<section class="content">
-  <article class="container_project container_project--pall">
-    <div class="flex">
-      {% if tricks|length > 0 %} {# cards here by row#}
-      <div>
-        <h2 class="">{{ pluralize(tricks | length, "Trick") }}</h2>
-      </div>
-      {% for row in tricks|batch(4)%} {% for trick in row %}
-      <div class="content__card">
-        <div>
-          <a href=" {{ path('app_tricks_show', { slug: trick.slug }) }}">
-            <img {#}{{ asset('uploads/images/tricks'~ trick.name[0])}} {#} {#}
-            src="{{ :asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')
-
-
-
-
-
-
-
-            }}" {#} src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')
-
-
-
-
-
-
-
-            }}" alt="{{ trick.nom }}" /> {# trick.photo numero 1 get photo #}
-          </a>
-          <div>{{ trick.nom }}</div>
-        </div>
-        <div>
-          <a href=" {{ path('app_tricks_edit', { slug: trick.slug }) }}"
-            >Edit</a
-          >
-          <a href=" {{ path('app_tricks_delete', { slug: trick.slug }) }}"
-            >Delete</a
-          >
-        </div>
-      </div>
-
-      {% endfor %} {% endfor %} {% else %}
-      <p class="">
-        No Trick yet
-        <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
-      </p>
-      {% endif %}
-    </div>
-
-    <div class="content">
-      {# {{ include("layouts/partials/_nav.html.twig") }} #} {#
-      https://codepen.io/ig_design/pen/VwedgWj #}
-    </div>
-  </article>
-</section>
-{% endblock %} {# App_home #} {# template base | body scss | foreach tricks |
-items paralax container for slider #} {#Best paralax - Montain-
-https://codepen.io/samdbeckham/pen/OPXPNp #} {#Best cards - Sport - #} {#Card #}
+{% endfor %} {% endfor %} fin {% else %}
+<p class="">
+  No Trick yet
+  <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
+</p>
+{% endif %} {% endblock %}
