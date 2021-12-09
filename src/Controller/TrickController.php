@@ -70,17 +70,8 @@ class TrickController extends AbstractController
                 $img = new Photo();
                 $img->setName($fichier);
                 $img->setTrick($trick);
-                $trick->addPhoto($img); //[]de photos $this->photos[] = $photos;
-                //Foreign key set: setTrick valeur id (mappedBy="trick")du trick
-                //depuis l'entite du controlleur Trick fonction disponible.
+                $trick->addPhoto($img);
 
-                //$img et $trick (les entites en relation)
-                //ou se trouve la fonction qu'on veut appeler pour setter
-                //quel est la variable cible.
-                //quel valeur on vas lui donner
-                //quel est le getter qui vas le recuperer.
-                //$this pour indiquer que celui encours.
-                
 
                 // dump trick_id pas encore persiste
 
@@ -182,6 +173,7 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+    //Limiter un commentaire par user
     /**
      * @Route("/comments/create", name="app_comment_create", methods={"GET","POST"})
      */
