@@ -24,7 +24,7 @@ endblock %} {% block body %}
     <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
   </ol>
 
-  <div class="carousel-inner">
+  <div class="carousel-inner" 
     <div class="carousel-item active">
       <img
         class="d-block w-100"
@@ -94,11 +94,13 @@ endblock %} {% block body %}
 <div class="container">
   {# Cards count #} {% if tricks|length > 0 %}
   <div>
-    <h2 class="">{{ pluralize(tricks | length, "Trick") }}</h2>
+    <h2>{{ pluralize(tricks | length, "Trick") }}</h2>
   </div>
   {# row #}
-  <div class=".d-flex">
-    {% for row in tricks|batch(4)%} {% for trick in row %} {#Row de 4#}
+  {% for row in tricks|batch(4)%} 
+  <div class="d-flex">
+    {% for trick in row %}
+
     <div class="card" style="width: 18rem">
       <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
         <img
@@ -122,7 +124,8 @@ endblock %} {% block body %}
         >
       </div>
     </div>
+  {% endfor %}
   </div>
-  {% endfor %} {% endfor %} {# fermeture #} {% else %}{% endif %}
+ {% endfor %} {# fermeture #} {% else %}{% endif %}
 </div>
 {% endblock %}
