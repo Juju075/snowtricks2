@@ -3,17 +3,17 @@ endblock %} {% block body %}
 <!-- ======================================================================= -->
 <!-- Navigation ici -->
 <!-- ======================================================================= -->
-<a class="nav-link" href="{{ path('app_home') }}">Home</a>
-<a class="nav-link" href="{{ path('app_tricks_create') }}">Create</a>
-<a class="nav-link" href="{{ path('app_register') }}">Register</a>
-<a class="nav-link" href="{{ path('app_login') }}">Login</a>
-<a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
+{{ include("layouts/partials/_nav.html.twig") }}
 
 <!-- ======================================================================= -->
-<!-- Slider -->
-<!-- https://codepen.io/trungk18/pen/EydyoL -->
+<!-- Carrousel Fullwide-->
+{# _quick.scss #}
 <!-- ======================================================================= -->
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+<div
+  id="carouselExampleIndicators"
+  class="carousel slide height"
+  data-ride="carousel"
+>
   <ol class="carousel-indicators">
     <li
       data-target="#carouselExampleIndicators"
@@ -89,39 +89,40 @@ endblock %} {% block body %}
 <!-- Card Model-->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
-{# Cards count #} {% if tricks|length > 0 %}
-<div>
-  <h2 class="">{{ pluralize(tricks | length, "Trick") }}</h2>
-</div>
+{{ dump(tricks) }}
 
-debut {% for row in tricks|batch(4)%} {% for trick in row %} {#Row de 4#}
-<div class="card" style="width: 18rem">
-  <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
-    <img
-      class="card-img-top"
-      src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-      alt="Image link show ici"
-    />
-  </a>
-  <div class="card-body">
-    <h5 class="card-title">{{ trick.nom }}</h5>
-    <p class="card-text">Description tronque ?</p>
-    <a
-      href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
-      class="btn btn-primary"
-      >Edit</a
-    >
-    <a
-      href="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
-      class="btn btn-primary"
-      >Supprimer</a
-    >
+<div class="container">
+  {# Cards count #} {% if tricks|length > 0 %}
+  <div>
+    <h2 class="">{{ pluralize(tricks | length, "Trick") }}</h2>
   </div>
+  {# row #}
+  <div class=".d-flex">
+    {% for row in tricks|batch(4)%} {% for trick in row %} {#Row de 4#}
+    <div class="card" style="width: 18rem">
+      <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
+        <img
+          class="card-img-top"
+          src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+          alt="Image link show ici"
+        />
+      </a>
+      <div class="card-body">
+        <h5 class="card-title">{{ trick.nom }}</h5>
+        <p class="card-text">Description tronque ?</p>
+        <a
+          href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
+          class="btn btn-primary"
+          >Edit</a
+        >
+        <a
+          href="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
+          class="btn btn-primary"
+          >Supprimer</a
+        >
+      </div>
+    </div>
+  </div>
+  {% endfor %} {% endfor %} {# fermeture #} {% else %}{% endif %}
 </div>
-
-{% endfor %} {% endfor %} fin {% else %}
-<p class="">
-  No Trick yet
-  <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
-</p>
-{% endif %} {% endblock %}
+{% endblock %}

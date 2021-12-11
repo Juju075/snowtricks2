@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html.twig' %} {% block title 'Log in!' %} {% block body
+%}
+<h2>Ajouter une photo</h2>
+{{ form_start(form) }}
+{{ form_row(form.name) }}
+<!--Le Prototype c le modele de sous formulaire -->
+<div
+  id="photo"
+  data-prototype="{{ form_row(form.photo.vars.prototype)|e('html_attr')}}"
+></div>
+
+{{ form_end(form) }}
+{% endblock %} {% block javascripts %}
+<script>
+  let collection, boutonAjout, span;
+
+  window.onload = () => {
+    collection = document.querySelector("");
+    span = collection.querySelector("span");
+    boutonAjout = document.createElement("button");
+    boutonAjout.className = "ajout-photo btn secondary";
+    boutonAjout.innerText = "Ajouter une photo";
+
+    //integrer le bouton dans la span
+    let nouveauBouton = span.append(boutonAjout);
+
+    //combien d'input ds la collection
+    collection.dataset.index = collection.querySelectorAll("input").length;
+
+    boutonAjout.addEventListener("click", function () {
+      addbutton(collection, nouveauBouton);
+    });
+  };
+
+  function addButton(collection, nouveauBouton) {
+    //recuperer le
+    let prototype = collection.dataset.prototype;
+
+    //recuperer prototype (div du model de sous formulaire).
+    let prototype = collection.dataset.prototype;
+
+    //recuperer l'index de la photo.
+    let index = collection.dataset.index;
+
+    //pour remplacer les names du prototype. chaine de caractere
+    prototype = prototype.replace(/__name__/g, index);
+    //Cree une balise html
+    let content = document.createElement("html");
+    //objet du dom sur lequel on vas pouvoir faire un queryselector.
+    content.innerHTML = prototype;
+
+    //version obj du DOM. vas chercher div
+    let newForm = content.querySelector("div");
+
+    /* Ajout bouton de suppresion dans le DOM */
+    let boutonSuppr = document.createElement("button");
+    boutonSuppr.type = "button";
+    buttonSupp.className = "btn red";
+    buttonSupp.id = "delete-photo-" + index;
+    buttonSupp.innerText = "Supprimer cette photo";
+
+    //Injecte un formulaire input en +
+    newForm.append(boutonSuppr);
+    collection.dataset.index++;
+
+    /* Ajout bouton d'Add */
+    let boutonAjout = collection.querySelector(".ajout-photo");
+    //ajoute le formulaire avant
+    span.insertBefore(newForm, boutonAjout);
+
+    boutonSuppr.addEventListener("click", function () {
+      //enleve le bouton supp au dessus
+      this.previousElementSibling.parentElement.remove();
+    });
+  }
+</script>
+{% endblock %}

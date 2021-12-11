@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
@@ -159,22 +158,6 @@ class Trick
         return $this;
     }
 
-    public function getImageFile(): ?File
-    {
-        return $this->imageFile;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function setImageName(?string $imageName): self
-    {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Photo[]
