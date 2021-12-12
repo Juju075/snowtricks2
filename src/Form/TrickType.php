@@ -40,8 +40,7 @@ class TrickType extends AbstractType
             //'type'=>PhotoType::class, 
             ->add('images', CollectionType::class,[
                 'entry_type'=>FileType::class,
-                'label'=>'',
-                //'entry_option'=> ['label'=>false], // does not exist ???
+                'entry_options'=> ['label'=>false],
                 'allow_add'=> true, 
                 'allow_delete'=> true, 
                 'by_reference'=> false, //ne vas pas chercher un set() mais un add()
@@ -49,6 +48,7 @@ class TrickType extends AbstractType
                 'mapped'=>false,
                 'prototype'=> true
             ])
+            
 
         //     ->add('valider'=> SubmitType::class)  
          ;
