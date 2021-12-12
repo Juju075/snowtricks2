@@ -36,8 +36,6 @@ class TrickType extends AbstractType
             ])
             ->add('category', EntityType::class, ['class'=>Category::class, 'choice_label'=>'nom'])
 
-            //https://www.npmjs.com/package/symfony-collection-js
-            //'type'=>PhotoType::class, 
             ->add('images', CollectionType::class,[
                 'entry_type'=>FileType::class,
                 'entry_options'=> ['label'=>false],
