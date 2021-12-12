@@ -11,7 +11,7 @@ endblock %} {% block body %}
 <!-- ======================================================================= -->
 <div
   id="carouselExampleIndicators"
-  class="carousel slide height"
+  class="carousel slide height mt-4"
   data-ride="carousel"
 >
   <ol class="carousel-indicators">
@@ -89,7 +89,7 @@ endblock %} {% block body %}
 <!-- Card Model-->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
-<div class="container">
+<div class="container mt-2">
   {% if tricks|length > 0 %}
     <h2 class="flex mx-auto border">{{ pluralize(tricks | length, "Trick") }}</h2>
   {# row #}
@@ -97,7 +97,7 @@ endblock %} {% block body %}
   <div class="d-flex">
     {% for trick in row %}
 
-    <div class="card" style="width: 18rem">
+    <div class="card ml-2" style="width: 18rem">
       <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
         <img
           class="card-img-top"
