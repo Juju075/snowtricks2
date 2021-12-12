@@ -90,10 +90,8 @@ endblock %} {% block body %}
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
 <div class="container">
-  {# Cards count #} {% if tricks|length > 0 %}
-  <div>
-    <h2>{{ pluralize(tricks | length, "Trick") }}</h2>
-  </div>
+  {% if tricks|length > 0 %}
+    <h2 class="flex mx-auto border">{{ pluralize(tricks | length, "Trick") }}</h2>
   {# row #}
   {% for row in tricks|batch(4)%} 
   <div class="d-flex">
