@@ -89,8 +89,6 @@ endblock %} {% block body %}
 <!-- Card Model-->
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
-{{ dump(tricks) }}
-
 <div class="container">
   {# Cards count #} {% if tricks|length > 0 %}
   <div>
@@ -128,4 +126,13 @@ endblock %} {% block body %}
   </div>
  {% endfor %} {# fermeture #} {% else %}{% endif %}
 </div>
-{% endblock %}
+<!-- ======================================================================= -->
+<!-- Pagination -->
+<!-- ======================================================================= -->
+<div class="container">
+  {% if tricks|length > 0 %}
+  <div>Pagination ici & bouton remonter list
+  </div>
+  {% endif %}
+</div>
+{% endblock %}  

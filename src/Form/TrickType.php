@@ -39,7 +39,7 @@ class TrickType extends AbstractType
             //https://www.npmjs.com/package/symfony-collection-js
             //'type'=>PhotoType::class, 
             ->add('images', CollectionType::class,[
-                'entry_type'=>PhotoType::class,
+                'entry_type'=>TrickType::class,
                 'label'=>'',
                 'entry_option'=> ['label'=>false],
                 'allow_add'=> true, 
