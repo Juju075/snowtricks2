@@ -1,33 +1,40 @@
-{{ form_widget(form.nom) }}
-{{ form_start(form.description) }}
-{{ form_widget(form.category) }}
-{{ dump(form.images) }}
-{{ form_widget(form.images) }}
+<div class="container">
+  <div>{{ form_start(form) }}</div>
 
-{# #} {% if app.request.attributes.get('_route') == 'app_tricks_create' %} si
-Ajouter input Telechargment {% endif %} {# Display following only for
-'app_trick_edit' #} {% if app.request.attributes.get('_route') ==
-'app_tricks_edit' %}
-<h2>Images</h2>
-par row de 3 {% for photo in trick.photo %}
-<div>
-  <img
-    src="{{ asset('/uploads/' ~ photo.name)|imagine_filter('squared_thumbnail_medium')}}"
-    alt="Image"
+  <div>{{ form_label(form.nom, "") }} {{ form_row(form.nom) }}</div>
+  <div>
+    {{ form_label(form.description, "") }} {{ form_row(form.description) }}
+  </div>
+  <div>{{ form_label(form.category, "") }} {{ form_row(form.category) }}</div>
+
+  {{ dump(form.images) }}
+
+  <div>{{ form_row(form.images) }}</div>
+  {# #} {% if app.request.attributes.get('_route') == 'app_tricks_create' %} si
+  Ajouter input Telechargment {% endif %} {# Display following only for
+  'app_trick_edit' #} {% if app.request.attributes.get('_route') ==
+  'app_tricks_edit' %}
+  <h2>Images</h2>
+  par row de 3 {% for photo in trick.photo %}
+  <div>
+    <img
+      src="{{ asset('/uploads/' ~ photo.name)|imagine_filter('squared_thumbnail_medium')}}"
+      alt="Image"
+    />
+    {# Supprimer la photo{id} selectionné rattache au trick{id}#} {#
+    TrickController deletePhoto() #}
+    <a
+      href="{{
+        path('app_delete_photo', { id: photo.id })
+      }} data-delete data-token={{ csrf_token('delete'~ photo.id )}} "
+      >Delete</a
+    >
+  </div>
+  {% endfor %} {% endif %} {# #} {# #}
+  <input
+    type="submit"
+    value="{{ submitButtonText|default('Create Trick') }}"
+    formnovalidate
   />
-  {# Supprimer la photo{id} selectionné rattache au trick{id}#} {#
-  TrickController deletePhoto() #}
-  <a
-    href="{{
-      path('app_delete_photo', { id: photo.id })
-    }} data-delete data-token={{ csrf_token('delete'~ photo.id )}} "
-    >Delete</a
-  >
+  {{ form_end(form) }}
 </div>
-{% endfor %} {% endif %} {# #} {# #}
-<input
-  type="submit"
-  value="{{ submitButtonText|default('Create Trick') }}"
-  formnovalidate
-/>
-{{ form_end(form) }}

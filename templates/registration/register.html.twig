@@ -1,10 +1,10 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}Register!{% endblock %}
-{% block body %} {% for flashError in app.flashes('verify_email_error') %}
+{% block body %} {{ include("layouts/partials/_nav.html.twig") }}{% for
+flashError in app.flashes('verify_email_error') %}
 <div class="alert alert-danger" role="alert">{{ flashError }}</div>
 {% endfor %}
-
-{{ form_start(registrationForm) }}
-<div class="container_project">
+<div class="container border">
+  {{ form_start(registrationForm) }}
   <div>
     <h1>Register</h1>
   </div>
@@ -27,7 +27,7 @@
   <div class="">
     <button type="submit" class="btn">Register</button>
   </div>
-</div>
 
-{{ form_end(registrationForm) }}
+  {{ form_end(registrationForm) }}
+</div>
 {% endblock %}
