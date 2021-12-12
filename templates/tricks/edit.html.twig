@@ -1,8 +1,8 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}Hello
 TricksController!{% endblock %} {% block body %}
-{{ include("layouts/partials/_nav.html.twig") }}
-{{ dump(trick) }}
 <div class="container border">
+  {{ include("layouts/partials/_nav.html.twig") }}
+  {{ dump(trick) }}
   <h1>Edit: {{ trick.nom }}</h1>
   <div>
     <!-- on inclus le formulaire -->
