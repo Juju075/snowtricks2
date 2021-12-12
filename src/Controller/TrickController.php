@@ -186,7 +186,8 @@ class TrickController extends AbstractController
 
     /**
      * id de la photo
-     * @Route("/delete/photo/{slug}", name="app_delete_photo", methods={"DELETE"})
+
+     * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
      */
     public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
     {

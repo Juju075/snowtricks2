@@ -25,25 +25,3 @@ app.request.attributes.get('_route') == 'app_tricks_edit' %}
   formnovalidate
 />
 {{ form_end(form) }}
-{# id pour pouvoir le cible en js #} {# attribut data-*
-https://developer.mozilla.org/fr/docs/Learn/HTML/Howto/Use_data_attributes #} {#
-form widget
-https://developer.mozilla.org/fr/docs/Learn/Forms/Basic_native_form_controls #}
-<div
-  id="trick_list"
-  data-prototype="{{ form_widget(form.trick.vars.prototype)|e('html_attr') }}"
-  {#
-  boucle
-  {%
-  for
-  row
-  in
-  form.trick
-  %}
-  {{
-  form_row(row)}}
-  {%
-  endfor
-  %}
-  #}
-></div>
