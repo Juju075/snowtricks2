@@ -1,16 +1,11 @@
 {% extends 'layouts/base.html.twig' %} {% block title 'New Trick' %} {% block
-body %}
-<section class="create">
-  <article class="container_project">
-    <div class="col-md-6 mx-auto">
-      <h1>Create Trick</h1>
-      {{
-        include("tricks/_form.html.twig", { submitButtonText: "Create Trick" })
-      }}
-    </div>
-    <div>
-      <a href="{{ path('app_home') }}">Retour page d'Accueil</a>
-    </div>
-  </article>
-</section>
+body %} {{ include("layouts/partials/_nav.html.twig") }}
+<div class="container mt-4 border">
+  <div class="col-md-12 mx-auto">
+    <h1>Create Trick</h1>
+    {{
+      include("tricks/_form.html.twig", { submitButtonText: "Create Trick" })
+    }}
+  </div>
+</div>
 {% endblock %}

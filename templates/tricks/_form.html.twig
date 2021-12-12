@@ -1,7 +1,13 @@
-{{ form_start(form) }}
-{{ form_widget(form) }}
-{# #} {# Display following only for 'app_trick_edit' #} {% if
-app.request.attributes.get('_route') == 'app_tricks_edit' %}
+{{ form_widget(form.nom) }}
+{{ form_start(form.description) }}
+{{ form_widget(form.category) }}
+{{ dump(form.images) }}
+{{ form_widget(form.images) }}
+
+{# #} {% if app.request.attributes.get('_route') == 'app_tricks_create' %} si
+Ajouter input Telechargment {% endif %} {# Display following only for
+'app_trick_edit' #} {% if app.request.attributes.get('_route') ==
+'app_tricks_edit' %}
 <h2>Images</h2>
 par row de 3 {% for photo in trick.photo %}
 <div>
