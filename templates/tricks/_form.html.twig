@@ -3,7 +3,7 @@
 {# #} {# Display following only for 'app_trick_edit' #} {% if
 app.request.attributes.get('_route') == 'app_tricks_edit' %}
 <h2>Images</h2>
-{% for photo in trick.photo %}
+par row de 3 {% for photo in trick.photo %}
 <div>
   <img
     src="{{ asset('/uploads/' ~ photo.name)|imagine_filter('squared_thumbnail_medium')}}"
