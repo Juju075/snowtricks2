@@ -1,4 +1,6 @@
 <div class="container">
+  {# {{ form_widget(form, { attr: { class: "form-control" } }) }} #}
+
   <div>{{ form_start(form) }}</div>
 
   <div>{{ form_row(form.nom) }}</div>
@@ -10,6 +12,7 @@
   {{ dump(form.images) }}
 
   <div>{{ form_row(form.images) }}</div>
+
   {# #} {% if app.request.attributes.get('_route') == 'app_tricks_create' %} si
   Ajouter input Telechargment {% endif %} {# Display following only for
   'app_trick_edit' #} {% if app.request.attributes.get('_route') ==
