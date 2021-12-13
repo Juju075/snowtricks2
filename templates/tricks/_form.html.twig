@@ -1,11 +1,11 @@
 <div class="container">
   <div>{{ form_start(form) }}</div>
 
-  <div>{{ form_label(form.nom, "") }} {{ form_row(form.nom) }}</div>
+  <div>{{ form_row(form.nom) }}</div>
   <div>
-    {{ form_label(form.description, "") }} {{ form_row(form.description) }}
+    {{ form_row(form.description) }}
   </div>
-  <div>{{ form_label(form.category, "") }} {{ form_row(form.category) }}</div>
+  <div>{{ form_row(form.category) }}</div>
 
   {{ dump(form.images) }}
 
