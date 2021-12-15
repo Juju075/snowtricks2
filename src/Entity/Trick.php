@@ -162,7 +162,7 @@ class Trick
     /**
      * @return Collection|Photo[]
      */
-    public function getPhoto(): Collection
+    public function getPhotos(): Collection
     {
         return $this->photos;
     }
@@ -171,7 +171,7 @@ class Trick
     {
         if (!$this->photos->contains($photos)) {
             $this->photos[] = $photos;
-            $photos->setPhoto($this);
+            $photos->setTrick($this);
         }
         return $this;
     }
@@ -181,7 +181,7 @@ class Trick
         if ($this->photos->removeElement($photos)) {
             // set the owning side to null (unless already changed)
             if ($photos->getPhoto() === $this) {
-                $photos->setPhoto(null);
+                $photos->setTrick(null);
             }
         }
         return $this;
@@ -190,7 +190,7 @@ class Trick
     /**
      * @return Collection|Video[]
      */
-    public function getVideo(): Collection
+    public function getVideos(): Collection
     {
         return $this->videos;
     }

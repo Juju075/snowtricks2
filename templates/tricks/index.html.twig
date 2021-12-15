@@ -91,6 +91,7 @@ endblock %} {% block body %}
 <!-- ======================================================================= -->
 <div class="container mt-2">
   <a name="haut">...</a>
+  
   {% if tricks|length > 0 %}
     <h2 class="flex mx-auto border">{{ pluralize(tricks | length, "Trick") }}</h2>
   {# row #}
@@ -100,11 +101,19 @@ endblock %} {% block body %}
 
     <div class="card ml-2" style="width: 18rem">
       <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
-        <img
-          class="card-img-top"
-          src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-          alt="Image link show ici"
-        />
+        {% if trick.photos is not empty %}
+           <img
+            class="card-img-top"
+            src="{{ asset('/uploads/'~ trick.photos.first.name)|imagine_filter('squared_thumbnail_medium')}}"
+            alt="Image link show ici"
+          /> 
+        {% else %}
+          <img
+            class="card-img-top"
+            src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+            alt="Image link show ici"
+          />
+        {% endif %}
       </a>
       <div class="card-body">
         <h5 class="card-title">{{ trick.nom }}</h5>

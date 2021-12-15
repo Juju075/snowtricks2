@@ -3,10 +3,11 @@
 <h2>Ajouter une photo</h2>
 {{ form_start(form) }}
 {{ form_row(form.name) }}
+
 <!--Le Prototype c le modele de sous formulaire -->
 <div
-  id="photo"
-  data-prototype="{{ form_row(form.photo.vars.prototype)|e('html_attr')}}"
+  id="photos"
+  data-prototype="{{ form_row(form.photos.vars.prototype)|e('html_attr')}}"
 ></div>
 
 {{ form_end(form) }}
@@ -18,8 +19,8 @@
     collection = document.querySelector("");
     span = collection.querySelector("span");
     boutonAjout = document.createElement("button");
-    boutonAjout.className = "ajout-photo btn secondary";
-    boutonAjout.innerText = "Ajouter une photo";
+    boutonAjout.className = "ajout-photos btn secondary";
+    boutonAjout.innerText = "Ajouter une photos";
 
     //integrer le bouton dans la span
     let nouveauBouton = span.append(boutonAjout);
@@ -39,7 +40,7 @@
     //recuperer prototype (div du model de sous formulaire).
     let prototype = collection.dataset.prototype;
 
-    //recuperer l'index de la photo.
+    //recuperer l'index de la photos.
     let index = collection.dataset.index;
 
     //pour remplacer les names du prototype. chaine de caractere
@@ -56,15 +57,15 @@
     let boutonSuppr = document.createElement("button");
     boutonSuppr.type = "button";
     buttonSupp.className = "btn red";
-    buttonSupp.id = "delete-photo-" + index;
-    buttonSupp.innerText = "Supprimer cette photo";
+    buttonSupp.id = "delete-photos-" + index;
+    buttonSupp.innerText = "Supprimer cette photos";
 
     //Injecte un formulaire input en +
     newForm.append(boutonSuppr);
     collection.dataset.index++;
 
     /* Ajout bouton d'Add */
-    let boutonAjout = collection.querySelector(".ajout-photo");
+    let boutonAjout = collection.querySelector(".ajout-photos");
     //ajoute le formulaire avant
     span.insertBefore(newForm, boutonAjout);
 

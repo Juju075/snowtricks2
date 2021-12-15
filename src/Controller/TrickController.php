@@ -52,30 +52,22 @@ class TrickController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
             //recup les images depuis le formulaire
-            $images = $form->get('images')->getData();
+            $images = $form->get('photos');
 
             //Foreign key set: Recupere l'utilisateur via le token storage.
             $trick->setUser($this->getUser());
 
-            // $img->setTrickId($fk); 
-
-            //pour instancier Photo::class pour chaque image uploader.
             foreach ($images as $image) {
-                $fichier = md5(uniqid().'.'.$image->guessExtension());
+                $model = $image->getData();
+                $image  = $image->get('name')->getData();
+
+                $fichier = md5(uniqid()).'.'.$image->guessExtension();
                 $image->move(
                     $this->getParameter('images_directory'),
                     $fichier
                 );
                 //on stock l'image ds la bdd. 
-                $img = new Photo();
-                $img->setName($fichier);
-                $img->setTrick($trick);
-                $trick->addPhoto($img);
-
-
-                // dump trick_id pas encore persiste
-
-                //$img->setTrick($trick->getId());
+                $model->setName($fichier);
             }
 
             $em->persist($trick);

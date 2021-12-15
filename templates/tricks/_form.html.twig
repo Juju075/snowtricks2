@@ -1,43 +1,99 @@
 <div class="container">
   {# {{ form_widget(form, { attr: { class: "form-control" } }) }} #}
 
-  <div>{{ form_start(form) }}</div>
+  {{ form_start(form) }}
+  {{ form_row(form.nom) }}
+  {{ form_row(form.description) }}
+  {{ form_row(form.category) }}
 
-  <div>{{ form_row(form.nom) }}</div>
-  <div>
-    {{ form_row(form.description) }}
-  </div>
-  <div>{{ form_row(form.category) }}</div>
+  {# Form d'ajout de photos #}
+  <ul
+    id="photos-fields-list"
+    data-prototype="{{ form_widget(form.photos.vars.prototype) | e }}"
+    data-widget-tags="{{ '<li></li>' | e }}"
+    data-widget-counter="{{ form.photos | length }}"
+  >
+    {% for photoField in form.photos %}
 
-  {{ dump(form.images) }}
+    <li>
+      {{ form_errors(photoField.name) }}
+      {{ form_widget(photoField.name) }}
+    </li>
 
-  <div>{{ form_row(form.images) }}</div>
+    {% endfor %}
+  </ul>
 
-  {# #} {% if app.request.attributes.get('_route') == 'app_tricks_create' %} si
-  Ajouter input Telechargment {% endif %} {# Display following only for
-  'app_trick_edit' #} {% if app.request.attributes.get('_route') ==
-  'app_tricks_edit' %}
-  <h2>Images</h2>
-  par row de 3 {% for photo in trick.photo %}
-  <div>
-    <img
-      src="{{ asset('/uploads/' ~ photo.name)|imagine_filter('squared_thumbnail_medium')}}"
-      alt="Image"
-    />
-    {# Supprimer la photo{id} selectionné rattache au trick{id}#} {#
-    TrickController deletePhoto() #}
-    <a
-      href="{{
-        path('app_delete_photo', { id: photo.id })
-      }} data-delete data-token={{ csrf_token('delete'~ photo.id )}} "
-      >Delete</a
-    >
-  </div>
-  {% endfor %} {% endif %} {# #} {# #}
+  {# bouton d'ajout photos #}
+  <button
+    type="button"
+    class="add-another-collection-widget"
+    data-list-selector="#photos-fields-list"
+  >
+    Add another photos
+  </button>
+
+  {# Form d'ajout de videos #}
+  <ul
+    id="videos-fields-list"
+    data-prototype="{{ form_widget(form.videos.vars.prototype) | e }}"
+    data-widget-tags="{{ '<li></li>' | e }}"
+    data-widget-counter="{{ form.videos | length }}"
+  >
+    {% for videoField in form.videos %}
+
+    <li>
+      {{ form_errors(videoField.name) }}
+      {{ form_widget(videoField.name) }}
+    </li>
+
+    {% endfor %}
+  </ul>
+
+  {# bouton d'ajout videos #}
+  <button
+    type="button"
+    class="add-another-collection-widget"
+    data-list-selector="#videos-fields-list"
+  >
+    Add another videos
+  </button>
+
+  {# Bouton de soumission #}
   <input
     type="submit"
     value="{{ submitButtonText|default('Create Trick') }}"
     formnovalidate
   />
+
   {{ form_end(form) }}
 </div>
+
+<script>
+  // add-collection-widget.js
+  jQuery(document).ready(function () {
+    jQuery(".add-another-collection-widget").click(function (e) {
+      var list = jQuery(jQuery(this).attr("data-list-selector"));
+
+      // Try to find the counter of the list or use the length of the list
+      var counter = list.data("widget-counter") || list.children().length;
+
+      // grab the prototype template
+      var newWidget = list.attr("data-prototype");
+
+      // replace the "__name__" used in the id and name of the prototype
+      // with a number that's unique to your emails
+      // end name attribute looks like name="contact[emails][2]"
+      newWidget = newWidget.replace(/__name__/g, counter);
+
+      // Increase the counter
+      counter++;
+
+      // And store it, the length cannot be used if deleting widgets is allowed
+      list.data("widget-counter", counter);
+
+      // create a new list element and add it to the list
+      var newElem = jQuery(list.attr("data-widget-tags")).html(newWidget);
+      newElem.appendTo(list);
+    });
+  });
+</script>

@@ -3,10 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Trick;
+use App\Form\PhotoType;
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -24,31 +25,35 @@ class TrickType extends AbstractType
         $builder
             ->add('nom', TextType::class,[
                 'constraints'=> new NotBlank([
-                    'message'=>'Please enter the title.'
+                'message'=>'Please enter the title.'
                 ])])
+
             ->add('description', TextareaType::class, [
                 'constraints'=> new NotBlank([
-                    'message'=>'Please enter the description.'
+                'message'=>'Please enter the description.'
                 ]),
                 'constraints'=> new Length([
                     'min'=>100
-                    ])
+                ])
             ])
+
             ->add('category', EntityType::class, ['class'=>Category::class, 'choice_label'=>'nom'])
 
-            ->add('images', CollectionType::class,[
-                'entry_type'=>FileType::class,
+            ->add('photos', CollectionType::class,[
+                'entry_type'=>PhotoType::class,
                 'entry_options'=> ['label'=>false],
                 'allow_add'=> true, 
                 'allow_delete'=> true, 
-                'by_reference'=> false, //ne vas pas chercher un set() mais un add()
-
-                'mapped'=>false,
-                'prototype'=> true
+                'by_reference'=> false //ne vas pas chercher un set() mais un add()
             ])
-            
 
-        //     ->add('valider'=> SubmitType::class)  
+            ->add('videos',CollectionType::class, [
+                'entry_type'=>VideoType::class,
+                'entry_options'=> ['label'=>false],
+                'allow_add'=> true, 
+                'allow_delete'=> true, 
+                'by_reference'=> false
+            ])  
          ;
     }
 
