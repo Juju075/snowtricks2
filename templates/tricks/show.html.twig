@@ -1,24 +1,40 @@
 {% extends 'layouts/base.html.twig' %}
-{% block title %}Show!{% endblock %} 
-{%block body %} 
+{% block title %}Show!{% endblock %}
+{%block body %}
 {# Page de detail.#}
+{{ include("layouts/partials/_nav.html.twig") }}
 <div class="container">
-  <div class="header">
-    {{ include("layouts/partials/_nav.html.twig") }}
+
+  <div class="row">
   </div>
- {# Slider #}
-  <div>  
-    <div class="row">
-      Slider ici
+
+<!-- ======================================================================= -->
+<!-- Image a la une -->
+<!-- ======================================================================= -->
+  <div class="row border">
+    <div class="col-md-4">
+      Image a la une
     </div>
-    <h2>{{ trick.nom|capitalize }}</h2>
+    <div>
+      <div><img src="https://img.icons8.com/material/24/000000/edit--v5.png"/></div>
+      <div><img src="https://img.icons8.com/material/50/000000/delete-trash.png"/></div>
+    </div>
+
+    <div class="col-lg-12"> 
+      <h2 class="col">{{ trick.nom|capitalize }}</h2>
+    </div>
   </div>
+
 <!-- ======================================================================= -->
 <!-- Illustration photos et videos -->
 <!-- ======================================================================= -->
- 
- <div class="row">
-   <div>
+  <div class="row border">
+    <div class="col align-self-center">
+
+    </div>
+
+    {# Photos #}
+    <div>
      {% if trick.photos.count > 0 %}
       {% for image in trick.photos %}
         <img
@@ -29,73 +45,110 @@
      {% endif %}
     </div>
 
-    <div>
+    {# Videos #}
+    <div >
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
         preview video ici
         {% endfor %}
-      {% endif %}  
+      {% endif %}
     </div>
-
   </div>
 
 <!-- ======================================================================= -->
 <!-- Description du trick -->
 <!-- ======================================================================= -->
-
-  <div class="row">
-    {{ trick.description }}   
+  <div class="row border">
+    <div class="col-lg-12 mt-3 mb-3">
+      {{ trick.description }}
+    </div>
   </div>
-  {# Invormations sur le trick #}
-  <div class="row">
 
-    <div>
+
+  {# informations sur le trick #}
+  <div class="row border">
+    <div class="col-lg-12 mt-3 mb-3 align-self-start">
       <p>Date de création:</p>
       {{ trick.createdAt|date("m/d/Y") }}
-      <time datetime="{{ trick.createdAt|date("m/d/Y") }}"</time> 
+      <time datetime="{{ trick.createdAt|date("m/d/Y") }}"</time>
     </div>
-
-    <div>
+    <div class="col align-self-center">
       <p>Groupe:</p>
       {#{ trick.category }#}
     </div>
-
-    <div>
+    <div class="col align-self-end">
       <p>Modifié le:</p>
       {{ trick.updatedAt|date("m/d/Y") }}
-      <time datetime ="{{ trick.updatedAt|date("m/d/Y") }}"</time>         
-    </div>
-
-  </div>
-
-  {# Champs ajout de commentaire #}
-  <div class="row">
-    <h6>Veuilez saisir votre commentaire!</h6>
-    <div>
-      {{ form_start(form) }}
-      {{ form_widget(form) }}
-      <input
-        type="submit"
-        value="{{ submitButtonText|default('Soumettre') }}"
-        formnovalidate
-      />
-      {{ form_end(form) }}
+      <time datetime ="{{ trick.updatedAt|date("m/d/Y") }}"</time>
     </div>
   </div>
+
+  <div class="row border">
+    {% if app.user %}
+    {# Champs ajout de commentaire #}
+    <div class="row">
+      <h6>Veuilez saisir votre commentaire!</h6>
+      <div class="col align-self-center">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <input
+          type="submit"
+          value="{{ submitButtonText|default('Soumettre') }}"
+          formnovalidate
+        />
+        {{ form_end(form) }}
+      </div>
+    </div> 
+    {% endif %}
+  </div>
+
 
   {# Liste des commentaires #}
-  <div class="row">
-    {% for comment in trick.comments %}
-    <p>{{ comment.content|raw }}</p>
-    <p>{{ comment.createdat|date("m/d/Y") }}</p>
-    {# <p>{{ comment.userfullName}}</p> 
-    <p>{{ comment.avatar }}</p> 
-        #}
-    {% endfor %}
+  <div class="row justify-content-center">
+    <div class="row border">
+      <div class="col-lg-12 align-content-center">
+        <h2>Liste des commentaires</h2>
+      </div>
+    </div>
+
+      {# pas de commentaire identique text #}
+      {% for comment in trick.comments %}
+      <div class="row border">
+      {# Card #}
+      <div class="">
+        <div class="col-lg-12">
+            <img
+            src="{{ asset('/build/images/avatar/'~ random([
+                  '41bdfe5c5.jpg',
+                  '13cfe5fcea.jpg',
+                  '38a5992c89.jpg',
+                  '442bdb7113.jpg',
+                  '68471d22cb.jpg',
+                  '8002f0691f.jpg' 
+            ]))|imagine_filter('squared_thumbnail_medium')}}"
+             class="bg-info rounded-circle" alt="Avatar aleatoire"
+            />
+        </div>
+
+        <div>
+          <p>{{ comment.content|raw }}</p>
+          <p>{{ comment.createdat|date("m/d/Y") }}</p>
+
+          {# https://randomuser.me/documentation#howto #}
+          comment.auteur
+
+          {# <p>{{ comment.userfullName}}</p>
+          <p>{{ comment.avatar }}</p>
+              #}
+        </div>
+      </div>
+</div>
+      {% endfor %}
+
 
   </div>
   {# Pagination #}
   <div class="row">Pagination</div>
 
 </div>
-{% endblock %}  
+{% endblock %}

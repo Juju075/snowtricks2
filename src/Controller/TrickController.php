@@ -110,7 +110,12 @@ class TrickController extends AbstractController
         if ($form->isSubmitted()&& $form->isValid()) {
 
             $comment->setUser($trick->getUser());
+
+            // Fullname et avatar (user) Pas de dupli de message
+            //verif si dejat content identique Repository comment
+            // if(findOneBy(content) === null){$trick->addComment($comment); alert 'This comment already exit'}
             $trick->addComment($comment);
+            
             $em->persist($comment);
             $em->flush();
         }

@@ -90,75 +90,67 @@ endblock %} {% block body %}
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
 <div class="container mt-2">
+  {% if tricks|length > 0 %}
+  <h2 class="mb-4 text-center text-muted">{{ pluralize(tricks | length, "Trick") }}</h2>
   <a name="haut">...</a>
+
+      {% for row in tricks|batch(4)%} 
+        <div class="row mb-5 border">
+          {% for trick in row %}
+            <div class="col-md-4">
+              <article class="trick bg-white rounded shadow">
+
+                
+                <div class="mw-100 overflow-hidden rounded-top">
+                  <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
+                    
+                    {# {{ foo ? 'yes' : 'no' }}  #}
+                    {{ dump(trick.photos)}}
+                   {#} <img src="{{ trick.photos ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}" class="w-100"/>
+                   {#}  
+                  </a>
+                </div>
+
+                <div class="mt-2 mb-2">
+                  <div><a href="{{ path('app_tricks_edit', { slug: trick.slug }) }}" class="btn btn-primary">Edit</a></div>
+                  <div><a href="{{ path('app_tricks_delete', { slug: trick.slug }) }}" class="btn btn-primary">Supprimer</a></div>
+                </div>
+
+              </article>
+            </div>
+            {% endfor %}
+        </div>    
+      {% endfor %}
+    {% else %}
+        <p class="h1 mt-5 text-center">No tricks yet <a href=" {{path('app_trick_create')}}">Be the first! </a> </p>
+    {% endif %}
+
+  <!-- ======================================================================= -->
+  <!-- Pagination -->
+  <!-- ======================================================================= -->
+  <div class="row border text-center">
+    {% if tricks|length > 0 %}
+    <div class="mt-2">
+      <nav aria-label="Page navigation example">
+        <ul class="pagination">
+          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
   
-  {% if tricks|length > 0 %}
-    <h2 class="flex mx-auto border">{{ pluralize(tricks | length, "Trick") }}</h2>
-  {# row #}
-  {% for row in tricks|batch(4)%} 
-  <div class="d-flex">
-    {% for trick in row %}
-
-    <div class="card ml-2" style="width: 18rem">
-      <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
-        {% if trick.photos is not empty %}
-           <img
-            class="card-img-top"
-            src="{{ asset('/uploads/'~ trick.photos.first.name)|imagine_filter('squared_thumbnail_medium')}}"
-            alt="Image link show ici"
-          /> 
-        {% else %}
-          <img
-            class="card-img-top"
-            src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-            alt="Image link show ici"
-          />
-        {% endif %}
-      </a>
-      <div class="card-body">
-        <h5 class="card-title">{{ trick.nom }}</h5>
-        <p class="card-text">Description tronque ?</p>
-        <a
-          href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
-          class="btn btn-primary"
-          >Edit</a
-        >
-        <a
-          href="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
-          class="btn btn-primary"
-          >Supprimer</a
-        >
-      </div>
+          <li class="page-item"><a class="page-link" href="#">1</a></li>
+          {% if tricks|length > 1 %}
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          {% endif %}       
+          {% if tricks|length > 2 %}
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          {% endif %}       
+          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+      </nav>  
     </div>
-  {% endfor %}
-  </div>
- {% endfor %} {# fermeture #} {% else %}{% endif %}
-</div>
-<!-- ======================================================================= -->
-<!-- Pagination -->
-<!-- ======================================================================= -->
-<div class="container border">
-  {% if tricks|length > 0 %}
-  <div class="mt-2">
-    <nav aria-label="Page navigation example">
-      <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        {% if tricks|length > 0 %}
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        {% endif %}       
-        {% if tricks|length > 0 %}
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        {% endif %}       
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-      </ul>
-    </nav>  
-  </div>
-  {% endif %}
-  <div class="container">
-  <a href="#haut"><button type="button" class="btn btn-outline-secondary mb-2">Arrow</button></a>
-    
+    {% endif %}
+    <div class="row">
+    <a href="#haut"><button type="button" class="btn btn-outline-secondary mb-2">Arrow</button></a>
+    </div>
+  
   </div>
 </div>
 {% endblock %}  
