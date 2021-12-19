@@ -55,7 +55,7 @@ class TrickController extends AbstractController
             $trick->setUser($this->getUser());
 
             foreach ($images as $image) {
-                $model = $image->getData();  // $form->get('photos')->getData();
+                $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images()
                 $image  = $image->get('name')->getData();
 
                 $fichier = md5(uniqid()).'.'.$image->guessExtension();
@@ -64,12 +64,15 @@ class TrickController extends AbstractController
                     $fichier
                 );
                 //on stock l'image ds la bdd. 
-                $model->setName($fichier); // $form->get('photos')->getData()->setName($fichier)
+                $model->setName($fichier); 
+                // $form->get('photos')->getData()  |   trick->add(photos)     |     ->setName($fichier)
+                //ca vient de TrickType  by_reference add() pas set() il sait aussi que c dans PhotoType::class ('videos')
+                //donc vas rechercher add(Photo $photo)
             }
 
             foreach($videos as $video){
-                $model1 = $videos->getData();
-                $video = $videos->get('embedded')->getData(); // erreur php Child "embedded" does not exist.
+                $model1 = $video->getData();
+                $video = $video->get('embedded')->getData(); // erreur php Child "embedded" does not exist.
                 dump($video);
 
                 //Enregister dans la bdd
