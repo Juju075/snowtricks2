@@ -48,8 +48,8 @@
       {% for videoField in form.videos %}
 
       <li style="list-style-type: none">
-        {{ form_errors(videoField.name) }}
-        {{ form_widget(videoField.name) }}
+        {{ form_errors(videoField.embedded) }}
+        {{ form_widget(videoField.embedded) }}
       </li>
 
       {% endfor %}
