@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Photo;
+use App\Entity\Video;
 use App\Entity\Trick;
 use App\Entity\Comment;
 
@@ -197,15 +198,13 @@ class TrickController extends AbstractController
     }
 
     /**
-     * id de la photo
-
      * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
      */
     public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
     {
-        //Ajax
+        //json_decode — Décode une chaîne JSON
         $data = json_decode($request->getContent(), true);
-        var_dump($data);
+        dump($data);
 
         //Attention: $photo->getId()  risque de securite injection utilisateur.
         //Quel photo supprimer 
@@ -213,16 +212,39 @@ class TrickController extends AbstractController
         {
             //pour la supprimer physiquement le fichier sur le disk.
             $nom = $photo->getName();
-            //supprime le fichier dans le serveur
             unlink($this->getParameter('image_directory').'/'.$nom);
 
             $em->remove($photo);
             $em->flush();
+
             return new JsonResponse(['success' => 1]);
         }else{
             return new JsonResponse(['error'=>'Token Invalide'], 400);
         }
     }
+
+    /**
+     * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
+     */
+    public function deleteVideo(Video $video, Request $request, EntityManagerInterface $em): JsonResponse
+    {
+        //Ajax
+        $data = json_decode($request->getContent(), true);
+
+        //Attention: $photo->getId()  risque de securite injection utilisateur.
+        //Quel photo supprimer 
+        if($this->isCsrfTokenValid('delete'.$video->getId(), $data['_token']))
+        {
+            $em->remove($video);
+            $em->flush();
+            //alert green photo supprimer
+            return new JsonResponse(['success' => 1]);
+        }else{
+            return new JsonResponse(['error'=>'Token Invalide'], 400);
+        }
+    }
+
+
 
 
 }

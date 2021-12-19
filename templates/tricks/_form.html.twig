@@ -20,6 +20,7 @@
       {% for photoField in form.photos %}
       <li style="list-style-type: none">
         Manque preview et manque bouton supp
+
         {{ form_errors(photoField.name) }}
         {{ form_widget(photoField.name) }}
       </li>
@@ -62,6 +63,28 @@
     >
       Ajouter une autre video
     </button>
+
+    {% if app.request.attributes.get('_route') == 'app_edit' %}
+    {{ dump(form) }}
+    <!-- =================================================================== -->
+    <!-- Preview des photos -->
+    <!-- =================================================================== -->
+    {% for photo in form.photos %} {# toute les photos relie au this trick #}
+    <div>
+      <img src="{{ asset('/uploads/'~ photo.name)}}" alt="preview photo" />
+      <a
+        href="{{ path('app_delete', { id: photo.id }) }}"
+        data-delete
+        data-token="{{ csrf_token('delete'~ photo.id)}}"
+        >Supprimer</a
+      >
+    </div>
+    {% endfor %}
+    <!-- =================================================================== -->
+    <!-- Preview des videos -->
+    <!-- =================================================================== -->
+
+    {% endif %}
 
     <!-- =================================================================== -->
     <!-- Submit bouton  POST -->
