@@ -95,7 +95,7 @@ endblock %} {% block body %}
   <a name="haut">...</a>
 
       {% for row in tricks|batch(4)%} 
-        <div class="row mb-5 border">
+        <div class="row mt-5 mb-5">
           {% for trick in row %}
             <div class="col-md-4">
               <article class="trick bg-white rounded shadow">
@@ -106,14 +106,15 @@ endblock %} {% block body %}
                     
                     {# {{ foo ? 'yes' : 'no' }}  #}
                     {{ dump(trick.photos)}}
-                   {#} <img src="{{ trick.photos ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}" class="w-100"/>
-                   {#}  
+                  {#} <img src="{{ trick.photos ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}" class="w-100"/>
+                    {#}
+                    <img src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}" alt="{{ trick.nom }}" class="w-100"/>
                   </a>
                 </div>
 
-                <div class="mt-2 mb-2">
-                  <div><a href="{{ path('app_tricks_edit', { slug: trick.slug }) }}" class="btn btn-primary">Edit</a></div>
-                  <div><a href="{{ path('app_tricks_delete', { slug: trick.slug }) }}" class="btn btn-primary">Supprimer</a></div>
+                <div class="mt-2 mb-2 text-center">
+                   <a href="{{ path('app_tricks_edit', { slug: trick.slug }) }}" class="btn btn-primary">Edit</a> 
+                   <a href="{{ path('app_tricks_delete', { slug: trick.slug }) }}" class="btn btn-primary">Supprimer</a> 
                 </div>
 
               </article>
@@ -128,9 +129,9 @@ endblock %} {% block body %}
   <!-- ======================================================================= -->
   <!-- Pagination -->
   <!-- ======================================================================= -->
-  <div class="row border text-center">
+  <article class="row border ">
     {% if tricks|length > 0 %}
-    <div class="mt-2">
+    <div class="col-md-4 mt-2">
       <nav aria-label="Page navigation example">
         <ul class="pagination">
           <li class="page-item"><a class="page-link" href="#">Previous</a></li>
@@ -147,10 +148,10 @@ endblock %} {% block body %}
       </nav>  
     </div>
     {% endif %}
-    <div class="row">
+    <div class="row text-center">
     <a href="#haut"><button type="button" class="btn btn-outline-secondary mb-2">Arrow</button></a>
     </div>
   
-  </div>
+  </article>
 </div>
 {% endblock %}  

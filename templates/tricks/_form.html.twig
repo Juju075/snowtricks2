@@ -1,73 +1,86 @@
 <div class="container">
   {# {{ form_widget(form, { attr: { class: "form-control" } }) }} #}
 
-  {{ form_start(form) }}
-  {{ form_row(form.nom) }}
-  {{ form_row(form.description) }}
-  {{ form_row(form.category) }}
+  <div class="row">
+    {{ form_start(form) }}
+    {{ form_row(form.nom, { attr: { class: "input-group mb-3" } }) }}
+    {{ form_row(form.description, { attr: { class: "input-group mb-3" } }) }}
+    {{ form_row(form.category, { attr: { class: "" } }) }}
 
-  {# Form d'ajout de photos #}
-  <ul
-    id="photos-fields-list"
-    data-prototype="{{ form_widget(form.photos.vars.prototype) | e }}"
-    data-widget-tags="{{ '<li></li>' | e }}"
-    data-widget-counter="{{ form.photos | length }}"
-  >
-    {% for photoField in form.photos %}
+    <!-- =================================================================== -->
+    <!-- Form d'ajout de photos -->
+    <!-- =================================================================== -->
+    {# Preview thumbail #} {# bouton supprimer ajout #}
+    <ul
+      id="photos-fields-list"
+      data-prototype="{{ form_widget(form.photos.vars.prototype) | e }}"
+      data-widget-tags="{{ '<li></li>' | e }}"
+      data-widget-counter="{{ form.photos | length }}"
+    >
+      {% for photoField in form.photos %}
+      <li style="list-style-type: none">
+        Manque preview et manque bouton supp
+        {{ form_errors(photoField.name) }}
+        {{ form_widget(photoField.name) }}
+      </li>
+      {% endfor %}
+    </ul>
 
-    <li>
-      {{ form_errors(photoField.name) }}
-      {{ form_widget(photoField.name) }}
-    </li>
+    {# bouton d'ajout photos #}
+    <button
+      type="button"
+      class="add-another-collection-widget"
+      data-list-selector="#photos-fields-list"
+    >
+      Ajouter une autre photo
+    </button>
 
-    {% endfor %}
-  </ul>
+    <!-- =================================================================== -->
+    <!-- Form d'ajout de videos -->
+    <!-- =================================================================== -->
+    <ul
+      id="videos-fields-list"
+      data-prototype="{{ form_widget(form.videos.vars.prototype) | e }}"
+      data-widget-tags="{{ '<li></li>' | e }}"
+      data-widget-counter="{{ form.videos | length }}"
+    >
+      {% for videoField in form.videos %}
 
-  {# bouton d'ajout photos #}
-  <button
-    type="button"
-    class="add-another-collection-widget"
-    data-list-selector="#photos-fields-list"
-  >
-    Add another photos
-  </button>
+      <li style="list-style-type: none">
+        {{ form_errors(videoField.name) }}
+        {{ form_widget(videoField.name) }}
+      </li>
 
-  {# Form d'ajout de videos #}
-  <ul
-    id="videos-fields-list"
-    data-prototype="{{ form_widget(form.videos.vars.prototype) | e }}"
-    data-widget-tags="{{ '<li></li>' | e }}"
-    data-widget-counter="{{ form.videos | length }}"
-  >
-    {% for videoField in form.videos %}
+      {% endfor %}
+    </ul>
 
-    <li>
-      {{ form_errors(videoField.name) }}
-      {{ form_widget(videoField.name) }}
-    </li>
+    {# bouton d'ajout videos #}
+    <button
+      type="button"
+      class="add-another-collection-widget"
+      data-list-selector="#videos-fields-list"
+    >
+      Ajouter une autre video
+    </button>
 
-    {% endfor %}
-  </ul>
+    <!-- =================================================================== -->
+    <!-- Submit bouton  POST -->
+    <!-- =================================================================== -->
+    <input
+      type="submit"
+      value="{{ submitButtonText|default('Create Trick') }}"
+      formnovalidate
+    />
+    {# Si route edit changer le bouton submit pour une methode PUT // erreur
+    method not allowd #}
 
-  {# bouton d'ajout videos #}
-  <button
-    type="button"
-    class="add-another-collection-widget"
-    data-list-selector="#videos-fields-list"
-  >
-    Add another videos
-  </button>
-
-  {# Bouton de soumission #}
-  <input
-    type="submit"
-    value="{{ submitButtonText|default('Create Trick') }}"
-    formnovalidate
-  />
-
-  {{ form_end(form) }}
+    {{ form_end(form) }}
+  </div>
 </div>
 
+<!-- ======================================================================= -->
+<!-- JAVASCRIPT Add bouton -->
+<!-- ======================================================================= -->
 <script>
   // add-collection-widget.js
   jQuery(document).ready(function () {

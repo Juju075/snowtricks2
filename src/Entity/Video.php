@@ -36,6 +36,18 @@ class Video
      */
     private $trick;
 
+    public function setTrick(?Trick $trick) 
+    {
+        $this->trick = $trick;
+        return $this;
+    }
+
+    public function getTrick(): ?int
+    {
+        return $this->trick;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;

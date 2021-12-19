@@ -11,11 +11,7 @@ use App\Form\CommentType;
 
 
 use App\Repository\TrickRepository;
-use App\Repository\CommentRepository;
-use App\Repository\PhotoRepository;
-use App\Repository\VideoRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,12 +49,13 @@ class TrickController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             //recup les images depuis le formulaire
             $images = $form->get('photos');
+            $videos = $form->get('videos');
 
             //Foreign key set: Recupere l'utilisateur via le token storage.
             $trick->setUser($this->getUser());
 
             foreach ($images as $image) {
-                $model = $image->getData();
+                $model = $image->getData();  // $form->get('photos')->getData();
                 $image  = $image->get('name')->getData();
 
                 $fichier = md5(uniqid()).'.'.$image->guessExtension();
@@ -67,7 +64,18 @@ class TrickController extends AbstractController
                     $fichier
                 );
                 //on stock l'image ds la bdd. 
-                $model->setName($fichier);
+                $model->setName($fichier); // $form->get('photos')->getData()->setName($fichier)
+            }
+
+            foreach($videos as $video){
+                $model1 = $videos->getData();
+                $video = $videos->get('embedded')->getData(); // erreur php Child "embedded" does not exist.
+                dump($video);
+
+                //Enregister dans la bdd
+                //$trick->addVideo($video);
+                $model1->setEmbedded($video); //$form->get('videos')->getData()   trick->addVideo($video)     ->setEmbedded($video);
+
             }
 
             $em->persist($trick);
@@ -76,8 +84,12 @@ class TrickController extends AbstractController
             $this->addFlash('success', 'Trick successfully edited');
             return $this->redirectToRoute('app_home');
         }
+
+        
         return $this->renderForm('tricks/create.html.twig', ['form'=> $form,]);
     }
+
+
 
     public function configureFields(string $pageName): iterable
     {
@@ -192,11 +204,13 @@ class TrickController extends AbstractController
         $data = json_decode($request->getContent(), true);
         var_dump($data);
 
+        //Attention: $photo->getId()  risque de securite injection utilisateur.
+        //Quel photo supprimer 
         if($this->isCsrfTokenValid('delete'.$photo->getId(), $data['_token']))
         {
             //pour la supprimer physiquement le fichier sur le disk.
             $nom = $photo->getName();
-            //supprime le fichier dans le serveru
+            //supprime le fichier dans le serveur
             unlink($this->getParameter('image_directory').'/'.$nom);
 
             $em->remove($photo);

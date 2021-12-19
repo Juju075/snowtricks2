@@ -1,10 +1,10 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}Hello
 TricksController!{% endblock %} {% block body %}
 {{ include("layouts/partials/_nav.html.twig") }}
-<div class="container border text-center">
-  <div class="row">
+<div class="container">
+  <div class="row text-center">
     <article>
-      <h1>Edit: {{ trick.nom }}</h1>
+      <h1 class="mb-4">Edit: {{ trick.nom }}</h1>
       {{
         include("tricks/_form.html.twig", { submitButtonText: "Edit Trick" })
       }}

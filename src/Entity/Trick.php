@@ -199,7 +199,7 @@ class Trick
     {
         if (!$this->videos->contains($videos)) {
             $this->videos[] = $videos;
-            $videos->setVideo($this);
+            $videos->setTrick($this);
         }
 
         return $this;
