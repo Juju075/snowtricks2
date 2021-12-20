@@ -42,28 +42,25 @@ class TrickController extends AbstractController
      * @Route("/pagination", name="app_pagination", methods={"GET"})
      * @return void
      */
-    public function indexPagination(TrickRepository $trickRepository, Request $request){
-
-
-        // index original $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
-
+    public function indexPagination(TrickRepository $trickRepository, Request $request){  
         //on defini le nombre de trick max par page
         $limit = 2;
-
         //on recupere le numéro de page
         $page = (int)$request->query->get("page", 1);
+        
 
         //on recupere les tricks de la page
-        //$variable = $trickRepository->findAll();
-        $variable = $trickRepository->getPaginationTricks($page, $limit);
-        dd($page, $variable);
+        // $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']); code initial
+        //$tricks = $trickRepository->findAll();
+
+        $tricks = $trickRepository->getPaginationTricks($page, $limit);
+        dd($page, $tricks);
 
         //on recuper le nbr total de trick
         $total = $trickRepository->getTotalTricks(); 
         dump($total);
 
-        //remplacer variable par ['tricks'=>$tricks]
-        return $this->render('tricks/index.html.twig', ['variable'=>$variable, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
+        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
 
