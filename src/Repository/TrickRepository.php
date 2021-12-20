@@ -25,8 +25,7 @@ class TrickRepository extends ServiceEntityRepository
      * @return void
     */    
     public function getPaginationTricks($page, $limit){ //dump 1 et 2
-        dd($page, $limit);
-        //creating a QueryBuilder instance 
+        //creating a QueryBuilder instance requete via querybuilder
         //https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/query-builder.html
 
         $query = $this->createQueryBuilder('a') //a 
@@ -35,7 +34,7 @@ class TrickRepository extends ServiceEntityRepository
         ->setFirstResult(($page * $limit)-$limit)
         ->setMaxResults($limit)
         ;
-        //requete prepare->execute
+        //requete prepare->execute   erreur php getQuery
         return $query->getQuery->getResult();
     }
 

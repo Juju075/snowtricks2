@@ -24,27 +24,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TrickController extends AbstractController
 {
 
-    
-
     /**
      * @Route("/", name="app_home", methods={"GET"})
-     */
-    public function index(TrickRepository $trickRepository): Response
-    {
-        $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
-        dump($tricks);
-
-
-        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
-    }
-
-    /**
-     * @Route("/pagination", name="app_pagination", methods={"GET"})
      * @return void
      */
-    public function indexPagination(TrickRepository $trickRepository, Request $request){  
-        //on defini le nombre de trick max par page
-        $limit = 2;
+    public function index(TrickRepository $trickRepository, Request $request){  
+        //on defini le nombre de tricks max par page
+        $limit = 8;
         //on recupere le numéro de page
         $page = (int)$request->query->get("page", 1);
         
@@ -63,7 +49,17 @@ class TrickController extends AbstractController
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
+    /**
+     * @Route("/backup", name="app_home", methods={"GET"})
+     */
+    public function indexBackup(TrickRepository $trickRepository): Response
+    {
+        $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
+        dump($tricks);
 
+
+        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
+    }
     public function configureFields(string $pageName): iterable
     {
         $imageFile = null;
