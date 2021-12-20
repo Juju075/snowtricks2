@@ -54,7 +54,7 @@ class TrickController extends AbstractController
         //$tricks = $trickRepository->findAll();
 
         $tricks = $trickRepository->getPaginationTricks($page, $limit);
-        dd($page, $tricks);
+        dump($tricks);
 
         //on recuper le nbr total de trick
         $total = $trickRepository->getTotalTricks(); 
