@@ -71,21 +71,37 @@ endblock %} {% block body %}
   <!-- Composant de Pagination -->
   <!-- ======================================================================= -->
 
-  {# boucle 1 au derniere page calculer le nbr de page requis 58:36#} {#}
+  {# boucle 1 au derniere page calculer le nbr de page requis 58:36#} {# Astuce
+  < expression dans href 1 disable href précedent et ~> disable href suivant #}
   <article class="row border">
     {% if tricks|length > 0 %}
     <div class="col-md-4 mt-2">
       <nav aria-label="Page navigation example">
+        {% set pages = (total/limit)| round(0, 'ceil') %}
         <ul class="pagination">
-          <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+          <li class="page-item {{ page == 1 ? 'disable' : '' }}">
+            <a
+              class="page-link"
+              href="{{ (page > 1) ? '?page=' ~  (page - 1) : '' }}"
+              >Precedent</a
+            >
+          </li>
 
-          {% for item in 1..((total/limit)| round(0, 'ceil') ) %}
+          {% for item in 1.. pages %}
+
           <li class="page-item">
             <a class="page-link" href="?page{{ item }}">{{ item }}</a>
           </li>
+
           {% endfor %}
 
-          <li class="page-item"><a class="page-link" href="#">Next</a></li>
+          <li class="page-item {{ page == pages ? 'disable' : '' }}">
+            <a
+              class="page-link"
+              href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
+              >Suivant</a
+            >
+          </li>
         </ul>
       </nav>
     </div>
@@ -98,6 +114,5 @@ endblock %} {% block body %}
       >
     </div>
   </article>
-  {#}
 </div>
 {% endblock %}
