@@ -18,6 +18,39 @@ class TrickRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Trick::class);
     }
+    
+
+    /**
+     * Retourne toute les tricks par page
+     * @return void
+    */    
+    public function getPaginationTricks($page, $limit){ //dump 1 et 2
+        dd($page, $limit);
+        //creating a QueryBuilder instance 
+        //https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/query-builder.html
+
+        $query = $this->createQueryBuilder('a') //a 
+        //->where('a.active = 1 ') //ne pas mettre bdd champs active 1
+        ->orderBy('a.created_at')
+        ->setFirstResult(($page * $limit)-$limit)
+        ->setMaxResults($limit)
+        ;
+        //requete prepare->execute
+        return $query->getQuery->getResult();
+    }
+
+    /**
+     * Retourne le nombre total de tricks
+     * @return void
+     */
+    public function getTotalTricks(){
+        $query = $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->WHERE('a.active = 1')
+        ;  
+        //return $query->getQuery->getResult(); obtien un []
+        return $query->getQuery->getSingleScalarResult();
+    }
 
     // /**
     //  * @return Trick[] Returns an array of Trick objects

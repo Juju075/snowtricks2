@@ -33,6 +33,8 @@ class TrickController extends AbstractController
     {
         $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         dump($tricks);
+
+
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
     }
 
@@ -40,36 +42,30 @@ class TrickController extends AbstractController
      * @Route("/pagination", name="app_pagination", methods={"GET"})
      * @return void
      */
-    public function pagination(TrickRepository $trickRepo, Request $request){
+    public function indexPagination(TrickRepository $trickRepository, Request $request){
+
+
+        // index original $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
+
         //on defini le nombre de trick max par page
         $limit = 2;
 
+        //on recupere le numéro de page
         $page = (int)$request->query->get("page", 1);
 
-        //$variable = $trickRepo->findAll();
-        $variable = $trickRepo->getPaginationTricks($page, $limit);
+        //on recupere les tricks de la page
+        //$variable = $trickRepository->findAll();
+        $variable = $trickRepository->getPaginationTricks($page, $limit);
         dd($page, $variable);
 
+        //on recuper le nbr total de trick
+        $total = $trickRepository->getTotalTricks(); 
+        dump($total);
 
-        return $this->render('tricks/index.html.twig', ['variable'=>$variable]);
+        //remplacer variable par ['tricks'=>$tricks]
+        return $this->render('tricks/index.html.twig', ['variable'=>$variable, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
-    /**
-     * Retourne toute les tricks par page
-     * @return void
-    */    
-    public function getPaginationTricks($page, $limit){
-        //creating a QueryBuilder instance 
-        //https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/query-builder.html
-
-        $query = $this->createQueryBuilder('a')
-        ->where('a.active = 1 ')
-        ->orderBy('a.created_at')
-        ->setFirstResult(($page * $limit)-$limit)
-        ->setMaxResults($limit)
-        ;
-        return $query->getQuery->getResult();
-    }
 
     public function configureFields(string $pageName): iterable
     {
