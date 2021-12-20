@@ -11,16 +11,22 @@
     <!-- Form d'ajout de photos -->
     <!-- =================================================================== -->
     {# Preview thumbail #} {# bouton supprimer ajout #}
+    {{ dump(form.photos) }}
     <ul
       id="photos-fields-list"
       data-prototype="{{ form_widget(form.photos.vars.prototype) | e }}"
       data-widget-tags="{{ '<li></li>' | e }}"
       data-widget-counter="{{ form.photos | length }}"
     >
-      {% for photoField in form.photos %}
+      {% for photoField in form.photos %} {#}
+      <img
+        src="{{ asset('/uploads/' ~ photoField.name )|imagine_filter('squared_thumbnail_medium')}}"
+        alt="Preview photo"
+      />
+      {#}
+
       <li style="list-style-type: none">
         Manque preview et manque bouton supp
-
         {{ form_errors(photoField.name) }}
         {{ form_widget(photoField.name) }}
       </li>

@@ -37,6 +37,55 @@ class TrickController extends AbstractController
     }
 
     /**
+     * @Route("/pagination", name="app_pagination", methods={"GET"})
+     * @return void
+     */
+    public function pagination(TrickRepository $trickRepo, Request $request){
+        //on defini le nombre de trick max par page
+        $limit = 2;
+
+        $page = (int)$request->query->get("page", 1);
+
+        //$variable = $trickRepo->findAll();
+        $variable = $trickRepo->getPaginationTricks($page, $limit);
+        dd($page, $variable);
+
+
+        return $this->render('tricks/index.html.twig', ['variable'=>$variable]);
+    }
+
+    /**
+     * Retourne toute les tricks par page
+     * @return void
+    */    
+    public function getPaginationTricks($page, $limit){
+        //creating a QueryBuilder instance 
+        //https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/query-builder.html
+
+        $query = $this->createQueryBuilder('a')
+        ->where('a.active = 1 ')
+        ->orderBy('a.created_at')
+        ->setFirstResult(($page * $limit)-$limit)
+        ->setMaxResults($limit)
+        ;
+        return $query->getQuery->getResult();
+    }
+
+    public function configureFields(string $pageName): iterable
+    {
+        $imageFile = null;
+        $image = null;
+        $fields = [];
+
+       if (null) {
+           # code...
+       }else{
+
+       } 
+       return $fields;
+    }
+
+    /**
      * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/create",name="app_tricks_create", methods={"GET","POST"})
      */
@@ -92,23 +141,6 @@ class TrickController extends AbstractController
         
         return $this->renderForm('tricks/create.html.twig', ['form'=> $form,]);
     }
-
-
-
-    public function configureFields(string $pageName): iterable
-    {
-        $imageFile = null;
-        $image = null;
-        $fields = [];
-
-       if (null) {
-           # code...
-       }else{
-
-       } 
-       return $fields;
-    }
-
 
     /**
     * @Route("/tricks/{slug}", name="app_tricks_show", methods={"GET","POST"})
@@ -243,6 +275,7 @@ class TrickController extends AbstractController
             return new JsonResponse(['error'=>'Token Invalide'], 400);
         }
     }
+
 
 
 
