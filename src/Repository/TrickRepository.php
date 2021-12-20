@@ -27,10 +27,11 @@ class TrickRepository extends ServiceEntityRepository
     public function getPaginationTricks($page, $limit){ //dump 1 et 2
         //creating a QueryBuilder instance requete via querybuilder
         //https://www.doctrine-project.org/projects/doctrine-orm/en/2.8/reference/query-builder.html
+        //https://zestedesavoir.com/tutoriels/1713/doctrine-2-a-lassaut-de-lorm-phare-de-php/exploiter-une-base-de-donnees-avec-doctrine-2/a-la-rencontre-du-querybuilder-1/
 
-        $query = $this->createQueryBuilder('a') //a 
-        //->where('a.active = 1 ') //ne pas mettre bdd champs active 1
-        ->orderBy('a.created_at')
+        $query = $this->createQueryBuilder($alias) // creation d'une instance querybuilder
+        ->where('id') //ne pas mettre bdd champs active 1
+        ->orderBy('created_at')
         ->setFirstResult(($page * $limit)-$limit)
         ->setMaxResults($limit)
         ;
@@ -43,9 +44,9 @@ class TrickRepository extends ServiceEntityRepository
      * @return void
      */
     public function getTotalTricks(){
-        $query = $this->createQueryBuilder('a')
-            ->select('COUNT(a)')
-            ->WHERE('a.active = 1')
+        $query = $this->createQueryBuilder($alias)
+            ->select('COUNT(id)')
+            ->WHERE('id')
         ;  
         //return $query->getQuery->getResult(); obtien un []
         return $query->getQuery->getSingleScalarResult();
