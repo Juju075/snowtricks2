@@ -7,7 +7,7 @@ liip_imagine:
     rectengular_at_one:
       filters:
         thumbnail:
-          size: [700, 300]
+          size: [700, 400]
           mode: outbound
           allow_upscale: true
 

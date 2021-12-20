@@ -17,18 +17,11 @@
       data-widget-tags="{{ '<li></li>' | e }}"
       data-widget-counter="{{ form.photos | length }}"
     >
-      {{
-        dump(trick)
-      }}dump form photos
-      {{
-        dump(form.photos)
-      }}
-      {% for photoField in form.photos %} {#}
+      {% for photoField in form.photos %}
       <img
-        src="{{ asset('/uploads/' ~ photoField.name )|imagine_filter('squared_thumbnail_medium')}}"
+        src="{{ asset('/uploads/' ~ photoField.vars.value.name )|imagine_filter('squared_thumbnail_medium')}}"
         alt="Preview photo"
       />
-      {#}
 
       <li style="list-style-type: none">
         Manque preview et manque bouton supp

@@ -3,8 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Photo;
-use App\Entity\Video;
 use App\Entity\Trick;
+use App\Entity\Video;
 use App\Entity\Comment;
 
 use App\Form\TrickType;
@@ -18,6 +18,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -25,10 +26,10 @@ class TrickController extends AbstractController
 {
 
     /**
-     * @Route("/", name="app_home", methods={"GET"})
+     * @Route("/backup", name="app_home", methods={"GET"})
      * @return void
      */
-    public function index(TrickRepository $trickRepository, Request $request){  
+    public function indexBackup(TrickRepository $trickRepository, Request $request){  
         //on defini le nombre de tricks max par page
         $limit = 8;
         //on recupere le numéro de page
@@ -50,9 +51,9 @@ class TrickController extends AbstractController
     }
 
     /**
-     * @Route("/backup", name="app_home", methods={"GET"})
+     * @Route("/", name="app_home", methods={"GET"})
      */
-    public function indexBackup(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository): Response
     {
         $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         dump($tricks);
@@ -60,6 +61,11 @@ class TrickController extends AbstractController
 
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
     }
+
+
+
+
+
     public function configureFields(string $pageName): iterable
     {
         $imageFile = null;
@@ -163,38 +169,56 @@ class TrickController extends AbstractController
     // @Security("is_granted('TRICK_DELETE', trick)")
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/tricks/{slug}/edit", name="app_tricks_edit", methods={"GET", "PUT"})
+     * @Route("/tricks/{slug}/edit", name="app_tricks_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, EntityManagerInterface $em, Trick $trick): Response
     {
-        $form = $this->createForm(TrickType::class, $trick, ['method'=> 'PUT']);
+        $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
+        
+       //dump($form->get('photos')->getData());
+       //dd($form->isSubmitted() && $form->isValid());
+
         if ($form->isSubmitted() && $form->isValid()){
-            $images = $form->get('images')->getData();
+
+            $images = $form->get('photos');
+            $videos = $form->get('videos');
+
             foreach ($images as $image) {
-                $fichier = md5(uniqid().'.'.$image->guessExtension());
-                $image->move(
+                $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images() 
+                $image  = $image->get('name')->getData();
+
+                if ($image instanceof UploadedFile) {
+                       $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    $image->move(
                     $this->getParameter('images_directory'),
                     $fichier
-                );
+                 );
                 //on stock l'image ds la bdd. 
-                $img = new Photo();
-                $img->setName($fichier);
-                $img->setTrick($trick);
-                $trick->addPhoto($img);
-
+                    $model->setName($fichier); 
+                }
+                // $form->get('photos')->getData()  |   trick->add(photos)     |     ->setName($fichier)
+                //ca vient de TrickType  by_reference add() pas set() il sait aussi que c dans PhotoType::class ('videos')
+                //donc vas rechercher add(Photo $photo)
             }
                 $em->persist($trick);
                 $em->flush();
+
+                return $this->redirectToRoute('app_tricks_show',['slug'=>$trick->getSlug()]);
         }
 
         return $this->renderForm('tricks/edit.html.twig',['form'=>$form, 'trick'=>$trick]);
     }
 
+
+
+
+
+
     // @Security("is_granted('TRICK_DELETE', trick)")
     /**
      * @Security("is_granted('ROLE_USER')")
-     * @Route("/tricks/{slug}/delete", name ="app_tricks_delete", methods={"DELETE"})
+     * @Route("/tricks/{slug}/delete", name ="app_tricks_delete")
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     { 
@@ -207,6 +231,11 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+
+
+
+
+
     //Limiter un commentaire par user
     /**
      * @Route("/comments/create", name="app_comment_create", methods={"GET","POST"})
@@ -218,8 +247,9 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+
     /**
-     * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
+     * @Route("/delete/photo/{id}", name="app_delete_photo")
      */
     public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
     {

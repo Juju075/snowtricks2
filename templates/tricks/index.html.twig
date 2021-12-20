@@ -29,16 +29,8 @@ endblock %} {% block body %}
         <div class="mw-100 overflow-hidden rounded-top">
           <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
             {# {{ foo ? "yes" : "no" }} #}
-            {{ dump(trick.photos) }}
-            {#}
             <img
-              src="{{ trick.photos ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-              alt="{{ trick.nom }}"
-              class="w-100"
-            />
-            {#}
-            <img
-              src="{{ asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+              src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
               alt="{{ trick.nom }}"
               class="w-100"
             />
@@ -51,11 +43,20 @@ endblock %} {% block body %}
             class="btn btn-primary"
             >Edit</a
           >
-          <a
-            href="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
-            class="btn btn-primary"
-            >Supprimer</a
+
+          <form
+            method="post"
+            action="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
+            onsubmit="return confirm('êtes-vous sûre de vouloir supprimer?');"
           >
+            <input
+              type="hidden"
+              name="_token"
+              value="{{ csrf_token('trick_deletion_' ~ trick.id) }}"
+            />
+
+            <button class="btn btn-primary">Supprimer</button>
+          </form>
         </div>
       </article>
     </div>
@@ -73,6 +74,7 @@ endblock %} {% block body %}
 
   {# boucle 1 au derniere page calculer le nbr de page requis 58:36#} {# Astuce
   < expression dans href 1 disable href précedent et ~> disable href suivant #}
+  {#}
   <article class="row border">
     {% if tricks|length > 0 %}
     <div class="col-md-4 mt-2">
@@ -114,5 +116,6 @@ endblock %} {% block body %}
       >
     </div>
   </article>
+  {#}
 </div>
 {% endblock %}
