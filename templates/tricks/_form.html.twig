@@ -16,24 +16,27 @@
     data-widget-tags="{{ '<li></li>' | e }}"
     data-widget-counter="{{ form.photos | length }}"
   >
-    {% for row in form.photos|batch(4) %}
+    {% for row in form.photos|batch(4) %} debut row
     <div class="row border">
-      row debut {% for photoField in row %}
-      <img
-        src="{{ asset('/uploads/' ~ photoField.vars.value.name )}}"
-        alt="Preview photo"
-      />
-      <div>
-        <button type="" class="">Supprimer la photo</button>
-        <li style="list-style-type: none">
-          {{ form_errors(photoField.name) }}
-          {{ form_widget(photoField.name) }}
-        </li>
+      {% for photoField in row %} {# Card #}
+      <div class="border">
+        <img
+          src="{{ asset('/uploads/' ~ photoField.vars.value.name)}}"
+          alt="Preview photo"
+          height="200"
+        />
+        <div>
+          <button type="" class="">Supprimer la photo</button>
+          <li style="list-style-type: none">
+            {{ form_errors(photoField.name) }}
+            {{ form_widget(photoField.name) }}
+          </li>
+        </div>
       </div>
-      {% endfor %} row fin
-    </div>
 
-    {% endfor %} {#} {% for photoField in form.photos %}
+      {% endfor %}
+    </div>
+    fin row {% endfor %} {#} {% for photoField in form.photos %}
     <img
       src="{{ asset('/uploads/' ~ photoField.vars.value.name )|imagine_filter('squared_thumbnail_medium')}}"
       alt="Preview photo"
