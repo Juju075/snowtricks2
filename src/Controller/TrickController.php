@@ -56,15 +56,8 @@ class TrickController extends AbstractController
     public function index(TrickRepository $trickRepository): Response
     {
         $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
-        dump($tricks);
-
-
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
     }
-
-
-
-
 
     public function configureFields(string $pageName): iterable
     {
@@ -92,7 +85,6 @@ class TrickController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
-            //recup les images depuis le formulaire
             $images = $form->get('photos');
             $videos = $form->get('videos');
 
@@ -118,7 +110,6 @@ class TrickController extends AbstractController
             foreach($videos as $video){
                 $model1 = $video->getData();
                 $video = $video->get('embedded')->getData(); // erreur php Child "embedded" does not exist.
-                dump($video);
 
                 //Enregister dans la bdd
                 //$trick->addVideo($video);
@@ -166,7 +157,6 @@ class TrickController extends AbstractController
         return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick,'form'=>$form]);
     }
 
-    // @Security("is_granted('TRICK_DELETE', trick)")
     /**
      * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/{slug}/edit", name="app_tricks_edit", methods={"GET", "POST"})
@@ -180,7 +170,6 @@ class TrickController extends AbstractController
        //dd($form->isSubmitted() && $form->isValid());
 
         if ($form->isSubmitted() && $form->isValid()){
-
             $images = $form->get('photos');
             $videos = $form->get('videos');
 
@@ -188,41 +177,37 @@ class TrickController extends AbstractController
                 $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images() 
                 $image  = $image->get('name')->getData();
 
+                //si l'image est une instance de     
                 if ($image instanceof UploadedFile) {
-                       $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    dd('yes is an instanceof uploadedFile');
+                    $fichier = md5(uniqid()).'.'.$image->guessExtension();
                     $image->move(
                     $this->getParameter('images_directory'),
                     $fichier
                  );
-                //on stock l'image ds la bdd. 
                     $model->setName($fichier); 
                 }
-                // $form->get('photos')->getData()  |   trick->add(photos)     |     ->setName($fichier)
-                //ca vient de TrickType  by_reference add() pas set() il sait aussi que c dans PhotoType::class ('videos')
-                //donc vas rechercher add(Photo $photo)
+
             }
-                $em->persist($trick);
-                $em->flush();
 
-                return $this->redirectToRoute('app_tricks_show',['slug'=>$trick->getSlug()]);
+            $em->persist($trick);
+            $em->flush();
+            $this->addFlash('success', 'Trick successfully edited!');
+            return $this->redirectToRoute('app_tricks_show',['slug'=>$trick->getSlug()]);
         }
-
         return $this->renderForm('tricks/edit.html.twig',['form'=>$form, 'trick'=>$trick]);
     }
 
-
-
-
-
-
-    // @Security("is_granted('TRICK_DELETE', trick)")
     /**
      * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/{slug}/delete", name ="app_tricks_delete")
      */
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     { 
-        //Contraite etre l'auteur(token) du $trick.
+        $token = $request->request->get('csrf_token');
+        $espected = 'trick_deletion_' . $trick->getId(); //trick_deletion_12
+        dd($token, $request, $espected);
+
         if ($this->isCsrfTokenValid('trick_deletion_' . $trick->getId(), $request->request->get('csrf_token'))) {
             $em->remove($trick);
             $em->flush();
@@ -231,14 +216,9 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-
-
-
-
-
     //Limiter un commentaire par user
     /**
-     * @Route("/comments/create", name="app_comment_create", methods={"GET","POST"})
+     * @Route("/comments/create", name="app_comment_creèate", methods={"GET","POST"})
      */
     public function commentCreate(Trick $trick): Response
     {
@@ -247,6 +227,9 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
+    // =============================================================================
+    // DELETE PHOTO ET VIDEO
+    // =============================================================================
 
     /**
      * @Route("/delete/photo/{id}", name="app_delete_photo")
@@ -294,9 +277,4 @@ class TrickController extends AbstractController
             return new JsonResponse(['error'=>'Token Invalide'], 400);
         }
     }
-
-
-
-
-
 }

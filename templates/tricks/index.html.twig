@@ -38,17 +38,23 @@ endblock %} {% block body %}
         </div>
 
         <div class="mt-2 mb-2 text-center">
+          <!-- ============================================================= -->
+          <!-- Edit button -->
+          <!-- ============================================================= -->
           <a
             href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
             class="btn btn-primary"
             >Edit</a
           >
-
+          <!-- ============================================================= -->
+          <!-- Delete button  -->
+          <!-- ============================================================= -->
           <form
             method="post"
             action="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
             onsubmit="return confirm('êtes-vous sûre de vouloir supprimer?');"
           >
+            {#} isCsrfTokenValid('trick_deletion_' . $trick->getId() {#}
             <input
               type="hidden"
               name="_token"
