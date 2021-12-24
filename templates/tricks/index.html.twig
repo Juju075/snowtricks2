@@ -30,7 +30,7 @@ endblock %} {% block body %}
           <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
             {# {{ foo ? "yes" : "no" }} #}
             <img
-              src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+              src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_card')}}"
               alt="{{ trick.nom }}"
               class="w-100"
             />
@@ -77,6 +77,11 @@ endblock %} {% block body %}
   <!-- ======================================================================= -->
   <!-- Composant de Pagination -->
   <!-- ======================================================================= -->
+
+  <link
+    href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap"
+    rel="stylesheet"
+  />
 
   {# boucle 1 au derniere page calculer le nbr de page requis 58:36#} {# Astuce
   < expression dans href 1 disable href précedent et ~> disable href suivant #}

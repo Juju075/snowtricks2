@@ -31,7 +31,7 @@ class TrickController extends AbstractController
      */
     public function indexBackup(TrickRepository $trickRepository, Request $request){  
         //on defini le nombre de tricks max par page
-        $limit = 8;
+        $limit = 12;
         //on recupere le numéro de page
         $page = (int)$request->query->get("page", 1);
         
@@ -41,11 +41,10 @@ class TrickController extends AbstractController
         //$tricks = $trickRepository->findAll();
 
         $tricks = $trickRepository->getPaginationTricks($page, $limit);
-        dump($tricks);
-
-        //on recuper le nbr total de trick
+        
+        //on recupere le nbr total de trick
         $total = $trickRepository->getTotalTricks(); 
-        dump($total);
+        dump($tricks, $total);
 
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
@@ -53,10 +52,23 @@ class TrickController extends AbstractController
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
-    public function index(TrickRepository $trickRepository): Response
+    public function index(TrickRepository $trickRepository, Request $request): Response
     {
-        $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
-        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks]);
+        //on defini le nombre de tricks max par page
+        $limit = 12;
+        //on recupere le numéro de page
+        $page = (int)$request->query->get("page", 1);
+
+
+
+
+
+        //$tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
+        $tricks = $trickRepository->getPaginationTricks($page, $limit); //redefini $tricks
+
+        $total = null;
+
+        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
     public function configureFields(string $pageName): iterable
@@ -236,13 +248,15 @@ class TrickController extends AbstractController
      */
     public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
     {
+
+        dd('deletePhoto function ok');
         //json_decode — Décode une chaîne JSON
         $data = json_decode($request->getContent(), true);
         dump($data);
 
         //Attention: $photo->getId()  risque de securite injection utilisateur.
         //Quel photo supprimer 
-        if($this->isCsrfTokenValid('delete'.$photo->getId(), $data['_token']))
+        if($this->isCsrfTokenValid('delete_'.$photo->getId(), $data['_token']))
         {
             //pour la supprimer physiquement le fichier sur le disk.
             $nom = $photo->getName();
@@ -256,6 +270,8 @@ class TrickController extends AbstractController
             return new JsonResponse(['error'=>'Token Invalide'], 400);
         }
     }
+
+    
 
     /**
      * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
@@ -278,3 +294,5 @@ class TrickController extends AbstractController
         }
     }
 }
+
+ 

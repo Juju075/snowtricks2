@@ -26,7 +26,20 @@
           height="200"
         />
         <div>
-          <button type="" class="">Supprimer la photo</button>
+          <form
+            action="{{
+              path('app_delete_photo', { id: photoField.vars.value.id })
+            }}"
+            method="post"
+          >
+            <input
+              type="hidden"
+              name="token"
+              value="{{ csrf_token('delete_'~ photoField.vars.value.id) }}"
+            />
+            <button type="submit">Supprimer la photo</button>
+          </form>
+
           <li style="list-style-type: none">
             {{ form_errors(photoField.name) }}
             {{ form_widget(photoField.name) }}
@@ -36,19 +49,7 @@
 
       {% endfor %}
     </div>
-    fin row {% endfor %} {#} {% for photoField in form.photos %}
-    <img
-      src="{{ asset('/uploads/' ~ photoField.vars.value.name )|imagine_filter('squared_thumbnail_medium')}}"
-      alt="Preview photo"
-    />
-    <div>
-      <button type="" class="">Supprimer la photo</button>
-      <li style="list-style-type: none">
-        {{ form_errors(photoField.name) }}
-        {{ form_widget(photoField.name) }}
-      </li>
-    </div>
-    {% endfor %} {#}
+    fin row {% endfor %}
   </ul>
 
   {# bouton d'ajout photos #}

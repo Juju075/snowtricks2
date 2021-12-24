@@ -3,41 +3,50 @@
 {%block body %}
 {# Page de detail.#}
 {{ include("layouts/partials/_nav.html.twig") }}
-<div class="container">
-
-  <article class="row">
-  </article>
-
+<div class="container border">
   <!-- ======================================================================= -->
   <!-- Image a la une -->
   <!-- ======================================================================= -->
-  <article class="row border">
+  <article class="row  text-center border">
+    <!-- Overlay elements -->
+    <div class="col-md-12 border">
 
-    <div class="col-md-4">
-      Image a la une
+      <div class="" style='background:green;position:absolute;'>
+        <div><a href="{{ path('app_tricks_edit', {slug: trick.slug})}}">
+          <img src="https://img.icons8.com/material/24/000000/edit--v5.png"
+          />
+        </a>
+        </div>
+        <div>
+          <img src="https://img.icons8.com/material/50/000000/delete-trash.png"
+          />
+        </div>
+      </div>
+      
+
+      <div class="col-md-12 border">
+        <h2 class="col" style='background:yellow;position:absolute;'>{{ trick.nom|capitalize }}</h2>
+      </div>
+    <div class="col-md-12">
+            <img
+              src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
+              alt="{{ trick.nom }}"
+              class="img-fluid"
+            />
     </div>
-
-    <div class="col-md-4">
-      <div><img src="https://img.icons8.com/material/24/000000/edit--v5.png"/></div>
-      <div><img src="https://img.icons8.com/material/50/000000/delete-trash.png"/></div>
     </div>
-
-    <div class="col-md-12 border"> 
-      <h2 class="col">{{ trick.nom|capitalize }}</h2>
-    </div>
-
   </article>
 
-<!-- ======================================================================= -->
-<!-- Illustration photos et videos -->
-<!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <!-- Illustration photos et videos -->
+  <!-- ======================================================================= -->
   <article class="row justify-content-around border">
     <div class="col-md-12">
      {% if trick.photos.count > 0 %}
       {% for image in trick.photos %}
         <img
-        src="{{ asset('/uploads/'~ image.name)|imagine_filter('squared_thumbnail_big')}}"
-        alt="Photo preview"
+        src="{{ asset('/uploads/'~ image.name)|imagine_filter('squared_thumbnail_medium')}}"
+        alt="Photo preview" 
         />
       {% endfor %}
      {% endif %}
@@ -47,7 +56,9 @@
     <div class="col-md-12">
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
-        preview video ici
+
+https://www.youtube.com/watch?v=Suhj7SJuEbM
+          
         {% endfor %}
       {% endif %}
     </div>
@@ -55,9 +66,9 @@
 
 
 
-<!-- ======================================================================= -->
-<!-- Description du trick -->
-<!-- ======================================================================= -->
+  <!-- ======================================================================= -->
+  <!-- Description du trick -->
+  <!-- ======================================================================= -->
   <article class="row justify-content-md-center">
     <div class="col-md-10 mt-3 mb-3 ">
       {{ trick.description }}
@@ -98,9 +109,9 @@
         />
         {{ form_end(form) }}
       </div>
-    </div> 
+    </div>
     {% endif %}
-  </div>
+  </article>
 
 
   {# Liste des commentaires #}
@@ -108,7 +119,7 @@
       <div class="col-md-4">
         <h2>Liste des commentaires</h2>
       </div>
-      
+
       {# pas de commentaire identique text #}
       {% for comment in trick.comments %}
       <div class="row border">
@@ -122,7 +133,7 @@
                   '38a5992c89.jpg',
                   '442bdb7113.jpg',
                   '68471d22cb.jpg',
-                  '8002f0691f.jpg' 
+                  '8002f0691f.jpg'
             ]))|imagine_filter('squared_thumbnail_medium')}}"
              class="bg-info rounded-circle" alt="Avatar aleatoire"
             />
@@ -140,7 +151,7 @@
               #}
         </div>
       </div>
-</div>
+  </div>
       {% endfor %}
 
 

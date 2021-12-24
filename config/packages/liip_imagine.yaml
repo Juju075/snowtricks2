@@ -11,10 +11,10 @@ liip_imagine:
           mode: outbound
           allow_upscale: true
 
-    squared_thumbnail_big:
+    squared_card:
       filters:
         thumbnail:
-          size: [300, 300]
+          size: [250, 300]
           mode: outbound
           allow_upscale: true
 
