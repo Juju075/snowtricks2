@@ -31,7 +31,6 @@ class TrickRepository extends ServiceEntityRepository
 
         //SELECT alias de table    
         $query = $this->createQueryBuilder('t') 
-        //->where('t') 
         ->orderBy('t.createdAt') // ref trick.php pas bdd
 
         //Ajout de params
@@ -52,11 +51,9 @@ class TrickRepository extends ServiceEntityRepository
      * @return void
      */
     public function getTotalTricks(){
-        $query = $this->createQueryBuilder('id')
-            ->select('COUNT(id)')
-            ->WHERE('id')
+        $query = $this->createQueryBuilder('t')
+            ->select('COUNT(t)')
         ;  
-        //return $query->getQuery->getResult(); obtien un []
         return $query->getQuery()->getSingleScalarResult();
     }
 

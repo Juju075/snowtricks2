@@ -54,13 +54,14 @@ class TrickController extends AbstractController
      */
     public function index(TrickRepository $trickRepository, Request $request): Response
     {
-        $limit = 2;
+        $limit = 12;
         $page = (int)$request->query->get("page", 1);  // url../?page=
 
         //$tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
 
-        $total = null;
+        $total = $trickRepository->getTotalTricks();
+        dump($total);
 
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
