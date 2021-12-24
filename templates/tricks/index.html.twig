@@ -70,18 +70,13 @@ endblock %} {% block body %}
   </div>
   {% endfor %} {% else %}
   <p class="h1 mt-5 text-center">
-    No tricks yet <a href=" {{ path('app_trick_create') }}">Be the first! </a>
+    No tricks yet <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
   </p>
   {% endif %}
 
   <!-- ======================================================================= -->
   <!-- Composant de Pagination -->
   <!-- ======================================================================= -->
-
-  <link
-    href="https://fonts.googleapis.com/css?family=Archivo+Black&display=swap"
-    rel="stylesheet"
-  />
 
   {# boucle 1 au derniere page calculer le nbr de page requis 58:36#} {# Astuce
   < expression dans href 1 disable href précedent et ~> disable href suivant #}

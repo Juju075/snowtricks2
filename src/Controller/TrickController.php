@@ -41,7 +41,7 @@ class TrickController extends AbstractController
         //$tricks = $trickRepository->findAll();
 
         $tricks = $trickRepository->getPaginationTricks($page, $limit);
-        
+
         //on recupere le nbr total de trick
         $total = $trickRepository->getTotalTricks(); 
         dump($tricks, $total);
@@ -54,17 +54,11 @@ class TrickController extends AbstractController
      */
     public function index(TrickRepository $trickRepository, Request $request): Response
     {
-        //on defini le nombre de tricks max par page
-        $limit = 12;
-        //on recupere le numéro de page
-        $page = (int)$request->query->get("page", 1);
-
-
-
-
+        $limit = 2;
+        $page = (int)$request->query->get("page", 1);  // url../?page=
 
         //$tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
-        $tricks = $trickRepository->getPaginationTricks($page, $limit); //redefini $tricks
+        $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
 
         $total = null;
 

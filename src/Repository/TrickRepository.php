@@ -27,22 +27,22 @@ class TrickRepository extends ServiceEntityRepository
      * Retourne toute les tricks par page
      * @return void
     */    
+    public function getPaginatedTricks($page, $limit){
 
-    public function getPaginationTricks($page, $limit){ //dump 1 et 2
-
-        //  SELECT alias de table    
+        //SELECT alias de table    
         $query = $this->createQueryBuilder('t') 
-        ->where('t') 
-        ->orderBy('t.created_at')
+        //->where('t') 
+        ->orderBy('t.createdAt') // ref trick.php pas bdd
 
         //Ajout de params
 
-        // limiter le nombre de résultat (parametres)
-        ->setFirstResult(($page * $limit)-$limit) //numero element de depart
-        ->setMaxResults($limit)  //function limit nbr delement a prendre
+        // limiter le nombre de résultat (parametres) 
+        //On cree un Offset numéro du premier numéro à récupérer
+        ->setFirstResult(($page * $limit)-$limit) // depart
+        ->setMaxResults($limit)  //limit d'elements
         ;
         
-        //dd($query, $query->getDQL(), $query->getQuery()->getResult());
+        dump($query, $query->getDQL());
 
         return $query->getQuery()->getResult();
     }
