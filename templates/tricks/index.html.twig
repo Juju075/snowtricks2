@@ -76,7 +76,6 @@ endblock %} {% block body %}
   <!-- ===================================================================== -->
   <!-- LOAD -->
   <!-- ===================================================================== -->
-  {{ dump(page) }}
   {% set pages = (total/limit)| round(0, 'ceil') %}
   <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
     >{#Page actuel +1 limite au nombre de pages max #}

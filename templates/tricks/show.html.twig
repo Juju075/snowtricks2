@@ -57,14 +57,12 @@
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
 
-https://www.youtube.com/watch?v=Suhj7SJuEbM
+  https://www.youtube.com/watch?v=Suhj7SJuEbM
           
         {% endfor %}
       {% endif %}
     </div>
   </article>
-
-
 
   <!-- ======================================================================= -->
   <!-- Description du trick -->
@@ -95,8 +93,8 @@ https://www.youtube.com/watch?v=Suhj7SJuEbM
   </article>
 
   {# Champs ajout de commentaire #}
+  {% if app.user %}
   <article class="row  justify-content-center mt-4 mb-5">
-    {% if app.user %}
     <div class="col-md-4">
       <h6>Veuilez saisir votre commentaire!</h6>
       <div>
@@ -110,54 +108,47 @@ https://www.youtube.com/watch?v=Suhj7SJuEbM
         {{ form_end(form) }}
       </div>
     </div>
-    {% endif %}
   </article>
-
+  {% endif %}
 
   {# Liste des commentaires #}
-  <div class="row border">
+  <article class="row border">
       <div class="col-md-4">
         <h2>Liste des commentaires</h2>
       </div>
-
       {# pas de commentaire identique text #}
       {% for comment in trick.comments %}
       <div class="row border">
-      {# Card #}
-      <div class="">
-        <div class="col-lg-12">
-            <img
-            src="{{ asset('/build/images/avatar/'~ random([
-                  '41bdfe5c5.jpg',
-                  '13cfe5fcea.jpg',
-                  '38a5992c89.jpg',
-                  '442bdb7113.jpg',
-                  '68471d22cb.jpg',
-                  '8002f0691f.jpg'
-            ]))|imagine_filter('squared_thumbnail_medium')}}"
-             class="bg-info rounded-circle" alt="Avatar aleatoire"
-            />
-        </div>
+        {# Card #}
+        <div class="">
+          <div class="col-lg-12">
+              <img
+              src="{{ asset('/build/images/avatar/'~ random([
+                    '41bdfe5c5.jpg',
+                    '13cfe5fcea.jpg',
+                    '38a5992c89.jpg',
+                    '442bdb7113.jpg',
+                    '68471d22cb.jpg',
+                    '8002f0691f.jpg'
+              ]))|imagine_filter('squared_thumbnail_medium')}}"
+              class="bg-info rounded-circle" alt="Avatar aleatoire"
+              />
+          </div>
 
-        <div>
-          <p>{{ comment.content|raw }}</p>
-          <p>{{ comment.createdat|date("m/d/Y") }}</p>
+          <div>
+            <p>{{ comment.content|raw }}</p>
+            <p>{{ comment.createdat|date("m/d/Y") }}</p>
 
-          {# https://randomuser.me/documentation#howto #}
-          comment.auteur
+            {# https://randomuser.me/documentation#howto #}
+            comment.auteur
 
-          {# <p>{{ comment.userfullName}}</p>
-          <p>{{ comment.avatar }}</p>
-              #}
+            {# <p>{{ comment.userfullName}}</p>
+            <p>{{ comment.avatar }}</p>
+                #}
+          </div>
         </div>
       </div>
-  </div>
       {% endfor %}
-
-
-  </div>
-  {# Pagination #}
-  <div class="row">Pagination</div>
-
+  </article>
 </div>
 {% endblock %}
