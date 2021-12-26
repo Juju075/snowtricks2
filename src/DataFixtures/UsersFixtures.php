@@ -51,10 +51,5 @@ class UsersFixtures extends Fixture
 
             $manager->flush();
         }
-
-            //Les réferences entre fixtures ()
-
-
     }
-
 }

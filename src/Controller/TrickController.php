@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
 use App\Entity\Trick;
+use App\Entity\Photo;
 use App\Entity\Video;
 use App\Entity\Comment;
 
