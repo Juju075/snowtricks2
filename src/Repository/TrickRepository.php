@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Repository;
 
 use App\Entity\Trick;
@@ -31,7 +30,7 @@ class TrickRepository extends ServiceEntityRepository
 
         //SELECT alias de table    
         $query = $this->createQueryBuilder('t') 
-        ->orderBy('t.createdAt') // ref trick.php pas bdd
+        ->orderBy('t.createdAt', 'DESC') // ref trick.php pas bdd
 
         //Ajout de params
 
