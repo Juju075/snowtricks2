@@ -27,23 +27,6 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
         $photo = $faker->image('public/uploads/'); // path de destination , taille et random. vu pas d'extension!!!
         $photoName = str_replace('public/uploads\\', '', $photo);
 
-        //PHOTOS
-        //liste de nom de photos mauvaise methode pastille. array_rand()
-        // $listOfImages = array(
-        //     '4ccc18a0d10cd25d778ec2eba1ec9a82.jpg',
-        //     '4ae9be30a99889f9d4b7769f100e6a63.jpg',
-        //     '99b47532cf17093c95e84c6e3ff7d2c3.jpg',
-        //     'a252a944f109d4a87de24fadbf2b3173.jpg',
-        //     'a7fe1d19ba3580ad8f6acc3272659e0d.jpg',
-        //     '72905b91613379722cecaac74f67e982.jpg',
-        //     'f20ad0211ab29ad8d29b899573604c22.jpg',
-        //     '92af130caab728520c70853bc35d84aa.jpg',
-        //     '449360a6bf7581c30247140e30e255ab.jpg',
-        //     'a81eb2a5105a43366421cc7d3e3cf870.jpg',
-        //     '8b58d78fc1d28fc5b446b3dd78379ff0.jpg',
-        //     'dcbb0da03b5840d6574abf507b58550a.jpg'
-        // );
-
         //Pour la creation d'un trick
         for ($nbTricks=1; $nbTricks <= 40 ; $nbTricks++) { 
             //pour un utilisateur en reference de facon aleatoire reuse user_id
@@ -58,8 +41,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
 
             //Inputs de Fichiers.
 
-            //upload photos 4 img par trick
-            for ($image=0; $image <= 3 ; $image++) { 
+            //upload photos 3 img par trick
+            for ($image=0; $image <= 2 ; $image++) { 
                 //genere une nouvelle image a chaque boucle
                 $photo = $faker->image('public/uploads');
                 $photoName = basename($photo);
@@ -70,8 +53,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                 $trick->addPhoto($photoTrick);
             }
             
-            //upload embedded 2 par trick
-            for ($embedded=0; $embedded <= 3 ; $embedded++) { 
+            //upload embedded 3 par trick
+            for ($embedded=0; $embedded <= 2 ; $embedded++) { 
                 $embedded = array(
                     '1'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     '2'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
@@ -88,20 +71,30 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             }
 
             $manager->persist($trick);
+
         }
         $manager->flush();
-
-        //appel function  addRandomComments()
+        $this->addRandomComments();
     }
 
-    public function addRandomComments()
+    public function addRandomComments(User $user, Trick $tricks, ObjectManager $manager)
     {
-        //une fois que tous les tricks existe on vas les commentes.
-            //passe en revue chaque trick ajoute un commentaire.
-                //passe en revue tous les utilisateurs poste un comment oui ou non
-                //Fin
-            //Fin
-        //Fin
+        $faker = Faker\Factory::create('fr_FR');
+        //connecte un utilisateur
+        foreach ($user as $value) {
+            dd($user);
+            //pour chaque tricks lu
+            foreach ($tricks as $value) {
+    
+                if (rand(0, 1) === 1) {
+                    $comment = new Comment();
+                    $comment->setContent($faker->realText(400));
+                    $tricks->addComment($comment);
+                }
+                $manager->persist($tricks);
+            }
+        }
+        $manager->flush();
     }        
   
 

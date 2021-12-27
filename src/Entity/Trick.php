@@ -7,10 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\Timestampable;
 
+//@ORM\Entity(repositoryClass=TrickRepository::class) don't work anymore
 /**
- * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @ORM\HasLifecycleCallbacks()
  */
+
 class Trick
 {
     use Timestampable;  

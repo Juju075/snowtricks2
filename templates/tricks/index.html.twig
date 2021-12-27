@@ -15,6 +15,11 @@ endblock %} {% block body %}
       alt="Image de presentation"
     />
   </div>
+  <div class="overlay">
+    <p class="overlay-content overlay">
+      "The Best trick ever" fleche dernier trick
+    </p>
+  </div>
 </div>
 <!-- ======================================================================= -->
 <!-- Card Model-->
@@ -27,7 +32,7 @@ endblock %} {% block body %}
   </h2>
   <a name="haut">...</a>
 
-  {% for row in tricks|batch(4)%}
+  {% for row in tricks|batch(5)%}
   <div class="row mt-5 mb-5">
     {% for trick in row %}
     <div class="col-md-4">
@@ -80,11 +85,14 @@ endblock %} {% block body %}
   <!-- ===================================================================== -->
   <!-- LOAD -->
   <!-- ===================================================================== -->
-  {% set pages = (total/limit)| round(0, 'ceil') %}
+  {% set pages = (total/limit)| round(0, 'ceil') %} if total items in this page
+  >= 15 count items in for loop
+  {{ dump(page) }}{% if pages >= 15 %}
   <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
     >{#Page actuel +1 limite au nombre de pages max #}
     <p>LOAD</p>
   </a>
+  {% endif %}
 
   <!-- ======================================================================= -->
   <!-- Composant de Pagination -->

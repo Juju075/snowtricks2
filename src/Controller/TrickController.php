@@ -24,31 +24,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
-
-    /**
-     * @Route("/backup", name="app_home", methods={"GET"})
-     * @return void
-     */
-    public function indexBackup(TrickRepository $trickRepository, Request $request){  
-        //on defini le nombre de tricks max par page
-        $limit = 12;
-        //on recupere le numéro de page
-        $page = (int)$request->query->get("page", 1);
-        
-
-        //on recupere les tricks de la page
-        // $tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']); code initial
-        //$tricks = $trickRepository->findAll();
-
-        $tricks = $trickRepository->getPaginationTricks($page, $limit);
-
-        //on recupere le nbr total de trick
-        $total = $trickRepository->getTotalTricks(); 
-        dump($tricks, $total);
-
-        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
-    }
-
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
@@ -59,9 +34,7 @@ class TrickController extends AbstractController
 
         //$tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
-
         $total = $trickRepository->getTotalTricks();
-        dump($total);
 
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
