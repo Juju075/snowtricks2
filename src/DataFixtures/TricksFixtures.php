@@ -3,14 +3,10 @@
 namespace App\DataFixtures;
 
 use Faker;
-use App\Entity\User;
 use App\Entity\Photo;
 use App\Entity\Trick;
 use App\Entity\Video;
-use App\Entity\Comment;
 
-
-use App\Entity\Category;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
@@ -40,6 +36,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                 
                 //$photoName = str_replace('public/uploads\\', '', $photo);
                 //$photoName = basename($photo);
+
                 $photoName = array(
                     '1'=>'3a2efcb1dd5be46ad242348d1155470d.jpg',
                     '2'=>'0508f7e1f32150aaf16b4545a7438fcc.jpg',
@@ -58,7 +55,6 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                     '15'=>'4ae9be30a99889f9d4b7769f100e6a63.jpg'
                 );
                 shuffle($photoName); 
-
                 $photoTrick = new Photo();
                 $photoTrick->setName($photoName[0]);
                 $trick->addPhoto($photoTrick);
@@ -75,40 +71,15 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                     '6'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'
                 );
                 shuffle($embedded);    
-
                 $videoTrick = new Video();
                 $videoTrick->setEmbedded($embedded[0]); //location liste
                 $trick->addVideo($videoTrick);
             }
-
+            $this->addReference('trick_'. $nbTricks, $user); 
             $manager->persist($trick);
-
         }
         $manager->flush();
     }
-
-    public function addRandomComments(User $user, Trick $tricks, ObjectManager $manager)
-    {
-        $faker = Faker\Factory::create('fr_FR');
-        //connecte un utilisateur
-        foreach ($user as $value) {
-            dd($user);
-            //pour chaque tricks lu
-            foreach ($tricks as $value) {
-    
-                if (rand(0, 1) === 1) {
-                    $comment = new Comment();
-                    $comment->setContent($faker->realText(400));
-                    $tricks->addComment($comment);
-                }
-                $manager->persist($tricks);
-            }
-        }
-        $manager->flush();
-    }        
-  
-
-
 
     //liste les dependences de la Fixture TricksFixtures get references
     public function getDependencies()
