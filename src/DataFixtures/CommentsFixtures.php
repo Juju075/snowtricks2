@@ -17,10 +17,9 @@ class CommentsFixtures extends Fixture
     //referencer les tricks dans tricksfixtures
     public function load(ObjectManager $manager): void
     {
-        //utiliser reference retrive user trick
-        
         $faker = Faker\Factory::create('fr_FR');
-        //   $tricks
+        //utiliser reference ou repository{id}
+        //$user = $this->getReference($name);
         
         foreach ($user as $value) {
             //recupere utilisateur du debut a la fin.
