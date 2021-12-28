@@ -85,11 +85,10 @@ endblock %} {% block body %}
   <!-- ===================================================================== -->
   <!-- LOAD -->
   <!-- ===================================================================== -->
-  {% set pages = (total/limit)| round(0, 'ceil') %} if total items in this page
-  >= 15 count items in for loop {% if total >= 15 %}
+  {% set pages = (total/limit)| round(0, 'ceil') %} {% if total >= 15 %}
   <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
     >{#Page actuel +1 limite au nombre de pages max #}
-    <p>LOAD</p>
+    <button type="button" class="btn btn-secondary btn-lg">LOAD</button>
   </a>
   {% endif %}
 
