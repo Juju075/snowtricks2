@@ -57,7 +57,7 @@
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
 
-  https://www.youtube.com/watch?v=Suhj7SJuEbM
+  {{ video.embedded}}
           
         {% endfor %}
       {% endif %}

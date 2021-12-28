@@ -2,16 +2,16 @@
 
 namespace App\DataFixtures;
 
+use Faker;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Comment;
-use Faker;
 
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 
-class AppFixtures extends Fixture
+class CommentsFixtures extends Fixture
 {
 
     //referencer les tricks dans tricksfixtures

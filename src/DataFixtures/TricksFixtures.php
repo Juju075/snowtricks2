@@ -30,7 +30,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             $trick->setDescription($faker->realText(400));
 
             //upload photos 3 img par trick
-            for ($image=0; $image <= 2 ; $image++) { 
+            for ($nbimage=0; $nbimage <= 2 ; $nbimage++) { 
                 //genere une nouvelle image a chaque boucle
                 //$photo = $faker->image('public/uploads/'); //image() path de destination , taille et random. vu pas d'extension!!!
                 
@@ -61,7 +61,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             }
             
             //upload embedded 3 par trick
-            for ($embedded=0; $embedded <= 2 ; $embedded++) { 
+            for ($nbembedded=0; $nbembedded <= 2 ; $nbembedded++) { 
                 $embedded = array(
                     '1'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     '2'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
@@ -75,6 +75,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                 $videoTrick->setEmbedded($embedded[0]); //location liste
                 $trick->addVideo($videoTrick);
             }
+            //nb pour numerotion
             $this->addReference('trick_'. $nbTricks, $user); 
             $manager->persist($trick);
         }
