@@ -39,9 +39,6 @@ class TrickRepository extends ServiceEntityRepository
         ->setFirstResult(($page * $limit)-$limit) // depart
         ->setMaxResults($limit)  //limit d'elements
         ;
-        
-        dump($query, $query->getDQL());
-
         return $query->getQuery()->getResult();
     }
 

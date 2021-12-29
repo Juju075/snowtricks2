@@ -29,7 +29,7 @@ class TrickController extends AbstractController
      */
     public function index(TrickRepository $trickRepository, Request $request): Response
     {
-        $limit = 12;
+        $limit = 15;
         $page = (int)$request->query->get("page", 1);  // url../?page=
 
         //$tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
@@ -132,6 +132,7 @@ class TrickController extends AbstractController
             
             $em->persist($comment);
             $em->flush();
+            return $this->redirectToRoute('app_tricks_show', ['slug'=>$trick->getSlug()]);
         }
 
         return $this->renderForm('tricks/show.html.twig', ['trick'=>$trick,'form'=>$form]);
@@ -159,7 +160,6 @@ class TrickController extends AbstractController
 
                 //si l'image est une instance de     
                 if ($image instanceof UploadedFile) {
-                    dd('yes is an instanceof uploadedFile');
                     $fichier = md5(uniqid()).'.'.$image->guessExtension();
                     $image->move(
                     $this->getParameter('images_directory'),
@@ -185,10 +185,9 @@ class TrickController extends AbstractController
     public function delete(Request $request, EntityManagerInterface $em, Trick $trick): Response
     { 
         $token = $request->request->get('csrf_token');
-        $espected = 'trick_deletion_' . $trick->getId(); //trick_deletion_12
-        dd($token, $request, $espected);
+        $espected = 'trick_deletion_' . $trick->getId(); // reponse: trick_deletion_12
 
-        if ($this->isCsrfTokenValid('trick_deletion_' . $trick->getId(), $request->request->get('csrf_token'))) {
+        if ($this->isCsrfTokenValid('trick_deletion_' . $trick->getId(), $request->request->get('_token'))) {
             $em->remove($trick);
             $em->flush();
             $this->addFlash('info', 'Trick successfully deleted!');
@@ -220,7 +219,6 @@ class TrickController extends AbstractController
         dd('deletePhoto function ok');
         //json_decode — Décode une chaîne JSON
         $data = json_decode($request->getContent(), true);
-        dump($data);
 
         //Attention: $photo->getId()  risque de securite injection utilisateur.
         //Quel photo supprimer 

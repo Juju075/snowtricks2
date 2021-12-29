@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker;
 use App\Entity\User;
 use App\Entity\Trick;
+use App\Repository\TrickRepository;
 use App\Entity\Comment;
 
 
@@ -14,10 +15,15 @@ use Doctrine\Persistence\ObjectManager;
 class CommentsFixtures extends Fixture
 {
 
+    // public function __construct(User $user, TrickRepository $trickRepository){
+    //         //all id user   all id tricks
+    // }
+
     //referencer les tricks dans tricksfixtures
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
+        $tricks = null;
         //utiliser reference ou repository{id}
         //$user = $this->getReference($name);
         

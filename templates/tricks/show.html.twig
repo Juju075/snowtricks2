@@ -5,36 +5,36 @@
 {{ include("layouts/partials/_nav.html.twig") }}
 <div class="container border">
   <!-- ======================================================================= -->
-  <!-- Image a la une -->
+  <!-- Image à la une -->
   <!-- ======================================================================= -->
-  <article class="row  text-center border">
+  <article class="row text-center border" style="background:url( {{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}) norepeat cover">
+
     <!-- Overlay elements -->
     <div class="col-md-12 border">
 
       <div class="" style='background:green;position:absolute;'>
+
         <div><a href="{{ path('app_tricks_edit', {slug: trick.slug})}}">
           <img src="https://img.icons8.com/material/24/000000/edit--v5.png"
           />
         </a>
         </div>
+
         <div>
           <img src="https://img.icons8.com/material/50/000000/delete-trash.png"
           />
         </div>
+
       </div>
       
 
-      <div class="col-md-12 border">
-        <h2 class="col" style='background:yellow;position:absolute;'>{{ trick.nom|capitalize }}</h2>
-      </div>
-    <div class="col-md-12">
-            <img
-              src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}"
-              alt="{{ trick.nom }}"
-              class="img-fluid"
-            />
+        <div class="col-md-12 border">
+            <h2 class="col" style='background:yellow;position:absolute;'>{{ trick.nom|capitalize }}</h2>
+        </div>
+
     </div>
-    </div>
+
+
   </article>
 
   <!-- ======================================================================= -->
@@ -56,7 +56,10 @@
     <div class="col-md-12">
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
-        {{ video.embedded}}    
+
+
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
         {% endfor %}
       {% endif %}
     </div>
@@ -80,7 +83,9 @@
       <time datetime="{{ trick.createdAt|date("m/d/Y") }}"</time>
     </div>
     <div class="col-md-auto">
+
       <p>Groupe:</p>
+
       {#{ trick.category }#}
     </div>
     <div class="col-md-auto">

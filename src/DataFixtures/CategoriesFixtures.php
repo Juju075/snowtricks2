@@ -31,9 +31,7 @@ class CategoriesFixtures extends Fixture
             //Enregistrer la category dans une réference. eg: category_1 Category::class id
             $this->addReference('category_'. $key, $category);
         }
-
         //3- Grace au model de persistence ObjectManager
         $manager->flush();
-
     }
 }

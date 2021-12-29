@@ -32,8 +32,9 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             //upload photos 3 img par trick
             for ($nbimage=0; $nbimage <= 2 ; $nbimage++) { 
                 //genere une nouvelle image a chaque boucle
+
+
                 //$photo = $faker->image('public/uploads/'); //image() path de destination , taille et random. vu pas d'extension!!!
-                
                 //$photoName = str_replace('public/uploads\\', '', $photo);
                 //$photoName = basename($photo);
 
