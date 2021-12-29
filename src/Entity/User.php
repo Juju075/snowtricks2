@@ -70,8 +70,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
-        $this->tricks = new ArrayCollection();
+        $this->comment = new ArrayCollection();
+        $this->trick = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -267,5 +267,3 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 }
-
-

@@ -31,8 +31,6 @@ class TrickController extends AbstractController
     {
         $limit = 15;
         $page = (int)$request->query->get("page", 1);  // url../?page=
-
-        //$tricks = $trickRepository->findBy([], ['createdAt'=>'DESC']);
         $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
         $total = $trickRepository->getTotalTricks();
 
@@ -90,9 +88,6 @@ class TrickController extends AbstractController
             foreach($videos as $video){
                 $model1 = $video->getData();
                 $video = $video->get('embedded')->getData(); // erreur php Child "embedded" does not exist.
-
-                //Enregister dans la bdd
-                //$trick->addVideo($video);
                 $model1->setEmbedded($video); //$form->get('videos')->getData()   trick->addVideo($video)     ->setEmbedded($video);
 
             }
@@ -147,9 +142,6 @@ class TrickController extends AbstractController
         $form = $this->createForm(TrickType::class, $trick);
         $form->handleRequest($request);
         
-       //dump($form->get('photos')->getData());
-       //dd($form->isSubmitted() && $form->isValid());
-
         if ($form->isSubmitted() && $form->isValid()){
             $images = $form->get('photos');
             $videos = $form->get('videos');
@@ -215,8 +207,6 @@ class TrickController extends AbstractController
      */
     public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
     {
-
-        dd('deletePhoto function ok');
         //json_decode — Décode une chaîne JSON
         $data = json_decode($request->getContent(), true);
 
