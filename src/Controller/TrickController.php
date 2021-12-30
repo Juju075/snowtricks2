@@ -12,6 +12,7 @@ use App\Form\CommentType;
 
 
 use App\Repository\TrickRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class TrickController extends AbstractController
 {
+
+    public $users;
+    public $tricks;
+
     /**
      * @Route("/", name="app_home", methods={"GET"})
      */
@@ -248,6 +253,19 @@ class TrickController extends AbstractController
         }else{
             return new JsonResponse(['error'=>'Token Invalide'], 400);
         }
+    }
+
+
+/**
+ * @Route("/test")
+ */
+    public function test(UserRepository $userRepository, TrickRepository $trickRepository)
+    {
+
+        $this->users = $userRepository->findAll();
+        $this->tricks = $trickRepository->findAll();
+
+        dd($users, $tricks);
     }
 }
 

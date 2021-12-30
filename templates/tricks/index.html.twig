@@ -8,10 +8,11 @@ endblock %} {% block body %}
 <!-- Cover -->
 <!-- ======================================================================= -->
 <div class="row">
-  <div class="col-md-12 border text-center">
+  <div class="col-md-12 text-center">
     <img
-      src=" {{ asset('/uploads/4ae9be30a99889f9d4b7769f100e6a63.jpg') }}"
+      src=" {{ asset('build/images/cover.jpg') }}"
       class="img-fluid. max-width: 100%"
+      width="100%"
       alt="Image de presentation"
     />
   </div>
@@ -56,7 +57,7 @@ endblock %} {% block body %}
         <!-- ============================================================= -->
         <!-- Card Buttons -->
         <!-- ============================================================= -->
-        <div class="border flex-row">
+        <div class="flex-row">
           <div>
             <a
               href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
@@ -90,56 +91,18 @@ endblock %} {% block body %}
   {% endif %}
 
   <a name="bas">...</a>
+
   <!-- ===================================================================== -->
   <!-- LOAD -->
   <!-- ===================================================================== -->
   {% set pages = (total/limit)| round(0, 'ceil') %} {% if total >= 15 %}
-  <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
-    >{#Page actuel +1 limite au nombre de pages max #}
-    <button type="button" class="btn btn-secondary btn-lg">LOAD MORE</button>
-  </a>
+  <div class="row col-md-12 text-center">
+    <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
+      >{#Page actuel +1 limite au nombre de pages max #}
+      <button type="button" class="btn btn-secondary btn-lg">LOAD MORE</button>
+    </a>
+  </div>
   {% endif %}
-
-  <!-- ======================================================================= -->
-  <!-- Composant de Pagination -->
-  <!-- ======================================================================= -->
-
-  {# boucle 1 au derniere page calculer le nbr de page requis 58:36#} {# Astuce
-  < expression dans href 1 disable href précedent et ~> disable href suivant #}
-
-  <article class="row border">
-    {% if tricks|length > 0 %}
-    <div class="col-md-4 mt-2">
-      <nav aria-label="Page navigation example">
-        {% set pages = (total/limit)| round(0, 'ceil') %}
-        <ul class="pagination">
-          <li class="page-item {{ page == 1 ? 'disable' : '' }}">
-            <a
-              class="page-link"
-              href="{{ (page > 1) ? '?page=' ~  (page - 1) : '' }}"
-              >Precedent</a
-            >
-          </li>
-
-          {% for item in 1.. pages %}
-
-          <li class="page-item">
-            <a class="page-link" href="?page{{ item }}">{{ item }}</a>
-          </li>
-
-          {% endfor %}
-
-          <li class="page-item {{ page == pages ? 'disable' : '' }}">
-            <a
-              class="page-link"
-              href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
-              >Suivant</a
-            >
-          </li>
-        </ul>
-      </nav>
-    </div>
-    {% endif %}
     <div class="row text-center">
       <a href="#haut"
         ><button type="button" class="btn btn-outline-secondary mb-2">
@@ -150,3 +113,5 @@ endblock %} {% block body %}
   </article>
 </div>
 {% endblock %}
+
+
