@@ -3,14 +3,14 @@
 {%block body %}
 {# Page de detail.#}
 {{ include("layouts/partials/_nav.html.twig") }}
-<div class="container border">
+<div class="container">
   <!-- ======================================================================= -->
   <!-- Image à la une -->
   <!-- ======================================================================= -->
-  <article class="row text-center border" style="background:url( {{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}) norepeat cover">
+  <article class="row text-center" style="background:url( {{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}) norepeat cover">
 
     <!-- Overlay elements -->
-    <div class="col-md-12 border">
+    <div class="col-md-12">
 
       <div class="" style='background:green;position:absolute;'>
 
@@ -28,7 +28,7 @@
       </div>
       
 
-        <div class="col-md-12 border">
+        <div class="col-md-12">
             <h2 class="col" style='background:yellow;position:absolute;'>{{ trick.nom|capitalize }}</h2>
         </div>
 
@@ -40,7 +40,7 @@
   <!-- ======================================================================= -->
   <!-- Illustration photos et videos -->
   <!-- ======================================================================= -->
-  <article class="row justify-content-around border">
+  <article class="row justify-content-around">
     <div class="col-md-12">
      {% if trick.photos.count > 0 %}
       {% for image in trick.photos %}
@@ -115,13 +115,13 @@
   {% endif %}
 
   {# Liste des commentaires #}
-  <article class="row border">
+  <article class="row">
       <div class="col-md-4">
         <h2>Liste des commentaires</h2>
       </div>
       {# pas de commentaire identique text #}
       {% for comment in trick.comments %}
-      <div class="row border">
+      <div class="row">
         {# Card #}
         <div class="">
           <div class="col-lg-12">
@@ -137,21 +137,14 @@
               class="bg-info rounded-circle" alt="Avatar aleatoire"
               />
           </div>
-
           <div>
             <p>{{ comment.content|raw }}</p>
             <p>{{ comment.createdat|date("m/d/Y") }}</p>
-
-            {# https://randomuser.me/documentation#howto #}
-            comment.auteur
-
-            {# <p>{{ comment.userfullName}}</p>
-            <p>{{ comment.avatar }}</p>
-                #}
           </div>
+          {{ trick.user.fullname }}
         </div>
       </div>
-      {% endfor %}
+      {% endfor %} {# fin boucle card #}
   </article>
 </div>
 {% endblock %}

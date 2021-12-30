@@ -8,28 +8,27 @@ endblock %} {% block body %}
 <!-- Cover -->
 <!-- ======================================================================= -->
 <div class="row">
-  <div class="col-md-12 text-center">
-    <img
-      src=" {{ asset('build/images/cover.jpg') }}"
-      class="img-fluid. max-width: 100%"
-      width="100%"
-      alt="Image de presentation"
-    />
-  </div>
-  <div class="overlay">
-    <p class="overlay-content overlay">
-      "The Best trick ever" fleche dernier trick
-    </p>
-  </div>
+
+    <div class="cover text-center">
+
+      <img src=" {{ asset('build/images/cover.jpg') }}" alt="Image a la une" class="img-responsive" width="100%"
+      alt="Image de presentation">
+      
+      <div class="textoverlay">
+        <p>"The Best trick ever" fleche dernier trick</p>
+      </div>
+
+      <a href="#bas"
+        ><button type="button" class="btn btn-outline-secondary mb-2">
+          Arrow
+        </button></a
+      >
+
+    </div>
+
+
 </div>
 
-<div class="row text-center">
-  <a href="#bas"
-    ><button type="button" class="btn btn-outline-secondary mb-2">
-      Arrow
-    </button></a
-  >
-</div>
 <!-- ======================================================================= -->
 <!-- Card Model-->
 <!-- Content [Listing des articles] -->
