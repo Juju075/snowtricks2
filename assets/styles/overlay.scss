@@ -1,6 +1,5 @@
 .cover {
   position: relative;
-  border: 2px solid red;
 }
 
 .textoverlay {
@@ -8,5 +7,22 @@
   top: 45%;
   left: 0;
   width: 100%;
-  border: 2px solid red;
+  color: red;
+  text-shadow: black;
+}
+.fleche {
+  position: absolute;
+  top: 85%;
+  left: 70;
+  width: 100%;
+  color: black;
+  text-shadow: black;
+}
+.textoverlay2 {
+  position: absolute;
+  top: 15%;
+  left: 0;
+  width: 100%;
+  color: red;
+  text-shadow: black;
 }

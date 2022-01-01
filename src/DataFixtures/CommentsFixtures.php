@@ -38,6 +38,9 @@ class CommentsFixtures extends Fixture
         //     }
         // }
         // $manager->flush();
+
+
+        //faker->randomElement(tableau)
     }
 
     public function getDependencies()

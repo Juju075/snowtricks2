@@ -15,18 +15,20 @@ endblock %} {% block body %}
       alt="Image de presentation">
       
       <div class="textoverlay">
-        <p>"The Best trick ever" fleche dernier trick</p>
+        <h1>"The Best trick ever" </h1>
+        <p>Brough to you by nitro.</p>
+      </div>
+
+      <div class="fleche">
+        <button type="button" class="btn btn-outline-secondary mb-2">
+          fleche ici
+          <i class="fa-solid fa-arrow-down-from-dotted-line"></i>
+        </button></a>
       </div>
 
       <a href="#bas"
-        ><button type="button" class="btn btn-outline-secondary mb-2">
-          Arrow
-        </button></a
       >
-
     </div>
-
-
 </div>
 
 <!-- ======================================================================= -->
@@ -94,23 +96,37 @@ endblock %} {% block body %}
   <!-- ===================================================================== -->
   <!-- LOAD -->
   <!-- ===================================================================== -->
-  {% set pages = (total/limit)| round(0, 'ceil') %} {% if total >= 15 %}
-  <div class="row col-md-12 text-center">
-    <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
-      >{#Page actuel +1 limite au nombre de pages max #}
-      <button type="button" class="btn btn-secondary btn-lg">LOAD MORE</button>
-    </a>
-  </div>
-  {% endif %}
+  {% set pages = (total/limit)| round(0, 'ceil') %} 
+  
+
+  {% if total >= 15 %}
+    <div class="row col-md-12 text-center">
+      <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
+        >{#Page actuel +1 limite au nombre de pages max #}
+        <button type="button" class="btn btn-secondary btn-lg">LOAD MORE</button>
+      </a>
+        {% endif %}
+
+{# Relier le bouton LOAD MORE au script #}
+ {# Get data with XMLHttpRequest #}
+ {# inseret le scipt xhr.js ici #}
+
     <div class="row text-center">
       <a href="#haut"
         ><button type="button" class="btn btn-outline-secondary mb-2">
           Arrow
+          <i class="fa-solid fa-arrow-up-from-dotted-line"></i>
         </button></a
-      >
+        >
+      
+
     </div>
   </article>
 </div>
 {% endblock %}
+{% block javascript %}
+{% endblock %}
+
+
 
 

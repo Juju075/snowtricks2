@@ -7,40 +7,39 @@
   <!-- ======================================================================= -->
   <!-- Image à la une -->
   <!-- ======================================================================= -->
-  <article class="row text-center" style="background:url( {{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_thumbnail_medium')}}) norepeat cover">
+  <article class="row">
 
-    <!-- Overlay elements -->
-    <div class="col-md-12">
+    <div class="cover">
 
-      <div class="" style='background:green;position:absolute;'>
+      <img src=" {{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')}}" alt="Image a la une" class="img-responsive" width="100%"
+      alt="Image">
 
-        <div><a href="{{ path('app_tricks_edit', {slug: trick.slug})}}">
-          <img src="https://img.icons8.com/material/24/000000/edit--v5.png"
-          />
-        </a>
-        </div>
-
-        <div>
-          <img src="https://img.icons8.com/material/50/000000/delete-trash.png"
-          />
-        </div>
-
-      </div>
-      
+      <div class="textoverlay border text-center">
 
         <div class="col-md-12">
-            <h2 class="col" style='background:yellow;position:absolute;'>{{ trick.nom|capitalize }}</h2>
+            <h2 class="col" >{{ trick.nom|capitalize }}</h2>
+            <a href="{{ path('app_tricks_edit', {slug: trick.slug})}}">
+              <img src="https://img.icons8.com/material/24/000000/edit--v5.png"
+              />
+            </a>
+    
+            <a href="{{ path('app_tricks_edit', {slug: trick.slug})}}">
+              <img src="https://img.icons8.com/material/50/000000/delete-trash.png"
+              />
+            </a>
+
         </div>
 
+
+      </div>
+
     </div>
-
-
   </article>
 
   <!-- ======================================================================= -->
   <!-- Illustration photos et videos -->
   <!-- ======================================================================= -->
-  <article class="row justify-content-around">
+  <article class="row justify-content-around mt-3">
     <div class="col-md-12">
      {% if trick.photos.count > 0 %}
       {% for image in trick.photos %}
@@ -51,15 +50,12 @@
       {% endfor %}
      {% endif %}
     </div>
-
     {# Videos #}
     <div class="col-md-12">
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
-
-
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
+          {{ video.embedded }}
+          <iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         {% endfor %}
       {% endif %}
     </div>

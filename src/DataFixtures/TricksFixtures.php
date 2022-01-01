@@ -30,7 +30,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             $trick->setDescription($faker->realText(400));
 
             //upload photos 3 img par trick
-            for ($nbimage=0; $nbimage <= 2 ; $nbimage++) { 
+            for ($nbimage=0; $nbimage < 2 ; $nbimage++) { 
                 //genere une nouvelle image a chaque boucle
 
 
@@ -62,7 +62,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
             }
             
             //upload embedded 3 par trick
-            for ($nbembedded=0; $nbembedded <= 2 ; $nbembedded++) { 
+            for ($nbembedded=0; $nbembedded < 2 ; $nbembedded++) { 
                 $embedded = array(
                     '1'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',
                     '2'=>'<iframe width="560" height="315" src="https://www.youtube.com/embed/SQyTWk7OxSI?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>',

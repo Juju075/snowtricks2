@@ -30,15 +30,48 @@ class TrickController extends AbstractController
     public $tricks;
 
     /**
-     * @Route("/", name="app_home", methods={"GET"})
+     * @Route("/dd", name="app_home1", methods={"GET"})
      */
-    public function index(TrickRepository $trickRepository, Request $request): Response
+    public function indexBackup(TrickRepository $trickRepository, Request $request): Response
     {
         $limit = 15;
         $page = (int)$request->query->get("page", 1);  // url../?page=
         $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
         $total = $trickRepository->getTotalTricks();
 
+        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
+    }
+
+
+
+    /**
+     * @Route("/", name="app_home", methods={"GET"})
+     */
+    public function index(TrickRepository $trickRepository, Request $request): Response
+    {
+        // envoyer une requete ajax ?page=2 ect... et recuperer une réponse à afficher ($tricks).
+        //A afficher dans la vue   eg:?page=3  requete querybuilder contenant l'item de debut selon calcul de page.
+        $limit = 15;
+
+        //[ Récuperation du querystring. ]
+        $page = (int)$request->query->get("page", 1);  // url../?page=  int 1, 2, 3 ect
+
+        // [ Les interogations de la Bdd. ]
+        $tricks = $trickRepository->getPaginatedTricks($page, $limit);
+        $total = $trickRepository->getTotalTricks();
+        
+
+        // Sript php (Serveur) qui repond au requetes (Navigateur).
+        header('Content-Type: text/html; charset=utf-8');
+        if (isset($_GET['page'])) { // recupére la querystring (uri)
+            $pagee = $_GET['page'];
+            $rt = rand(1,10);
+            sleep($rt); //endormir le procesus php xsec?
+            //echo"OK";
+            //La reponse est le numero de la page demandé.
+            echo"Réponse de $pagee => délais de $rt secondes"; 
+
+        }
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
@@ -57,9 +90,14 @@ class TrickController extends AbstractController
     }
 
     /**
+     * To create Trick
      * @Security("is_granted('ROLE_USER')")
      * @Route("/tricks/create",name="app_tricks_create", methods={"GET","POST"})
-     */
+     * 
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return Response
+     */ 
     public function create(Request $request, EntityManagerInterface $em): Response 
     {
         $trick = new Trick;
