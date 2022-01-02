@@ -37,6 +37,7 @@ class TrickController extends AbstractController
         $limit = 15;
         $page = (int)$request->query->get("page", 1);  // url../?page=
         $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
+        
         $total = $trickRepository->getTotalTricks();
 
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
@@ -59,19 +60,20 @@ class TrickController extends AbstractController
         // [ Les interogations de la Bdd. ]
         $tricks = $trickRepository->getPaginatedTricks($page, $limit);
         $total = $trickRepository->getTotalTricks();
-        
+        dd($tricks);
 
         // Sript php (Serveur) qui repond au requetes (Navigateur).
         header('Content-Type: text/html; charset=utf-8');
         if (isset($_GET['page'])) { // recupére la querystring (uri)
             $pagee = $_GET['page'];
             $rt = rand(1,10);
-            sleep($rt); //endormir le procesus php xsec?
+            sleep($rt); //endormir le procesus php xsec? envoie un promise
             //echo"OK";
             //La reponse est le numero de la page demandé.
             echo"Réponse de $pagee => délais de $rt secondes"; 
 
         }
+        // return new JsonResponse($tricks);
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 

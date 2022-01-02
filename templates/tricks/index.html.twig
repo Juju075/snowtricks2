@@ -58,28 +58,26 @@ endblock %} {% block body %}
         <!-- ============================================================= -->
         <!-- Card Buttons -->
         <!-- ============================================================= -->
-        <div class="flex-row">
+        <div class="flex-row border">
           <div>
             <a
               href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
               class="btn btn-primary"
               >Edit
             </a>
+            <form
+              method="post"
+              action="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
+              onsubmit="return confirm('êtes-vous sûre de vouloir supprimer?');"
+            >
+              <input
+                type="hidden"
+                name="_token"
+                value="{{ csrf_token('trick_deletion_' ~ trick.id) }}"
+              />
+              <button class="btn btn-primary">Supprimer</button>
+            </form>
           </div>
-
-          <form
-            method="post"
-            action="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
-            onsubmit="return confirm('êtes-vous sûre de vouloir supprimer?');"
-          >
-            {#} isCsrfTokenValid('trick_deletion_' . $trick->getId() {#}
-            <input
-              type="hidden"
-              name="_token"
-              value="{{ csrf_token('trick_deletion_' ~ trick.id) }}"
-            />
-            <button class="btn btn-primary">Supprimer</button>
-          </form>
         </div>
       </article>
     </div>
@@ -90,11 +88,11 @@ endblock %} {% block body %}
     No tricks yet <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
   </p>
   {% endif %}
-
   <a name="bas">...</a>
 
   <!-- ===================================================================== -->
-  <!-- LOAD -->
+  <!-- LOAD MORE Button --> 
+  <!-- Ajouter un id pour le js -->
   <!-- ===================================================================== -->
   {% set pages = (total/limit)| round(0, 'ceil') %} 
   
@@ -125,6 +123,7 @@ endblock %} {% block body %}
 </div>
 {% endblock %}
 {% block javascript %}
+<script src="build/js/app.js"></script>
 {% endblock %}
 
 

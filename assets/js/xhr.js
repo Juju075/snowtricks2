@@ -1,7 +1,14 @@
+/** Dans le Navigateur (Html) - On Capturer le onclick du bouton LOAD MORE et on empecher comportement par default */
+document.getElementById("load").addEventListener("", function (e) {
+  e.preventDefault();
+  return false;
+});
+
+/** On cree un nouvel Objet XMLHttpRequest pour les appels asynchrones */
 console.log("Debut"); //Marqueur de debut d'execution
 const xhr = new XMLHttpRequest();
 
-//J'ajoute un addEventListener
+//J'ajoute un addEventListener (pour ecouter les changements d'action)
 
 //Declare les evenement on
 //ON ATTEND LA REPONSE Gestionnaire d'events pour attendre une réponse et la traite.
