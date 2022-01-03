@@ -50,8 +50,10 @@ class TrickController extends AbstractController
      */
     public function index(TrickRepository $trickRepository, Request $request): Response
     {
+        // ===========================================================================
         // envoyer une requete ajax ?page=2 ect... et recuperer une réponse à afficher ($tricks).
         //A afficher dans la vue   eg:?page=3  requete querybuilder contenant l'item de debut selon calcul de page.
+        // ===========================================================================
         $limit = 15;
 
         //[ Récuperation du querystring. ]

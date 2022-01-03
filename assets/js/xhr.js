@@ -43,7 +43,10 @@ xhr.open("POST", uri, true);
 //xhr.responseType = "json";
 
 xhr.setRequestHeader("Content-Type", "");
+
+// =============================================================================
 //Envoie de la requete. je n'attends pas la réponse ici.
 //null pas d'informations dans le body de la requete donc c un GET.
+// =============================================================================
 xhr.send(param);
 console.log("Fin"); //Marqueur de fin d'execution
