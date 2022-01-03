@@ -63,8 +63,11 @@ class TrickController extends AbstractController
         //dd($tricks);
 
 
-        //ENVOIE LA REPONSE.
-        // Sript php (Serveur) qui repond aux requêtes (Navigateur).
+        // =====================================================================
+        // Sript php (Serveur) qui repond aux appels ajax (Navigateur).
+        //ENVOIE LA REPONSE. console.log(xhr.responseText);
+        // =====================================================================
+
         header('Content-Type: text/html; charset=utf-8');
         if (isset($_GET['page'])) { // recupére la querystring (uri)
             $pagee = $_GET['page'];
