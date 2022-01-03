@@ -62,7 +62,9 @@ class TrickController extends AbstractController
         $total = $trickRepository->getTotalTricks();
         //dd($tricks);
 
-        // Sript php (Serveur) qui repond au requetes (Navigateur).
+
+        //ENVOIE LA REPONSE.
+        // Sript php (Serveur) qui repond aux requêtes (Navigateur).
         header('Content-Type: text/html; charset=utf-8');
         if (isset($_GET['page'])) { // recupére la querystring (uri)
             $pagee = $_GET['page'];

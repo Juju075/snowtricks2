@@ -1,3 +1,5 @@
+//Ajouter un nom de foncction function x(){ ... }
+
 /** id=   value=   */
 /** Dans le Navigateur (Html) - On Capturer le onclick du bouton LOAD MORE et on empecher comportement par default */
 document.getElementById("load").addEventListener("", function (e) {
@@ -41,6 +43,3 @@ xhr.setRequestHeader("Content-Type", "");
 //null pas d'informations dans le body de la requete donc c un GET.
 xhr.send(param);
 console.log("Fin"); //Marqueur de fin d'execution
-
-
-
