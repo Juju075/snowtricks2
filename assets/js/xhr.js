@@ -19,7 +19,7 @@ const xhr = new XMLHttpRequest();
 //Declare les evenement on
 //ON ATTEND LA REPONSE Gestionnaire d'events pour attendre une réponse et la traite.
 //xhr.addEventListener() fonction fleche
-// =============================================================================
+// ============================================================================
 
 xhr.onload("readystatechange", () => {
   console.log("readyState => ${xhr.readyState}");
