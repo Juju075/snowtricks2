@@ -1,46 +1,46 @@
 {% for row in tricks|batch(5)%}
-    <div class="row mt-5 mb-5">
-        {% for trick in row %}
-        <div class="col-md-4 mt-4 mb-4">
-        <article class="trick bg-white rounded shadow">
-            <div class="mw-100 overflow-hidden rounded-top">
-            <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
-                {# {{ foo ? "yes" : "no" }} #}
-                <img
-                src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_card')}}"
-                alt="{{ trick.nom }}"
-                class="w-100"
-                height="250"
-                />
-            </a>
-            </div>
+<div class="row mt-5 mb-5">
+  {% for trick in row %}
+  <div class="col-md-4 mt-4 mb-4">
+    <article class="trick bg-white rounded shadow">
+      <div class="mw-100 overflow-hidden rounded-top">
+        <a href="{{ path('app_tricks_show', { slug: trick.slug }) }}">
+          {# {{ foo ? "yes" : "no" }} #}
+          <img
+            src="{{ trick.photos is not empty ? asset('/uploads/'~ trick.photos.first.name) : asset('/build/images/placeholder.29b24e4f.jpg')|imagine_filter('squared_card')}}"
+            alt="{{ trick.nom }}"
+            class="w-100"
+            height="250"
+          />
+        </a>
+      </div>
 
-            <!-- ============================================================= -->
-            <!-- Card Buttons -->
-            <!-- ============================================================= -->
-            <div class="flex-row border">
-            <div>
-                <a
-                href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
-                class="btn btn-primary"
-                >Edit
-                </a>
-                <form
-                method="post"
-                action="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
-                onsubmit="return confirm('êtes-vous sûre de vouloir supprimer?');"
-                >
-                <input
-                    type="hidden"
-                    name="_token"
-                    value="{{ csrf_token('trick_deletion_' ~ trick.id) }}"
-                />
-                <button class="btn btn-primary">Supprimer</button>
-                </form>
-            </div>
-            </div>
-        </article>
+      <!-- ============================================================= -->
+      <!-- Card Buttons -->
+      <!-- ============================================================= -->
+      <div class="flex-row border">
+        <div>
+          <a
+            href="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
+            class="btn btn-primary"
+            >Edit
+          </a>
+          <form
+            method="post"
+            action="{{ path('app_tricks_delete', { slug: trick.slug }) }}"
+            onsubmit="return confirm('êtes-vous sûre de vouloir supprimer?');"
+          >
+            <input
+              type="hidden"
+              name="_token"
+              value="{{ csrf_token('trick_deletion_' ~ trick.id) }}"
+            />
+            <button class="btn btn-primary">Supprimer</button>
+          </form>
         </div>
-        {% endfor %}
-    </div>
-{% endfor %} 
+      </div>
+    </article>
+  </div>
+  {% endfor %}
+</div>
+{% endfor %}
