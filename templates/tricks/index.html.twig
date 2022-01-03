@@ -99,16 +99,12 @@ endblock %} {% block body %}
 
   {% if total >= 15 %}
     <div class="row col-md-12 text-center">
-      <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}"
+      <a href="{{ (page < pages ) ? '?page=' ~  (page + 1) : '' }}" 
         >{#Page actuel +1 limite au nombre de pages max #}
-        <button type="button" class="btn btn-secondary btn-lg">LOAD MORE</button>
+        <button type="button" class="btn btn-secondary btn-lg" value="">LOAD MORE</button>
       </a>
         {% endif %}
-
-{# Relier le bouton LOAD MORE au script #}
- {# Get data with XMLHttpRequest #}
- {# inseret le scipt xhr.js ici #}
-
+      {# Get data with XMLHttpRequest #}
     <div class="row text-center">
       <a href="#haut"
         ><button type="button" class="btn btn-outline-secondary mb-2">
@@ -125,7 +121,5 @@ endblock %} {% block body %}
 {% block javascript %}
 <script src="build/js/app.js"></script>
 {% endblock %}
-
-
 
 

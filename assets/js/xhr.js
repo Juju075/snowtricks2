@@ -1,8 +1,11 @@
+/** id=   value=   */
 /** Dans le Navigateur (Html) - On Capturer le onclick du bouton LOAD MORE et on empecher comportement par default */
 document.getElementById("load").addEventListener("", function (e) {
   e.preventDefault();
   return false;
 });
+// Recuperer la query string
+const param = "/?page=" + number; // <a href=""
 
 /** On cree un nouvel Objet XMLHttpRequest pour les appels asynchrones */
 console.log("Debut"); //Marqueur de debut d'execution
@@ -27,16 +30,17 @@ xhr.onload("readystatechange", () => {
 //emplacement du fichier qui reponds a la requete
 // Parametre de la requete dans l'Uri
 
-//à recuperer du LOAD (fichier qui vas repondre a la requete)
-const uri = "/?page=" + number;
-
 //ON OUVRE LA CONNEXION - Method Url target et boll((Syncrone ou asyncrhrone)).
-xhr.open("GET", uri, true);
+const uri = ".php";
+xhr.open("POST", uri, true);
 //xhr.responseType = "text";
 //xhr.responseType = "json";
 
+xhr.setRequestHeader("Content-Type", "");
 //Envoie de la requete. je n'attends pas la réponse ici.
 //null pas d'informations dans le body de la requete donc c un GET.
-xhr.send(null);
-
+xhr.send(param);
 console.log("Fin"); //Marqueur de fin d'execution
+
+
+

@@ -60,7 +60,7 @@ class TrickController extends AbstractController
         // [ Les interogations de la Bdd. ]
         $tricks = $trickRepository->getPaginatedTricks($page, $limit);
         $total = $trickRepository->getTotalTricks();
-        dd($tricks);
+        //dd($tricks);
 
         // Sript php (Serveur) qui repond au requetes (Navigateur).
         header('Content-Type: text/html; charset=utf-8');
@@ -71,7 +71,6 @@ class TrickController extends AbstractController
             //echo"OK";
             //La reponse est le numero de la page demandé.
             echo"Réponse de $pagee => délais de $rt secondes"; 
-
         }
         // return new JsonResponse($tricks);
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
