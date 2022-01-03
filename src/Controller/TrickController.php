@@ -54,32 +54,21 @@ class TrickController extends AbstractController
         // envoyer une requete ajax ?page=2 ect... et recuperer une réponse à afficher ($tricks).
         //A afficher dans la vue   eg:?page=3  requete querybuilder contenant l'item de debut selon calcul de page.
         // ===========================================================================
-        $limit = 15;
+        $limit = 5;
 
         //[ Récuperation du querystring. ]
-        $page = (int)$request->query->get("page", 1);  // url../?page=  int 1, 2, 3 ect
+        $page = (int)$request->query->get("page", 1);  // url../?page=  int 1,2 , 3 ect
 
         // [ Les interogations de la Bdd. ]
         $tricks = $trickRepository->getPaginatedTricks($page, $limit);
         $total = $trickRepository->getTotalTricks();
-        //dd($tricks);
 
-
-        // =====================================================================
-        // Sript php (Serveur) qui repond aux appels ajax (Navigateur).
-        //ENVOIE LA REPONSE. console.log(xhr.responseText);
-        // =====================================================================
-
-        header('Content-Type: text/html; charset=utf-8');
-        if (isset($_GET['page'])) { // recupére la querystring (uri)
-            $pagee = $_GET['page'];
-            $rt = rand(1,10);
-            sleep($rt); //endormir le procesus php xsec? envoie un promise
-            //echo"OK";
-            //La reponse est le numero de la page demandé.
-            echo"Réponse de $pagee => délais de $rt secondes"; 
+        //Partie foreach
+        if($request->isXmlHttpRequest()) { 
+            return $this->render('tricks/_list_trick.html.twig', ['tricks'=>$tricks]);;
         }
-        // return new JsonResponse($tricks);
+
+
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
@@ -311,8 +300,5 @@ class TrickController extends AbstractController
         $this->users = $userRepository->findAll();
         $this->tricks = $trickRepository->findAll();
 
-        dd($users, $tricks);
     }
 }
-
- 

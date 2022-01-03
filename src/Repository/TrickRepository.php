@@ -36,8 +36,8 @@ class TrickRepository extends ServiceEntityRepository
 
         // limiter le nombre de résultat (parametres) 
         //On cree un Offset numéro du premier numéro à récupérer
-        ->setFirstResult(($page * $limit)-$limit) // depart
-        ->setMaxResults($limit)  //limit d'elements
+        ->setFirstResult(($page * $limit)-$limit) // depart  1 *15 =15 - l
+        ->setMaxResults($limit)  //limit d'elements  
         ;
         return $query->getQuery()->getResult();
     }

@@ -16,10 +16,10 @@ const xhr = new XMLHttpRequest();
 
 // =============================================================================
 //J'ajoute un addEventListener (pour ecouter les changements d'action)
-//Declare les evenement on
+//Declare les eventd  .onX
 //ON ATTEND LA REPONSE Gestionnaire d'events pour attendre une réponse et la traite.
 //xhr.addEventListener() fonction fleche
-// ============================================================================
+// =============================================================================
 
 xhr.onload("readystatechange", () => {
   console.log("readyState => ${xhr.readyState}");
