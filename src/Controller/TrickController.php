@@ -39,7 +39,7 @@ class TrickController extends AbstractController
         // envoyer une requete ajax ?page=2 ect... et recuperer une réponse à afficher ($tricks).
         //A afficher dans la vue   eg:?page=3  requete querybuilder contenant l'item de debut selon calcul de page.
         // ===========================================================================
-        $limit = 5;
+        $limit = 15;
 
         //[ Récuperation du querystring. ]
         $page = (int)$request->query->get("page", 1);  // url../?page=  int 1,2 , 3 ect
