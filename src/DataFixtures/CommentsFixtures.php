@@ -1,15 +1,17 @@
 <?php
-
+declare(strict_types=1);
 namespace App\DataFixtures;
 
 use Faker;
 use App\Entity\User;
 use App\Entity\Trick;
 use App\Entity\Comment;
+
 use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+
 
 class CommentsFixtures extends Fixture
 {
@@ -26,22 +28,27 @@ class CommentsFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $faker = Faker\Factory::create('fr_FR');
-
-        // foreach ($users as $user) {
-        //     foreach ($tricks as $trick) {
-        //         if (rand(0, 1) === 1) {
-        //             $comment = new Comment();
-        //             $comment->setContent($faker->realText(400));
-        //             $trick->addComment($comment);
-        //         }
-        //         $manager->persist($trick);
-        //     }
-        // }
-        // $manager->flush();
-
-
-        //faker->randomElement(tableau)
     }
+
+
+    protected function loadData(ObjectManager $manager):void
+    {
+        $faker = Faker\Factory::create('fr_FR');
+
+        $this->createMany(Comment::class, 100, function(Comment $comment) {
+            $comment->setContent(
+                $this->faker->boolean ? $this->faker->paragraph : $this->faker->sentences(2, true)
+            );
+
+            //auteur
+            //$comment->setAuthorName($this->faker->name);
+
+            $comment->setCreatedAt($this->faker->dateTimeBetween('-1 months', '-1 seconds'));
+            $comment->setTrick($this->getReference(Trick::class.'_0'));
+        });
+        $manager->flush();
+    }
+    
 
     public function getDependencies()
     {

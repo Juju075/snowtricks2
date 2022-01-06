@@ -1,15 +1,11 @@
-## P5_blog_MVC
-
-## P6_blog_MVC
+## P6_Symfony
 
 Project 6 du "parcours développeur d'application PHP/Symfony" d'Openclassrooms.
-Ce projet consite à la création d'un blog professionnel avec de nombreuse fonctionnalités.
+Ce projet consite à la création d'un application utilisant les basiques de symfony avec une impmementation Ajax pour un affichage sans rechargement de page'.
 
 Vous pouvez les retrouver ici
 
-[Pages Visiteurs](https://github.com/Juju075/Openclassrooms/issues/83)
-
-![Symfony Insight] Lien direct [Here](https://insight.symfony.com/projects/403dd71c-1a0a-494d-a6c9-6ff6ad861691/analyses/88).
+![Symfony Insight] Lien direct [Here](https://insight.symfony.com/projects/78b993a9-4cec-4267-b1d6-2f4ae97702d5/analyses/47).
 
 ## Table des matières.
 
@@ -30,7 +26,7 @@ Environnement
 
 ## Installation
 
-- Get sources files / Cloner le repository du projet. [Here](https://github.com/Juju075/Openclassrooms)
+- Get sources files / Cloner le repository du projet. [Here](https://github.com/Juju075/snowtricks2)
   > Make sure the `www` repository, is at the root of your server, you can also create a virtual host that redirect the visitors to the `www` directory.
 
 _Go with a console to the repository and do thoses commands_
@@ -45,9 +41,9 @@ _Go with a console to the repository and do thoses commands_
 
 Base de données : `snowtricks2`
 
-- app_blog_mvc.sql (à la racine du projet)
+- snowtricks2.sql (à la racine du projet)
 
-Connexion a la Bdd.
+Connexion à la Bdd.
 
 - Creer un fichier config.json
   pour permettre au code de trouver les identifiants
@@ -55,7 +51,7 @@ Connexion a la Bdd.
 
 {
 "host": "localhost",
-"dbname": "app_blog_mvc",
+"dbname": "snowtricks2",
 "user": "vos identifiant personnel",
 "pass": "votre mot de passe personnel"
 }
@@ -69,7 +65,7 @@ https://127.0.0.1:8000/
 
   [MEMBRE]
 
-- login : mail
+- login : prendre n'importe quel email d'un utilisateur [ROLE USER] dans la bdd (eg: )
 - password : identique
 
 ## fait avec

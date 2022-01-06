@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace App\DataFixtures;
  
  
@@ -7,7 +8,6 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoder;
 
 class UsersFixtures extends Fixture
 {
@@ -34,12 +34,6 @@ class UsersFixtures extends Fixture
             //1 role Admin les autres utilisateur
             if ($user === 1) {
                 $user->setRoles(['ROLE_ADMIN']);
-                $user->setPassword($this->userPasswordEncoder->encodePassword($user, "admin"));
-                $user->setNom($faker->lastName());
-                $user->setPrenom($faker->firstName);
-                $user->setIsVerified(1);
-                $manager->persist($user);
-                
             }else{
                 $user->setRoles(['ROLE_USER']);
                 $user->setPassword($this->userPasswordEncoder->encodePassword($user, "identique"));
@@ -47,7 +41,7 @@ class UsersFixtures extends Fixture
                 $user->setPrenom($faker->firstName);
                 $user->setIsVerified($faker->numberBetween(0, 1));
                 
-                $this->addReference('user_'. $nbUsers, $user); 
+                $this->addReference('user_'. $nbUsers, $user); //user1
                 
                 $manager->persist($user);
                 // $users[] = $user // ajoute l'utilisateur fraichement creer apres persist.
