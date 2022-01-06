@@ -40,6 +40,7 @@ endblock %} {% block body %}
   <a name="haut">...</a>
   <div class="list-trick">
     {% include 'tricks/_list_trick.html.twig' %}
+  {% else %}  
   </div>
   <p class="h1 mt-5 text-center">
     No tricks yet <a href=" {{ path('app_tricks_create') }}">Be the first! </a>

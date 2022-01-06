@@ -29,21 +29,6 @@ class TrickController extends AbstractController
     public $users;
     public $tricks;
 
-    /**
-     * @Route("/dd", name="app_home1", methods={"GET"})
-     */
-    public function indexBackup(TrickRepository $trickRepository, Request $request): Response
-    {
-        $limit = 15;
-        $page = (int)$request->query->get("page", 1);  // url../?page=
-        $tricks = $trickRepository->getPaginatedTricks($page, $limit); //redefini $tricks
-        
-        $total = $trickRepository->getTotalTricks();
-
-        return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
-    }
-
-
 
     /**
      * @Route("/", name="app_home", methods={"GET"})
