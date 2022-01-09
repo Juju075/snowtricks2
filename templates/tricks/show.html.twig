@@ -54,8 +54,7 @@
     <div class="col-md-12">
       {% if trick.videos.count > 0 %}
         {% for video in trick.videos %}
-          {{ video.embedded }}
-          <iframe width="560" height="315" src="https://www.youtube.com/embed/V9xuy-rVj9w?controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          {{ video.embedded | raw}}
         {% endfor %}
       {% endif %}
     </div>
@@ -116,7 +115,7 @@
         <h2>Liste des commentaires</h2>
       </div>
       {# pas de commentaire identique text #}
-      {% for comment in trick.comments %}
+      {% for comment in trick.comments |sort %}
       <div class="row">
         {# Card #}
         <div class="">

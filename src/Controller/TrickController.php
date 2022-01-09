@@ -80,7 +80,7 @@ class TrickController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */ 
-    public function create(Request $request, EntityManagerInterface $em): Response 
+    public function create(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository): Response 
     {
         $trick = new Trick;
         // nullable multi images et/ou videos.
@@ -93,6 +93,48 @@ class TrickController extends AbstractController
 
             //Foreign key set: Recupere l'utilisateur via le token storage.
             $trick->setUser($this->getUser());
+
+            $nom = $form->get('nom'); //Object of class Symfony\Component\Form\Form could not be converted to string
+            dump($nom);
+
+            //$resultat = $trickRepository->findOneBy(['nom'=>$nom]);
+            $resultat = null;
+
+
+            if (!$resultat) {
+                foreach ($images as $image) {
+                    $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images()
+                    $image  = $image->get('name')->getData();
+
+                    $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    $image->move(
+                        $this->getParameter('images_directory'),
+                        $fichier
+                    );
+                    //on stock l'image ds la bdd. 
+                    $model->setName($fichier); 
+                    // $form->get('photos')->getData()  |   trick->add(photos)     |     ->setName($fichier)
+                    //ca vient de TrickType  by_reference add() pas set() il sait aussi que c dans PhotoType::class ('videos')
+                    //donc vas rechercher add(Photo $photo)
+                }
+
+                foreach($videos as $video){
+                    $model1 = $video->getData();
+                    $video = $video->get('embedded')->getData(); // erreur php Child "embedded" does not exist.
+                    $model1->setEmbedded($video); //$form->get('videos')->getData()   trick->addVideo($video)     ->setEmbedded($video);
+
+                }
+
+                $em->persist($trick);
+                $em->flush();
+
+                $this->addFlash('success', 'Trick successfully edited');
+                return $this->redirectToRoute('app_home');
+            }
+            else{
+                $this->addFlash('error', 'Ce nom de trick existe déjà');
+            }
+
 
             foreach ($images as $image) {
                 $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images()
@@ -184,7 +226,6 @@ class TrickController extends AbstractController
                  );
                     $model->setName($fichier); 
                 }
-
             }
 
             $em->persist($trick);

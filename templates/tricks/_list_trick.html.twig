@@ -1,4 +1,4 @@
-{% for row in tricks|batch(5)%}
+{% for row in tricks|batch(3)%}
 <div class="row mt-5 mb-5">
   {% for trick in row %}
   <div class="col-md-4 mt-4 mb-4">
@@ -14,10 +14,17 @@
           />
         </a>
       </div>
+      <!-- ================================================================= -->
+      <!-- Title -->
+      <!-- ================================================================= -->
+      <div class="text-center">
+        <h4>{{ trick.nom }}</h4>
+      </div>
 
       <!-- ============================================================= -->
       <!-- Card Buttons -->
       <!-- ============================================================= -->
+      {% if app.user %}
       <div class="flex-row border">
         <div>
           <a
@@ -35,10 +42,11 @@
               name="_token"
               value="{{ csrf_token('trick_deletion_' ~ trick.id) }}"
             />
-            <button class="btn btn-primary">Supprimer</button>
+            <button class="btn btn-primary">Delete</button>
           </form>
         </div>
       </div>
+      {% endif %}
     </article>
   </div>
   {% endfor %}
