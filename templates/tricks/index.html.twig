@@ -36,12 +36,12 @@ endblock %} {% block body %}
 <!-- Content [Listing des articles] -->
 <!-- ======================================================================= -->
 <div class="container-xxl mt-2">
-  {% if tricks|length > 0 %}
   <a name="haut">...</a>
+  {% if tricks|length > 0 %}
   <div class="list-trick">
     {% include 'tricks/_list_trick.html.twig' %}
-  {% else %}  
   </div>
+  {% else %}  
   <p class="h1 mt-5 text-center">
     No tricks yet <a href=" {{ path('app_tricks_create') }}">Be the first! </a>
   </p>
@@ -52,8 +52,6 @@ endblock %} {% block body %}
   <!-- LOAD MORE Button --> 
   <!-- Ajouter un id pour le js -->
   <!-- ===================================================================== -->
-  {% set pages = (total/limit)| round(0, 'ceil') %} 
-  
     <div class="row col-md-12 text-center">
       
     <button type="button" class="load-more btn btn-secondary btn-lg">LOAD MORE</button>
@@ -86,7 +84,6 @@ endblock %} {% block body %}
           $('.list-trick').append(response)
         })
     })
-
 })
 </script>
 {% endblock %}

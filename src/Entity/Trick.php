@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\Entity\Traits\Timestampable;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 //@ORM\Entity(repositoryClass=TrickRepository::class) don't work anymore
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
  * @ORM\HasLifecycleCallbacks()
+ * @UniqueEntity("nom")
  */
 
 class Trick
@@ -26,7 +28,7 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
      */
     private $nom;
 
