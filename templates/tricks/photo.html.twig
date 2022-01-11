@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html.twig' %} {% block title 'Log in!' %} {% block body
 %}
-<h2>Ajouter une photo</h2>
+<h2>Add pictures</h2>
 {{ form_start(form) }}
 {{ form_row(form.name) }}
 
@@ -20,7 +20,7 @@
     span = collection.querySelector("span");
     boutonAjout = document.createElement("button");
     boutonAjout.className = "ajout-photos btn secondary";
-    boutonAjout.innerText = "Ajouter une photos";
+    boutonAjout.innerText = "Add picture";
 
     //integrer le bouton dans la span
     let nouveauBouton = span.append(boutonAjout);

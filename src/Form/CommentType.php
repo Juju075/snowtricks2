@@ -21,9 +21,6 @@ class CommentType extends AbstractType
             ->add('content', TextareaType::class, [
                 'constraints'=> new NotBlank([
                 'message'=>'Please enter the description.'
-                ]),
-                'constraints'=> new Length([
-                    'min'=>100
                 ])
             ]);
     }

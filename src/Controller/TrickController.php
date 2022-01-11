@@ -57,19 +57,6 @@ class TrickController extends AbstractController
         return $this->render('tricks/index.html.twig', ['tricks'=>$tricks, 'total'=>$total, 'limit'=>$limit, 'page'=>$page]);
     }
 
-    public function configureFields(string $pageName): iterable
-    {
-        $imageFile = null;
-        $image = null;
-        $fields = [];
-
-       if (null) {
-           # code...
-       }else{
-
-       } 
-       return $fields;
-    }
 
     /**
      * To create Trick
@@ -91,30 +78,30 @@ class TrickController extends AbstractController
             $images = $form->get('photos');
             $videos = $form->get('videos');
 
-            //Foreign key set: Recupere l'utilisateur via le token storage.
             $trick->setUser($this->getUser());
 
             foreach ($images as $image) {
-                $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images()
+                $model = $image->getData(); 
                 $image  = $image->get('name')->getData();
-
-                $fichier = md5(uniqid()).'.'.$image->guessExtension();
-                $image->move(
+  
+                if ($image instanceof UploadedFile) {
+                    $fichier = md5(uniqid()).'.'.$image->guessExtension();
+                    $image->move(
                     $this->getParameter('images_directory'),
                     $fichier
-                );
-                //on stock l'image ds la bdd. 
-                $model->setName($fichier); 
-                // $form->get('photos')->getData()  |   trick->add(photos)     |     ->setName($fichier)
-                //ca vient de TrickType  by_reference add() pas set() il sait aussi que c dans PhotoType::class ('videos')
-                //donc vas rechercher add(Photo $photo)
+                 );
+                    $model->setName($fichier); 
+                }
             }
+
             $em->persist($trick);
             $em->flush();
 
             $this->addFlash('success', 'Trick successfully edited');
             return $this->redirectToRoute('app_home');
         }
+
+        
         return $this->renderForm('tricks/create.html.twig', ['form'=> $form,]);
     }
 
@@ -134,10 +121,6 @@ class TrickController extends AbstractController
         if ($form->isSubmitted()&& $form->isValid()) {
 
             $comment->setUser($trick->getUser());
-
-            // Fullname et avatar (user) Pas de dupli de message
-            //verif si dejat content identique Repository comment
-            // if(findOneBy(content) === null){$trick->addComment($comment); alert 'This comment already exit'}
             $trick->addComment($comment);
             
             $em->persist($comment);
@@ -162,10 +145,9 @@ class TrickController extends AbstractController
             $videos = $form->get('videos');
 
             foreach ($images as $image) {
-                $model = $image->getData();  // $form->get('photos')->getData();   a la place de $img = new Images() 
+                $model = $image->getData(); 
                 $image  = $image->get('name')->getData();
-
-                //si l'image est une instance de     
+  
                 if ($image instanceof UploadedFile) {
                     $fichier = md5(uniqid()).'.'.$image->guessExtension();
                     $image->move(
@@ -201,7 +183,6 @@ class TrickController extends AbstractController
         return $this->redirectToRoute('app_home');
     }
 
-    //Limiter un commentaire par user
     /**
      * @Route("/comments/create", name="app_comment_creèate", methods={"GET","POST"})
      */
@@ -224,11 +205,8 @@ class TrickController extends AbstractController
         //json_decode — Décode une chaîne JSON
         $data = json_decode($request->getContent(), true);
 
-        //Attention: $photo->getId()  risque de securite injection utilisateur.
-        //Quel photo supprimer 
         if($this->isCsrfTokenValid('delete_'.$photo->getId(), $data['_token']))
         {
-            //pour la supprimer physiquement le fichier sur le disk.
             $nom = $photo->getName();
             unlink($this->getParameter('image_directory').'/'.$nom);
 

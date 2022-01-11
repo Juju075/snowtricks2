@@ -73,18 +73,18 @@
   {# informations sur le trick #}
   <article class="row justify-content-md-center">
     <div class="col-md-auto">
-      <p>Date de création:</p>
+      <p>Creation date:</p>
       {{ trick.createdAt|date("m/d/Y") }}
       <time datetime="{{ trick.createdAt|date("m/d/Y") }}"</time>
     </div>
     <div class="col-md-auto">
 
-      <p>Groupe:</p>
+      <p>Group:</p>
 
       {#{ trick.category }#}
     </div>
     <div class="col-md-auto">
-      <p>Modifié le:</p>
+      <p>Updated at:</p>
       {{ trick.updatedAt|date("m/d/Y") }}
       <time datetime ="{{ trick.updatedAt|date("m/d/Y") }}"</time>
     </div>
@@ -94,7 +94,7 @@
   {% if app.user %}
   <article class="row  justify-content-center mt-4 mb-5">
     <div class="col-md-4">
-      <h6>Veuilez saisir votre commentaire!</h6>
+      <h6>Please fill your comment!</h6>
       <div>
         {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -112,7 +112,7 @@
   {# Liste des commentaires #}
   <article class="row">
       <div class="col-md-4">
-        <h2>Liste des commentaires</h2>
+        <h2>Comments list.</h2>
       </div>
       {# pas de commentaire identique text #}
       {% for comment in trick.comments |sort %}
