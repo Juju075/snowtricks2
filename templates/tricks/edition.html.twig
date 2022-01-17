@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Change your trick</h1>
+    tricks/{slug}/edit
+    <form
+      action="{{ path('app_tricks_edit', { slug: trick.slug }) }}"
+      method="post"
+    >
+      <label
+        >Title :
+        <input name="title" placeholder="{{ trick.nom }}" />
+      </label>
+      <label
+        >Description :
+        <textarea
+          name="description"
+          placeholder="{{ trick.description }}"
+          rows="8"
+          cols="60"
+        ></textarea>
+      </label>
+    </form>
+
+    {% for photo in trick.photos %}
+    <img
+      src="{{ asset('/uploads/'~ photo.name) }}"
+      alt="Preview photo"
+      height="200"
+    /><br />
+    Cest la photo {{ photo.id }}
+    <a
+      href="#"
+      onclick="event.preventDefault(); confirm('Are you sure2 ?') && document.getElementById('delete-photo').submit();"
+      class="btn btn-danger"
+      >Delete photo</a
+    >
+    <form
+      id="delete-photo"
+      action="{{ path('app_fake-delete_photo', { id: photo.id }) }}"
+      method="post"
+    >
+      formulaire ici
+    </form>
+
+    {% endfor %} {% for video in trick.videos %}
+    {{ video.embedded | raw }}
+    delete {% endfor %}
+
+    <form action="">
+      <input type="text" />
+    </form>
+  </body>
+</html>

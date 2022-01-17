@@ -1,6 +1,11 @@
-{% extends 'layouts/base.html.twig' %} {% block title %}Hello
-TricksController!{% endblock %} {% block body %}
+{% extends 'layouts/base.html.twig' %} {% block title %}
+Hello TricksController!
+{% endblock %} 
+
+{% block body %}
+
 {{ include("layouts/partials/_nav.html.twig") }}
+
 <div class="container">
   <div class="row text-center">
     <article>
@@ -11,4 +16,5 @@ TricksController!{% endblock %} {% block body %}
     </article>
   </div>
 </div>
+
 {% endblock %} {# Cette partie vas s'aditionner en js #}

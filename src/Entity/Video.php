@@ -37,7 +37,7 @@ class Video
         return $this;
     }
 
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
@@ -56,18 +56,6 @@ class Video
     public function setEmbedded(?string $embedded): self
     {
         $this->embedded = $embedded;
-
-        return $this;
-    }
-
-    public function getVideo(): ?Trick
-    {
-        return $this->video;
-    }
-
-    public function setVideo(?Trick $video): self
-    {
-        $this->video = $video;
 
         return $this;
     }

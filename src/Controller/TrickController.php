@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\Trick;
 use App\Entity\Photo;
+use App\Entity\Trick;
 use App\Entity\Video;
 use App\Entity\Comment;
 
@@ -11,14 +11,15 @@ use App\Form\TrickType;
 use App\Form\CommentType;
 
 
-use App\Repository\TrickRepository;
 use App\Repository\UserRepository;
+use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -142,11 +143,10 @@ class TrickController extends AbstractController
         
         if ($form->isSubmitted() && $form->isValid()){
             $images = $form->get('photos');
-            $videos = $form->get('videos');
 
             foreach ($images as $image) {
                 $model = $image->getData(); 
-                $image  = $image->get('name')->getData();
+                $image = $image->get('name')->getData();
   
                 if ($image instanceof UploadedFile) {
                     $fichier = md5(uniqid()).'.'.$image->guessExtension();
@@ -157,7 +157,7 @@ class TrickController extends AbstractController
                     $model->setName($fichier); 
                 }
             }
-
+//video automatique via le collectionType 
             $em->persist($trick);
             $em->flush();
             $this->addFlash('success', 'Trick successfully edited!');
@@ -197,13 +197,22 @@ class TrickController extends AbstractController
     // DELETE PHOTO ET VIDEO
     // =============================================================================
 
+
+    //form > route https://127.0.0.1:8000/delete/photo/1480  Method Not Allowed Allow: DELETE
     /**
+     * Delete selected Photo
      * @Route("/delete/photo/{id}", name="app_delete_photo")
-     */
-    public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): JsonResponse
+     * @param Photo $photo
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return RedirectResponse
+     */ 
+    public function deletePhoto(Photo $photo, Request $request, EntityManagerInterface $em): RedirectResponse
+
     {
-        //json_decode — Décode une chaîne JSON
-        $data = json_decode($request->getContent(), true);
+        dd('ok function delete photo');
+        $data = $request->getContent();
+        dump($data);
 
         if($this->isCsrfTokenValid('delete_'.$photo->getId(), $data['_token']))
         {
@@ -212,19 +221,23 @@ class TrickController extends AbstractController
 
             $em->remove($photo);
             $em->flush();
-
-            return new JsonResponse(['success' => 1]);
+            $this->addFlash('info', 'Photo successfully deleted!');
+            return $this->redirectToRoute('app_tricks_show', ['id'=>$photo->getId()]);
         }else{
-            return new JsonResponse(['error'=>'Token Invalide'], 400);
+            $this->addFlash('error', 'Token invalid!');
+            return $this->redirectToRoute('app_tricks_edit', ['id'=>$photo->getId()]);
         }
     }
 
-    
-
     /**
-     * @Route("/delete/photo/{id}", name="app_delete_photo", methods={"DELETE"})
-     */
-    public function deleteVideo(Video $video, Request $request, EntityManagerInterface $em): JsonResponse
+     * Deletet selected video
+     * @Route("/delete/photo/{id}", name="app_delete_photo")
+     * @param Video $video
+     * @param Request $request
+     * @param EntityManagerInterface $em
+     * @return JsonResponse
+     */ 
+    public function deleteVideo(Video $video, Request $request, EntityManagerInterface $em): RedirectResponse
     {
         //Ajax
         $data = json_decode($request->getContent(), true);
@@ -236,9 +249,10 @@ class TrickController extends AbstractController
             $em->remove($video);
             $em->flush();
             //alert green photo supprimer
-            return new JsonResponse(['success' => 1]);
+            $this->addFlash('info', 'Video successfully deleted!');
+            return $this->redirectToRoute('app_home');
         }else{
-            return new JsonResponse(['error'=>'Token Invalide'], 400);
+            return $this->redirectToRoute('app_home');
         }
     }
 

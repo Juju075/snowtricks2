@@ -69,18 +69,16 @@ endblock %} {% block body %}
   </article>
 </div>
 {% endblock %}
-
+{# compteur comptabilise le nbr de load-more onclic  clic =++  '?page='+clic #}
 {% block javascripts %}
 {{ parent () }}
 <script>
   $(function () {
-
     $('.load-more').on('click', function(e) {
         e.preventDefault();
         $.ajax({
           url: window.location.href + '?page=2'
         }).then(function(response) {
-
           $('.list-trick').append(response)
         })
     })

@@ -181,7 +181,7 @@ class Trick
     {
         if ($this->photos->removeElement($photos)) {
             // set the owning side to null (unless already changed)
-            if ($photos->getPhoto() === $this) {
+            if ($photos->getTrick() === $this) {
                 $photos->setTrick(null);
             }
         }
@@ -210,8 +210,8 @@ class Trick
     {
         if ($this->videos->removeElement($videos)) {
             // set the owning side to null (unless already changed)
-            if ($videos->getVideo() === $this) {
-                $videos->setVideo(null);
+            if ($videos->getTrick() === $this) {
+                $videos->setTrick(null);
             }
         }
 

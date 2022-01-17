@@ -37,7 +37,7 @@ class Photo
         return $this;
     }
 
-    public function getTrick(): ?int
+    public function getTrick(): ?Trick
     {
         return $this->trick;
     }
@@ -55,18 +55,6 @@ class Photo
     public function setName(?string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getPhoto(): ?Trick
-    {
-        return $this->photo;
-    }
-
-    public function setPhoto(?Trick $photo): self
-    {
-        $this->photo = $photo;
 
         return $this;
     }
