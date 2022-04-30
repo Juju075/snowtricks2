@@ -12,13 +12,23 @@ endblock %} {% block body %}
 <h1>JQuery Selectors</h1>
 
 <div id="div1">
-  <p>This is paragraph 1</p>
+  <p class="para">This is paragraph 1</p>
   <p>This is paragraph 2</p>
 </div>
 
 <div id="div2">
-  <p>This is paragraph 3</p>
+  <p class="para">This is paragraph 3</p>
   <p>This is paragraph 4</p>
+</div>
+
+<div id="div3">
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+    <li>Item 4</li>
+    <li>Item 5</li>
+  </ul>
 </div>
 
 <button onclick="func2()">Click Me</button>
@@ -34,7 +44,8 @@ recupere le code existant (parent) #}
 
   /** element name div */
   function func2() {
-    $("div").css("background-color", "orange");
+    //$("div").css("background-color", "orange");
+    $(".para").css("font-style", "italic");
   }
 </script>
 {% endblock %}
