@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\Timestampable;
-use App\Repository\CommentRepository;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)

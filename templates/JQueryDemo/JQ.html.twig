@@ -1,0 +1,40 @@
+{% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
+endblock %} {% block body %}
+
+<h1>Introduction to JQuery</h1>
+<img
+  src="https://i.picsum.photos/id/441/200/200.jpg?hmac=ajdz2DirytbwfXS-S6OBlM6NaQALCD7Aajo8uQcJMV0"
+  alt="JS"
+  id="img1"
+/>
+<!-- onclick Event -->
+<button onclick="func1()">FADE</button><br /><br />
+<h1>JQuery Selectors</h1>
+
+<div id="div1">
+  <p>This is paragraph 1</p>
+  <p>This is paragraph 2</p>
+</div>
+
+<div id="div2">
+  <p>This is paragraph 3</p>
+  <p>This is paragraph 4</p>
+</div>
+
+<button onclick="func2()">Click Me</button>
+
+<!-- ===================================================================== -->
+{% endblock %} {# Fin block #} {# compteur comptabilise le nbr de load-more
+onclic clic =++ '?page='+clic #} {% block javascripts %} {{ parent() }} {#
+recupere le code existant (parent) #}
+<script>
+  function func1() {
+    $("#img1").fadeToggle(3000);
+  }
+
+  /** element name div */
+  function func2() {
+    $("div").css("background-color", "orange");
+  }
+</script>
+{% endblock %}

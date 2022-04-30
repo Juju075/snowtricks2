@@ -18,7 +18,7 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-        for ($nbTricks=1; $nbTricks <= 40 ; $nbTricks++) { 
+        for ($nbTricks=0; $nbTricks <= 40 ; $nbTricks++) { 
             //pour un utilisateur en reference de facon aleatoire reuse user_id
             $user = $this->getReference('user_'. $faker->numberBetween(1 ,10));
             $category = $this->getReference('category_'. $faker->numberBetween(1 ,1));
@@ -77,8 +77,8 @@ class TricksFixtures extends Fixture implements DependentFixtureInterface
                 $trick->addVideo($videoTrick);
             }
             //nb pour numerotion
-            $this->addReference('trick_'. $nbTricks, $user); 
             $manager->persist($trick);
+            $this->addReference('trick_'. $nbTricks, $user); 
         }
         $manager->flush();
     }

@@ -3,11 +3,12 @@ declare(strict_types=1);
 namespace App\DataFixtures;
  
  
-use App\Entity\User;
-use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Faker;
+use App\Entity\User;
+use Doctrine\Persistence\ObjectManager;
+use Doctrine\Bundle\FixturesBundle\Fixture;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UsersFixtures extends Fixture
 {
@@ -15,11 +16,11 @@ class UsersFixtures extends Fixture
     /**
      * @var UserPasswordEncoderInterface
      */
-    private UserPasswordEncoderInterface $userPasswordEncoder;
+    private UserPasswordHasherInterface $passwordHasher;
 
 
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder){
-        $this->userPasswordEncoder = $userPasswordEncoder;
+    public function __construct(UserPasswordHasherInterface $passwordHasher){
+        $this->passwordHasher= $passwordHasher;
     }
 
     public function load(ObjectManager $manager): void
@@ -36,7 +37,7 @@ class UsersFixtures extends Fixture
                 $user->setRoles(['ROLE_ADMIN']);
             }else{
                 $user->setRoles(['ROLE_USER']);
-                $user->setPassword($this->userPasswordEncoder->encodePassword($user, "identique"));
+                $user->setPassword($this->passwordHasher->hashPassword($user, "identique"));
                 $user->setNom($faker->lastName());
                 $user->setPrenom($faker->firstName);
                 $user->setIsVerified($faker->numberBetween(0, 1));

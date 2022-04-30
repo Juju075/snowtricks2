@@ -2,24 +2,20 @@
 
 namespace App\Controller;
 
-use App\Entity\Photo;
 use App\Entity\Trick;
-use App\Entity\Video;
 use App\Entity\Comment;
 
 use App\Form\TrickType;
 use App\Form\CommentType;
 
 
-use App\Repository\UserRepository;
 use App\Repository\TrickRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -51,7 +47,7 @@ class TrickController extends AbstractController
 
         //Partie foreach
         if($request->isXmlHttpRequest()) { 
-            return $this->render('tricks/_list_trick.html.twig', ['tricks'=>$tricks]);;
+            return $this->render('tricks/_list_trick.html.twig', ['tricks'=>$tricks]);
         }
 
 
@@ -68,7 +64,7 @@ class TrickController extends AbstractController
      * @param EntityManagerInterface $em
      * @return Response
      */ 
-    public function create(Request $request, EntityManagerInterface $em, TrickRepository $trickRepository): Response 
+    public function create(Request $request, EntityManagerInterface $em): Response 
     {
         $trick = new Trick;
         // nullable multi images et/ou videos.
@@ -194,3 +190,4 @@ class TrickController extends AbstractController
     }
 
 }
+

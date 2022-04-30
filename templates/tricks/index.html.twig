@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
-endblock %} {% block body %}
+endblock %} 
+{% block body %}
 <!-- ======================================================================= -->
 <!-- Navigation ici -->
 <!-- ======================================================================= -->
@@ -47,32 +48,40 @@ endblock %} {% block body %}
   </p>
   {% endif %}
   <a name="bas">...</a>
-
-  <!-- ===================================================================== -->
-  <!-- LOAD MORE Button --> 
-  <!-- Ajouter un id pour le js -->
-  <!-- ===================================================================== -->
+    <!-- ===================================================================== -->
+    <!-- LOAD MORE Button --> 
+    <!-- Ajouter un id pour le js -->
     <div class="row col-md-12 text-center">
-      
-    <button type="btn-lg btn-primary" class="load-more btn btn-secondary btn-lg">LOAD MORE</button>
-
+      <button type="btn-lg btn-primary" class="load-more btn btn-secondary btn-lg">LOAD MORE</button>
       {# Get data with XMLHttpRequest #}
-    <div class="row text-center">
-      <a href="#haut"
-        ><button type="button" class="btn btn-outline-secondary mb-2">
-          Arrow
-          <i class="fa-solid fa-arrow-up-from-dotted-line"></i>
-        </button></a
-        >
-      
-    </div>
-  </article>
+      <div class="row text-center">
+        <a href="#haut"
+          ><button type="button" class="btn btn-outline-secondary mb-2">
+            Arrow
+            <i class="fa-solid fa-arrow-up-from-dotted-line"></i>
+          </button>
+        </a>
+      </div>
+    </div> 
+    
+<h1>Introduction to JQuery</h1>
+<img
+  src="https://i.picsum.photos/id/441/200/200.jpg?hmac=ajdz2DirytbwfXS-S6OBlM6NaQALCD7Aajo8uQcJMV0"
+  alt="JS"
+  id="img1"
+/>
+<!-- onclick Event -->
+<button onclick="func1()">FADE</button>   
+
 </div>
-{% endblock %}
+<!-- ===================================================================== -->
+{% endblock %} {# Fin block #}
+
 {# compteur comptabilise le nbr de load-more onclic  clic =++  '?page='+clic #}
 {% block javascripts %}
-{{ parent () }}
+{{ parent () }} {# recupere le code existant (parent) #}
 <script>
+
   $(function () {
     $('.load-more').on('click', function(e) {
         e.preventDefault();
@@ -83,5 +92,11 @@ endblock %} {% block body %}
         })
     })
 })
+
+function func1() {
+  $("#img1").fadeToggle(3000);
+}
+
+
 </script>
 {% endblock %}
