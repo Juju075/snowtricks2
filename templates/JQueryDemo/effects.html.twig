@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
+endblock %} {% block body %}
+<h1>Effects in JQuery</h1>
+<img
+  src="https://i.picsum.photos/id/229/200/200.jpg?hmac=b3V9uXS2Q1EA1tLHxvWjTgBF4TphN4ibxTjDv2PO2jg"
+  alt="javascript"
+  id="img1"
+  width="250px"
+/>
+<!-- en jquery -->
+<button id="btn1">Hide</button>
+<button id="btn2">Show</button>
+<button id="btn3">Toogle</button>
+<br /><br />
+<button id="btn4">Fade-in</button>
+<button id="btn5">Fade-out</button>
+<button id="btn6">Fade-Toogle</button>
+<!-- ===================================================================== -->
+{% endblock %}{% block javascripts %} {{ parent() }}
+<script>
+  $(document).ready(function () {
+    $("#btn1").click(function () {
+      $("img1").hide(2000);
+    });
+
+    $("#btn2").click(function () {
+      $("img1").show(2000);
+    });
+
+    $("#btn3").click(function () {
+      $("img1").toogle(3000);
+    });
+
+    $("#btn4").click(function () {
+      $("img1").fadeIn(2000);
+    });
+
+    $("#btn4").click(function () {
+      $("img1").fadeOut(2000);
+    });
+  });
+
+  /**Fade in Fade out*/
+
+  /***/
+</script>
+{% endblock %}

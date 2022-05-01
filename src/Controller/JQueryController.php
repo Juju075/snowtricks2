@@ -13,11 +13,16 @@ class JQueryController extends AbstractController
     {
         return $this->render('JQueryDemo/JQ.html.twig',[]);
     }
-    #[Route('/event', name: 'JQueryEvent')]
-    public function eventJquery(): Response
+
+    #[Route('/events', name: 'JQueryEvent')]
+    public function eventsJquery(): Response
     {
-        return $this->render('JQueryDemo/event1.html.twig',[]);
+        return $this->render('JQueryDemo/events.html.twig',[]);
     }
 
-
+    #[Route('/effects', name: 'JQueryEvent')]
+    public function effectsJquery(): Response
+    {
+        return $this->render('JQueryDemo/effects.html.twig',[]);
+    }
 }
