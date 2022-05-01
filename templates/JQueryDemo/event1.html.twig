@@ -1,0 +1,63 @@
+{% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
+endblock %} {% block body %}
+
+<h1>Events in JQuery</h1>
+<img
+  src="https://i.picsum.photos/id/229/200/200.jpg?hmac=b3V9uXS2Q1EA1tLHxvWjTgBF4TphN4ibxTjDv2PO2jg"
+  alt="javascript"
+  id="img1"
+/>
+<!-- en javascript -->
+<button id="btn" onclick="func1()">Click Js</button>
+<!-- en jquery -->
+<button id="btn1">Click JQuery</button>
+
+<!-- ===================================================================== -->
+{% endblock %}{% block javascripts %} {{ parent() }}
+<script>
+  /**Javascript*/
+  function func1() {
+    document.getElementById("img1").style.width = "500px";
+  }
+
+  /**JQuery*/
+  $("button").click(func2);
+
+  function func2() {
+    $("img1").css("width", "500px");
+  }
+
+  /**Refactoring */
+  $("button").click(function () {
+    $("img1").css("width", "500px");
+  });
+
+  /** */
+  $("document").ready(function () {
+    $("button").dblclick(function () {
+      $("#img1").css("width", "500px");
+    });
+  });
+
+  /** 2 actions in & out  fonctions inclu*/
+  $("document").ready(function () {
+    $("#img1").mouseenter(function () {
+      $("#img1").css("width", "500px");
+    });
+
+    $("#img1").mouseleave(function () {
+      $("#img1").css("width", "250px");
+    });
+  });
+
+  /** equivalent in&out juste functions separe*/
+  $("#img1").hover(func1, func2);
+
+  function func1() {
+    $("#img1").css("width", "500px");
+  }
+  function func2() {
+    $("#img1").css("width", "250px");
+  }
+</script>
+{% endblock %}
