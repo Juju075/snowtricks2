@@ -1,6 +1,20 @@
 {% extends 'layouts/base.html.twig' %} {% block title %}'Best tricks learing!'{%
 endblock %} {% block body %}
-<h1>JQuery DOM Manipulation</h1>
+<style>
+  .div1 {
+    height: 250px;
+    width: 250px;
+    border: 5px solid black;
+    margin: 50px;
+    font-size: xx-large;
+    font-weight: bolder;
+  }
+  .p1 {
+    text-align: center;
+    margin-top: 100px;
+  }
+</style>
+<h1>jQuery HTML | JQuery DOM Manipulation</h1>
 <h2>Click on the button present below</h2>
 <span id="span1"></span>
 <div class="div1" style="background-color: aquamarine"></div>
@@ -8,4 +22,14 @@ endblock %} {% block body %}
 <button id="btn1">Click me</button>
 
 <!-- ===================================================================== -->
-<script></script>
+<script>
+  $("document").ready(function (){
+      $(".div1").click(fundtion(){
+          let x = $(".p12").html();
+          $("#span1").text(x)
+
+      })
+  }
+
+  );
+</script>
