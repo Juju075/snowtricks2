@@ -25,4 +25,14 @@ class JQueryController extends AbstractController
     {
         return $this->render('JQueryDemo/effects.html.twig',[]);
     }
+    #[Route('/animate', name: 'JQueryAnimate')]
+    public function animateJquery(): Response
+    {
+        return $this->render('JQueryDemo/callback&chaining.html.twig',[]);
+    }
+    #[Route('/dom', name: 'JQueryDom')]
+    public function domJquery(): Response
+    {
+        return $this->render('JQueryDemo/dom.html.twig',[]);
+    }   
 }

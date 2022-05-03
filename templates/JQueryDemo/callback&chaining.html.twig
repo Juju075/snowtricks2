@@ -17,6 +17,52 @@ endblock %} {% block body %}
   width="250px"
 />
 <h1>JQuery Callback é chaining</h1>
+<button id="btn">Animate</button><br /><br />
 
 <!-- ===================================================================== -->
 {% endblock %}{% block javascripts %} {{ parent() }}
+/** https://www.w3schools.com/jquery/jquery_callback.asp */
+<script>
+  /**Animation sans callback ERROR*/
+  $("document").ready(function () {
+    $("#btn").click(function () {
+      $("img").animate(
+        {
+          left: "150px",
+          opacity: "1",
+          height: "400px",
+          width: "400px",
+        },
+        slow
+      );
+      alert("Animated");
+    });
+  });
+
+  //callback function c le 3eme parmetre
+  //A callback function is executed after the current effect is 100% finished.
+  // Syntax $("#img").animate({},2000,function(){})
+
+  /**Animation avec callback OK*/
+  $("document").ready(function () {
+    $("#btn").click(function () {
+      $("img").animate(
+        {
+          left: "150px",
+          opacity: "1",
+          height: "400px",
+          width: "400px",
+        },
+        slow,
+        function () {
+          alert("Animated");
+        }
+      );
+    });
+  });
+
+  /** Chaining */
+  $("document").ready(function () {
+    $("#img").slideUp(2000).css("opacity", "1").slideDown(3000);
+  });
+</script>
