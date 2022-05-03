@@ -14,29 +14,52 @@ endblock %} {% block body %}
 <br /><br />
 <button id="btn4">Fade-in</button>
 <button id="btn5">Fade-out</button>
-<button id="btn6">Fade-Toogle</button>
+<button id="btn6">SlideUp</button>
+<button id="btn7">SlideDown</button>
+<button id="btn8">SlideToogle</button>
+<button id="btn9">SlideUp</button>
+<button id="btn4">Fade-in</button>
+<button id="btn5">Fade-out</button>
+<button id="btn6">SlideUp</button>
+<button id="btn7">SlideDown</button>
+<button id="btn8">SlideToogle</button>
+<button id="btn9">SlideUp</button>
 <!-- ===================================================================== -->
 {% endblock %}{% block javascripts %} {{ parent() }}
 <script>
   $(document).ready(function () {
     $("#btn1").click(function () {
-      $("img1").hide(2000);
+      $("#img1").hide(2000);
     });
 
     $("#btn2").click(function () {
-      $("img1").show(2000);
+      $("#img1").show(2000);
     });
 
     $("#btn3").click(function () {
-      $("img1").toogle(3000);
+      $("#img1").toogle(3000);
+    });
+    /***/
+    $("#btn4").click(function () {
+      $("#img1").fadeIn(2000);
     });
 
-    $("#btn4").click(function () {
-      $("img1").fadeIn(2000);
+    $("#btn5").click(function () {
+      $("#img1").fadeOut(2000);
+    });
+    $("#btn6").click(function () {
+      $("#img1").SlideUp(2000);
     });
 
-    $("#btn4").click(function () {
-      $("img1").fadeOut(2000);
+    /***/
+    $("#btn7").click(function () {
+      $("#img1").SlideDown(2000);
+    });
+    $("#btn8").click(function () {
+      $("#img1").SlideToogle(2000);
+    });
+    $("#btn9").click(function () {
+      $("#img1").SlideUp(2000);
     });
   });
 

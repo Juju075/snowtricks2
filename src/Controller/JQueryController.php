@@ -20,7 +20,7 @@ class JQueryController extends AbstractController
         return $this->render('JQueryDemo/events.html.twig',[]);
     }
 
-    #[Route('/effects', name: 'JQueryEvent')]
+    #[Route('/effects', name: 'JQueryEffects')]
     public function effectsJquery(): Response
     {
         return $this->render('JQueryDemo/effects.html.twig',[]);
