@@ -18,9 +18,11 @@ endblock %} {% block body %}
 <button id="btn7">SlideDown</button>
 <button id="btn8">SlideToogle</button>
 <button id="btn9">SlideUp</button>
+<button id="btn10">Stop</button>
 <!-- ===================================================================== -->
 {% endblock %}{% block javascripts %} {{ parent() }}
 <script>
+  /** Document charge > >button click >appel d'une fonction >execution du code */
   $(document).ready(function () {
     $("#btn1").click(function () {
       $("#img1").hide(2000);
@@ -33,6 +35,7 @@ endblock %} {% block body %}
     $("#btn3").click(function () {
       $("#img1").toogle(3000);
     });
+    /**Fade in Fade out*/
     /***/
     $("#btn4").click(function () {
       $("#img1").fadeIn(2000);
@@ -42,22 +45,37 @@ endblock %} {% block body %}
       $("#img1").fadeOut(2000);
     });
     $("#btn6").click(function () {
-      $("#img1").SlideUp(2000);
+      $("#img1").fadeOut(2000);
     });
 
     /***/
     $("#btn7").click(function () {
-      $("#img1").SlideDown(2000);
+      $("#img1").SlideUp(2000);
     });
     $("#btn8").click(function () {
-      $("#img1").SlideToogle(2000);
+      $("#img1").SlideDown(2000);
     });
     $("#btn9").click(function () {
-      $("#img1").SlideUp(2000);
+      $("#img1").SlideToogle(2000);
+    });
+    $("#btn10").click(function () {
+      $("#img1").stop();
     });
   });
 
-  /**Fade in Fade out*/
-  /***/
+  /**Animation*/
+  $("document").ready(function () {
+    $("#btn").click(function () {
+      $("img").animate(
+        {
+          left: "150px",
+          opacity: "1",
+          height: "400px",
+          width: "400px",
+        },
+        2000
+      );
+    });
+  });
 </script>
 {% endblock %}
