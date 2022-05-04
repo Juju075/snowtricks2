@@ -14,18 +14,22 @@ endblock %} {% block body %}
     margin-top: 100px;
   }
 </style>
+
 <h1>jQuery HTML | JQuery DOM Manipulation</h1>
 <h2>Click on the button present below</h2>
 <span id="span1"></span>
-<div class="div1" style="background-color: aquamarine"></div>
-<p class="p1">This is box 1</p>
+<!-- Container -->
+<div class="div1" style="background-color: aquamarine">
+  <p class="p1">This is box 1</p>
+</div>
 <button id="btn1">Click me</button>
 
 <!-- ===================================================================== -->
+{% endblock %}{% block javascripts %} {{ parent() }}
 <script>
   $("document").ready(function (){
       $(".div1").click(fundtion(){
-          let x = $(".p12").html();
+          var x = $(".p12").html();
           $("#span1").text(x)
 
       })
@@ -33,3 +37,4 @@ endblock %} {% block body %}
 
   );
 </script>
+{% endblock %}
