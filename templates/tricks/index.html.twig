@@ -81,7 +81,6 @@ endblock %}
 {% block javascripts %}
 {{ parent () }} {# recupere le code existant (parent) #}
 <script>
-
   $(function () {
     $('.load-more').on('click', function(e) {
         e.preventDefault();
@@ -92,11 +91,6 @@ endblock %}
         })
     })
 })
-
-function func1() {
-  $("#img1").fadeToggle(3000);
-}
-
 
 </script>
 {% endblock %}

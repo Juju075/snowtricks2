@@ -20,21 +20,49 @@ endblock %} {% block body %}
 <span id="span1"></span>
 <!-- Container -->
 <div class="div1" style="background-color: aquamarine">
-  <p class="p1">This is box 1</p>
+  <p class="p1" id="idp1">This is <i>box</i> 1</p>
 </div>
 <button id="btn1">Click me</button>
+<!--.click() -->
 
 <!-- ===================================================================== -->
 {% endblock %}{% block javascripts %} {{ parent() }}
 <script>
-  $("document").ready(function (){
-      $(".div1").click(fundtion(){
-          var x = $(".p12").html();
-          $("#span1").text(x)
+  $("document").ready(function () {
+    $(".div1").click(function () {
+      let x = $(".p1").html(); //html() - Sets or returns the content of selected elements (including HTML markup)
+      $("#span1").text(x); //text() - Sets or returns the text content of selected elements
+    });
 
+    $(".div1").click(function () {
+      alert($(".p1").html());
+    });
+
+    /**Attribute method attribute value */
+    //value
+    $(".p1").click(function () {
+      alert($(".p1").attr("id"));
+    });
+
+    //change le .css de div1 background color à green.
+    $("#btn1").click(function () {
+      $(".div1").css("bacground-color", "green");
+    });
+
+    //change value
+    $(
+      "#btn1".click(function () {
+        $(".p1").att("id", "p2id");
       })
-  }
+    );
+  });
 
-  );
+  /** jQuery - Add Elements - Add New HTML Content */
+  //append() method
+  $("document").ready(function () {
+    $("#btn1").click(function () {
+      $(".div1").append("<p>This is paragraph 2</p>");
+    });
+  });
 </script>
 {% endblock %}
