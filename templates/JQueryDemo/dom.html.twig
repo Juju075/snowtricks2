@@ -23,6 +23,8 @@ endblock %} {% block body %}
   <p class="p1" id="idp1">This is <i>box</i> 1</p>
 </div>
 <button id="btn1">Click me</button>
+<button id="btn2">Append</button>
+<button id="btn3">Prepend</button>
 <!--.click() -->
 
 <!-- ===================================================================== -->
@@ -63,6 +65,11 @@ endblock %} {% block body %}
     $("#btn1").click(function () {
       $(".div1").append("<p>This is paragraph 2</p>");
     });
+    $("#btn2").click(function () {
+      $(".div1").prepare();
+    });
   });
+
 </script>
 {% endblock %}
+
